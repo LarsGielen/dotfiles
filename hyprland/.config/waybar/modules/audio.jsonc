@@ -1,0 +1,21 @@
+{
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth":"{volume}% {icon}",
+        "format-muted": "<span font='12'></span>",
+        "format-icons": {
+        "headphones": "",
+        "bluetooth": "󰥰",
+        "handsfree": "",
+        "headset": "󱡬",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["🕨","🕩","🕪"]
+        },
+        "justify": "center",
+        "on-click": "amixer sset Master toggle",
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{icon}  {volume}%"
+    }
+}

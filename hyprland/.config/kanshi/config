@@ -1,11 +1,9 @@
-# When an external monitor is connected
 profile {
     output eDP-2 disable
     output DP-3 enable
     output DP-4 enable
 }
 
-# Fallback: only the laptop monitor
 profile {
     output eDP-1 enable
 }

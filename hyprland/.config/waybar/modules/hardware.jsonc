@@ -1,0 +1,52 @@
+{
+    "battery": {
+        "interval":1,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{capacity}% {icon} ",
+        "format-charging": "{capacity}% 󰂄 ",
+        "format-icons": [
+            "󰁻",
+            "󰁼",
+            "󰁾",
+            "󰂀",
+            "󰂂",
+            "󰁹"
+        ],
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "  {percentage_used}%",
+        "path": "/"
+    },
+      
+    "cpu": {
+        "interval": 1,
+        "format": " {usage}%",
+        "min-length": 6,
+        "max-length": 6,
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    },
+  
+    "memory": {
+        "format": " {percentage}%"
+    },
+    
+    "custom/temperature": {
+        "format": "{}°C",
+        "interval": 1,
+        "exec": "~/.config/waybar/scripts/temperature.sh",
+        "return-type": "json"
+    },
+
+    "custom/gpu": {
+        "format": " {}%",
+        "interval": 1,
+        "exec": "~/.config/waybar/scripts/gpu.sh",
+        "return-type": "json"
+    }
+}

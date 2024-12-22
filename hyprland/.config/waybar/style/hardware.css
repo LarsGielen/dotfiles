@@ -1,0 +1,29 @@
+#battery,
+#disk,
+#memory,
+#cpu,
+#custom-temperature,
+#custom-gpu
+{
+  padding: 0 5px;
+}
+
+#custom-temperature.critical
+{
+  color: #FF0000;
+}
+
+#battery.warning:not(.charging)
+{
+  color: #ffbe61;
+}
+
+#battery.critical:not(.charging) 
+{
+  color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}

@@ -1,0 +1,9 @@
+{
+    "custom/weather": {
+        "format": "{0} {1}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "interval": 10,
+        "on-click": "firefox https://wttr.in"
+    },
+}
