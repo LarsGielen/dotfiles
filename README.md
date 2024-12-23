@@ -26,5 +26,6 @@ stow terminal
 - use btrfs file system
 - grub-btrfs
 - use zsh instead of bash
+- Check out eww
 
 https://www.youtube.com/watch?v=V1wxgWU0j0E
