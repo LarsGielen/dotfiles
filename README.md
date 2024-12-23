@@ -4,7 +4,7 @@
 - Hyprland
 - vivaldi
 - kitty
-- rofi-wayland
+- rofi-lbonn-wayland-git
 - timeshift
 - gnu stow
 - nano
