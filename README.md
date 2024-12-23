@@ -19,4 +19,4 @@ stow terminal
 
 ## Future plans for my linux system
 - use btrfs file system
-- 
+- grub-btrfs
