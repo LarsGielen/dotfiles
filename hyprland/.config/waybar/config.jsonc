@@ -8,6 +8,7 @@
         "cpu",
         "custom/gpu",
         "custom/temperature",
+        "hyprland/window"
     ],
 
     "modules-center": [
