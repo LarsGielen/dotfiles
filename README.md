@@ -2,7 +2,6 @@
 
 ## Installed programs
 - Hyprland
-- vivaldi
 - kitty
 - rofi-lbonn-wayland-git
 - timeshift
@@ -16,6 +15,12 @@ Clone this repo and use the stow command on the files you want to use
 stow hyprland
 stow terminal
 ```
+
+## Nice applications
+- Unity
+- Obsidian
+- vivaldi
+- open tablet driver
 
 ## Future plans for my linux system
 - use btrfs file system
