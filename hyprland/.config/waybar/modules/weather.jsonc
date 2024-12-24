@@ -1,9 +1,20 @@
 {
-    "custom/weather": {
+    "custom/weather#temperature": {
         "format": "{0} {1}",
         "return-type": "json",
-        "exec": "~/.config/waybar/scripts/weather.sh",
-        "interval": 10,
+        "exec": "~/.config/waybar/scripts/weather.sh 1",
+        "interval": 60,
+        "on-click": "firefox https://wttr.in",
+        "min-length": 5,
+        "max-length": 5,
+        "align": 0
+    },
+
+    "custom/weather#icon": {
+        "format": "{0} {1}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/weather.sh 2",
+        "interval": 60,
         "on-click": "firefox https://wttr.in"
     },
 }

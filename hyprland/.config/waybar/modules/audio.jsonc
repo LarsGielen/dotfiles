@@ -1,21 +1,16 @@
 {
     "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth":"{volume}% {icon}",
-        "format-muted": "<span font='12'></span>",
+        "format": "{icon}",
+        "format-bluetooth":"{icon}",
+        "format-muted": "",
         "format-icons": {
-        "headphones": "",
-        "bluetooth": "󰥰",
-        "handsfree": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["🕨","🕩","🕪"]
+            "headphones": "",
+            "headset": "",
+            "default": ["","",""]
         },
         "justify": "center",
-        "on-click": "amixer sset Master toggle",
+        "on-click": "amixer set Master toggle",
         "on-click-right": "pavucontrol",
-        "tooltip-format": "{icon}  {volume}%"
+        "tooltip-format": "{icon}   {volume}%"
     }
 }

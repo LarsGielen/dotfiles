@@ -6,8 +6,9 @@
             "warning": 30,
             "critical": 20
         },
-        "format": "{capacity}% {icon} ",
-        "format-charging": "{capacity}% 󰂄 ",
+        "format": "{icon}",
+        "format-charging": "󰂄",
+        "format-plugged": "",
         "format-icons": [
             "󰁻",
             "󰁼",
@@ -16,6 +17,7 @@
             "󰂂",
             "󰁹"
         ],
+        "tooltip-format": "{capacity}% {time}"
     },
 
     "disk": {
@@ -26,27 +28,49 @@
       
     "cpu": {
         "interval": 1,
-        "format": " {usage}%",
-        "min-length": 6,
-        "max-length": 6,
+        "format": "  {usage}%",
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     },
   
     "memory": {
-        "format": " {percentage}%"
+        "format": "  {percentage}%",
+        "min-len": 5,
+        "max-len": 5
     },
     
     "custom/temperature": {
-        "format": "{}°C",
+        "format": " {}°C",
         "interval": 1,
         "exec": "~/.config/waybar/scripts/temperature.sh",
         "return-type": "json"
     },
 
     "custom/gpu": {
-        "format": " {}%",
+        "format": "  {}%",
         "interval": 1,
         "exec": "~/.config/waybar/scripts/gpu.sh",
-        "return-type": "json"
+        "return-type": "json",
+    },
+
+    "custom/hardwareicon": {
+        "format": "",
+        "tooltip": false
+    },
+
+    "group/hardware": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "not-memory",
+            "transition-left-to-right": false,
+            "click-to-reveal": true
+        },
+        "modules": [
+            "custom/hardwareicon", 
+            "memory", 
+            "custom/temperature",
+            "cpu", 
+            "custom/gpu"
+        ]
     }
 }

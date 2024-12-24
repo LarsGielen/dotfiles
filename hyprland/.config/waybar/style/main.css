@@ -1,0 +1,183 @@
+/* Main */
+* {
+    font-family: "Fira Sans semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    border: none;
+    border-radius: 0px;
+}
+
+window#waybar {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modules-left {
+    padding-left: 10px;
+}
+
+.modules-right {
+    padding-right: 10px;
+}
+
+.modules-center {
+    margin-left: 10px;
+}
+
+/* Window */
+#window {
+    margin: 5px 20px;
+    color:@textcolor;
+    font-size:15px;
+}
+
+/* Workspaces */
+#workspaces {
+    background: @workspaces;
+    border-radius: 10px;
+}
+
+#workspaces button {
+    color: @module-fg;
+    margin: 0px 5px 0px 0px;
+    padding: 0 2px;
+}
+
+#workspaces button:hover {
+    color: @hover-fg;
+    background: @hover-bg;
+}
+
+#workspaces button.active {
+    color: @active-fg;
+    background: @active-bg;
+    margin: 0px 5px 0px 0px;
+    padding: 0 2px;
+}
+
+/* Icons */
+#custom-update,
+#pulseaudio,
+#bluetooth,
+#battery, 
+#network,
+#clock,
+#custom-power,
+#memory,
+#cpu,
+#custom-gpu,
+#custom-temperature,
+#group-hardware,
+#custom-hardwareicon,
+#custom-weather.temperature,
+#custom-weather.icon
+{
+	font-size: 15PX;
+    color: @main-fg;
+    margin: 0px 3px;
+}
+
+#custom-systemicon {
+    font-size: 20px;
+    color: @textcolor;
+    margin: 0px 15px 0px 0px;
+}
+
+#battery
+{
+  	padding-left: 2px;
+  	padding-right: 2px;
+}
+
+#battery.charging,
+#battery.plugged
+{
+    color: @charging;
+}
+
+#battery.critical:not(.charging)
+{
+    color: @critical;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#bluetooth
+{
+	padding-left: 2px;
+	padding-right: 3px;
+}
+
+#pulseaudio
+{
+    padding-left: 2px;
+	padding-right: 6px;
+}
+
+#pulseaudio.muted {
+    color: #FF0000;
+}
+
+#custom-update
+{
+    padding-left: 2px;
+	padding-right: 2px;
+}
+
+#custom-hardwareicon
+{
+    padding-left: 2px;
+	padding-right: 4px;
+}
+
+#memory
+{
+    padding-left: 2px;
+	padding-right: 1px;
+}
+
+#custom-gpu
+{
+    padding-left: 3px;
+	padding-right: 0px;
+}
+
+#cpu
+{
+    padding-left: 3px;
+	padding-right: 0px;
+}
+
+/* weather */
+#custom-weather.temperature
+{
+    margin: 0px 0px;
+}
+
+#custom-weather.icon
+{
+    margin: 0px 0px;
+    margin-left: 15px;
+}
+
+/* Power */
+#custom-power {
+    color: @main-bg;
+    background: @power;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0px 4px 0px 9px;
+}
+
+#custom-power:hover {
+    color: @hover-fg;
+    background: @hover-bg;
+}
+
+/* Animations */
+@keyframes blink {
+    to {
+        color: @main-fg;
+    }
+}

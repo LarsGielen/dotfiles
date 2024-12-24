@@ -9,5 +9,5 @@ if [ $nvidia_gpu -gt $max ]; then
 fi
 
 cat << EOF
-{ "text":"$(printf "%2d" $max)", "tooltip":"AMD: $(printf "%2d" $amd_gpu)%\nNVIDIA: $(printf "%2d" $nvidia_gpu)%" }  
+{ "text":"$max", "tooltip":"AMD: $amd_gpu\nNVIDIA: $nvidia_gpu" }  
 EOF

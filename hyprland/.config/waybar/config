@@ -1,0 +1,48 @@
+{
+    // General Settings
+    "layer": "top",
+    "mode": "dock",
+    "reload_style_on_change": true,
+    "gtk-layer-shell": true,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,    
+    "spacing": 0,
+
+    // Load Modules
+    "include": [
+        "~/.config/waybar/modules/audio.jsonc",
+        "~/.config/waybar/modules/connection.jsonc",
+        "~/.config/waybar/modules/hardware.jsonc",
+        "~/.config/waybar/modules/main.jsonc",
+        "~/.config/waybar/modules/power.jsonc",
+        "~/.config/waybar/modules/weather.jsonc",
+        "~/.config/waybar/modules/workspaces.jsonc",
+    ],
+
+    // Modules Left
+    "modules-left": [
+        "custom/systemicon",
+        "hyprland/workspaces",
+        "hyprland/window",
+    ],
+
+    // Modules Center
+    "modules-center": [
+        "clock",
+        "custom/weather#icon",
+        "custom/weather#temperature",
+    ],
+
+    // Modules Right    
+    "modules-right": [
+        "group/hardware",
+        "tray",
+        "custom/update",
+        "pulseaudio",
+        "bluetooth",
+        "network",
+        "battery", 
+        "custom/power",
+    ]
+}

@@ -29,3 +29,8 @@ stow terminal
 - Check out eww
 
 https://www.youtube.com/watch?v=V1wxgWU0j0E
+
+## Inspiration and mentions
+https://github.com/mylinuxforwork/hyprland-starter
+https://github.com/mylinuxforwork/dotfiles
+https://github.com/nickclyde/rofi-bluetooth/tree/master
