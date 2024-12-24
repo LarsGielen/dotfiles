@@ -10,42 +10,33 @@
 @define-color main-bg         #11111b;
 @define-color main-br         #cdd6f4;
 
-@define-color white           #ffffff;
-@define-color black           #000000;
-@define-color transparent     rgba(0, 0, 0, 0);
+@define-color main-active-bg       rgba(0, 0, 0, 0);
+@define-color main-active-fg       rgba(255, 255, 255, 1);
 
-/* Workspace Colors */
+@define-color main-hover-bg        rgba(0, 0, 0, 0);
+@define-color main-hover-fg        rgba(255, 255, 255, 1);
 
-@define-color active-bg         @transparent;
-@define-color active-fg       #FFFFFF;
+/* Highlight Colors */
 
-@define-color hover-bg          @transparent;
-@define-color hover-fg        rgba(205, 214, 244, 0.75);
+@define-color highlight-fg    #FFFFFF;
+@define-color highlight-bg    #9399b2;
+@define-color highlight-br    #000000;
 
+@define-color highlight-active-bg       rgba(0, 0, 0, 0);
+@define-color highlight-active-fg       rgba(255, 255, 255, 1);
+
+@define-color highlight-hover-bg        rgb(110, 114, 131);
+@define-color highlight-hover-fg        rgba(255, 255, 255, 1);
 
 /* Module Colors */
 
-@define-color module-fg       #FFFFFF;
-@define-color workspaces      rgba(0, 0, 0, 0);
-
-@define-color cpuinfo         #181825;
-@define-color memory          #1e1e2e;
-@define-color cpu             #313244;
-@define-color distro-fg       #000000;
-@define-color distro-bg       #9399b2;
-@define-color time            #313244;
-@define-color date            #1e1e2e;
-@define-color tray            #181825;
-
-@define-color pulseaudio      #181825;
-@define-color backlight       #1e1e2e;
-@define-color battery         #313244;
-@define-color power           #9399b2;
+@define-color module-fg       rgba(255, 255, 255, 1);
+@define-color module-bg       rgba(0, 0, 0, 0);
 
 /* State Colors */
 
 @define-color good            #f5e0dc;
 @define-color warning         #f9e2af;
-@define-color critical        #f38ba8;
+@define-color critical        #FF0000;
 @define-color full            #a6e3a1;
 @define-color charging        #FFFFFF;

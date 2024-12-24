@@ -24,20 +24,20 @@ window#waybar {
 /* Window */
 #window {
     margin: 5px 20px;
-    color:@textcolor;
+    color:@main-fg;
     font-size:15px;
 }
 
 /* Workspaces */
 #workspaces {
-    background: @workspaces;
+    background: @module-bg;
     border-radius: 10px;
 }
 
 #workspaces button {
     color: @module-fg;
-    margin: 0px 5px 0px 0px;
-    padding: 0 2px;
+    padding-left: 5px;
+    border-radius: 15px
 }
 
 #workspaces button:hover {
@@ -48,8 +48,6 @@ window#waybar {
 #workspaces button.active {
     color: @active-fg;
     background: @active-bg;
-    margin: 0px 5px 0px 0px;
-    padding: 0 2px;
 }
 
 /* Icons */
@@ -58,34 +56,26 @@ window#waybar {
 #bluetooth,
 #battery, 
 #network,
-#clock,
 #custom-power,
 #memory,
 #cpu,
 #custom-gpu,
 #custom-temperature,
 #group-hardware,
-#custom-hardwareicon,
-#custom-weather.temperature,
-#custom-weather.icon
+#custom-hardwareicon
 {
 	font-size: 15PX;
     color: @main-fg;
-    margin: 0px 3px;
+    margin: 0px 4px;
 }
 
 #custom-systemicon {
     font-size: 20px;
-    color: @textcolor;
+    color: @main-fg;
     margin: 0px 15px 0px 0px;
 }
 
-#battery
-{
-  	padding-left: 2px;
-  	padding-right: 2px;
-}
-
+/* Battery */
 #battery.charging,
 #battery.plugged
 {
@@ -102,6 +92,56 @@ window#waybar {
     animation-direction: alternate;
 }
 
+/* Audio */
+#pulseaudio.muted {
+    color: @critical;
+}
+
+/* weather */
+#custom-weather.temperature
+{
+	font-size: 15PX;
+    color: @main-fg;
+    margin: 0px 0px;
+}
+
+#custom-weather.icon
+{
+	font-size: 15PX;
+    color: @main-fg;
+    margin: 0px 0px;
+    margin-left: 15px;
+}
+
+/* Power */
+#custom-power {
+    color: @highlight-fg;
+    background: @highlight-bg;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0px 4px 0px 9px;
+}
+
+#custom-power:hover {
+    color: @highlight-hover-fg;
+    background: @highlight-hover-bg;
+}
+
+/* Clock */
+#clock
+{
+	font-size: 15PX;
+    color: @main-fg;
+}
+
+/* Padding Fix */
+#battery
+{
+  	padding-left: 2px;
+  	padding-right: 2px;
+}
+
 #bluetooth
 {
 	padding-left: 2px;
@@ -112,10 +152,6 @@ window#waybar {
 {
     padding-left: 2px;
 	padding-right: 6px;
-}
-
-#pulseaudio.muted {
-    color: #FF0000;
 }
 
 #custom-update
@@ -146,33 +182,6 @@ window#waybar {
 {
     padding-left: 3px;
 	padding-right: 0px;
-}
-
-/* weather */
-#custom-weather.temperature
-{
-    margin: 0px 0px;
-}
-
-#custom-weather.icon
-{
-    margin: 0px 0px;
-    margin-left: 15px;
-}
-
-/* Power */
-#custom-power {
-    color: @main-bg;
-    background: @power;
-    border-radius: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 0px 4px 0px 9px;
-}
-
-#custom-power:hover {
-    color: @hover-fg;
-    background: @hover-bg;
 }
 
 /* Animations */
