@@ -18,7 +18,7 @@ window#waybar {
 }
 
 .modules-center {
-    margin-left: 10px;
+    margin-left: -10px;
 }
 
 /* Window */
