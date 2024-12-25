@@ -34,3 +34,4 @@ https://www.youtube.com/watch?v=V1wxgWU0j0E
 https://github.com/mylinuxforwork/hyprland-starter
 https://github.com/mylinuxforwork/dotfiles
 https://github.com/nickclyde/rofi-bluetooth/tree/master
+https://github.com/adi1090x/rofi/tree/master

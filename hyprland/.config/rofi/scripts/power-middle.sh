@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-config="$HOME/.config/rofi/power-menu-middle.rasi"
+config="$HOME/.config/rofi/powermenu/power-menu-middle.rasi"
 
 actions=$(echo -e "  Lock\n  Shutdown\n  Reboot\n$(printf '\u200A')  Suspend\n  Hibernate\n  Logout")
 
