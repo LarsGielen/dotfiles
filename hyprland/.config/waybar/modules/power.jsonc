@@ -2,6 +2,6 @@
   "custom/power": {
     "format": " ",
     "tooltip": false,
-    "on-click": "~/.config/rofi/scripts/power-topright.sh"
+    "on-click": "~/.config/rofi/scripts/powermenu.sh"
   },
 }
