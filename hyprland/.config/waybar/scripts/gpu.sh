@@ -1,6 +1,6 @@
 #!/bin/bash
 
-amd_gpu=$(cat /sys/class/hwmon/hwmon5/device/gpu_busy_percent)
+amd_gpu=$(cat /sys/class/hwmon/hwmon6/device/gpu_busy_percent)
 nvidia_gpu=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)
 
 max=$amd_gpu

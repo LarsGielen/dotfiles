@@ -46,7 +46,7 @@
 		"tooltip": true,
 		"signal": 20, // I'm not sure what this does
 		"min-length": 1,
-		"max-length": 4
+		"max-length": 5
     },
 
 	"tray": {
