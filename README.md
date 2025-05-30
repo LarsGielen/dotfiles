@@ -36,23 +36,11 @@ git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
-### 2. Install Dependencies
+### 2. Run install script
+
+> ⚠️ I do not guarantee that these work on you're system
 
 ```bash
-sudo pacman -S hyprland waybar rofi hyprpaper kitty
-```
-
-### 3. Stow Configs
-
-Run stow from the root of the repo to symlink configs:
-
-```bash
-sudo pacman -S stow
-stow .
-```
-
-### 4. Reload Hyprland
-
-```bash
-hyprctl reload
+chmod +x ./postinstall.sh
+./postinstall.sh
 ```
