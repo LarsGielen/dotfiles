@@ -20,17 +20,7 @@ fi
 sudo pacman -S --needed --noconfirm amd-ucode nvidia-open nvidia-utils lib32-nvidia-utils
 
 # install dotfiles
-DOTFILES_DIR="$HOME/dotfiles"
-GIT_REPO_URL="https://github.com/LarsGielen/dotfiles.git"
-
-if [ -d "$DOTFILES_DIR" ]; then
-	echo "Dotfiles already exist."
-else
-	git clone "$GIT_REPO_URL"  "$DOTFILES_DIR"
-	cd "$DOTFILES_DIR"
-	stow . --dotfiles
-	cd ~
-fi
+stow . --dotfiles
 
 # install hyprland
 sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rofi hyprpaper libnotify dunst

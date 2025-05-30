@@ -40,9 +40,7 @@ cd ~/.dotfiles
 
 > ⚠️ I do not guarantee that these work on you're system
 
-run from home folder
-
 ```bash
-chmod +x ./dotfiles/postinstall.sh
-./dotfiles/postinstall.sh
+chmod +x ./postinstall.sh
+./postinstall.sh
 ```
