@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Dunst",
+        "Hyprland",
+        "Hyprpaper",
+        "Rofi",
+        "Waybar"
+    ],
+    "ignoreWords": [],
+    "import": []
+}
