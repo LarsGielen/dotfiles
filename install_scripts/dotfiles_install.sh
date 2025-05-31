@@ -32,8 +32,8 @@ sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto tt
 sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
 
 # install applications
-sudo pacman -S --needed --noconfirm kitty pavucontrol blueman 
-yay -S --needed --noconfirm zen-browser-bin visual-studio-code-bin checkupdates-with-aur
+sudo pacman -S --needed --noconfirm kitty pavucontrol blueman fastfetch htop
+yay -S --needed --noconfirm zen-browser-bin visual-studio-code-bin checkupdates-with-aur 
 
 #enable services
 systemctl --user enable --now hyprpolkitagent.service

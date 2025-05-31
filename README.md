@@ -40,7 +40,9 @@ cd ~/.dotfiles
 
 > ⚠️ I do not guarantee that these work on you're system
 
+Needs to be run from git root folder
+
 ```bash
-chmod +x ./postinstall.sh
+chmod +x ./install_scripts/dotfiles_install.sh
 ./postinstall.sh
 ```
