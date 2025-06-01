@@ -6,6 +6,7 @@ yay -S --needed --noconfirm visual-studio-code-bin
 
 # install python
 sudo pacman -S --needed --noconfirm base-devel openssl zlib xz tk pyenv
+yay -S --needed --noconfirm pyenv-virtualenv
 pyenv install 3.12 --skip-existing
 
 if ! grep -q 'export PYENV_ROOT="$HOME/.pyenv"' ~/.bashrc; then
@@ -15,6 +16,7 @@ if ! grep -q 'export PYENV_ROOT="$HOME/.pyenv"' ~/.bashrc; then
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
+eval "$(pyenv virtualenv-init -)"
 EOF
 fi
 
