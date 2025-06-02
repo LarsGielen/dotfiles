@@ -27,10 +27,13 @@ sudo pacman -S --needed --noconfirm amd-ucode nvidia-open nvidia-utils lib32-nvi
 stow . --dotfiles
 
 # install hyprland
-sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rofi hyprpaper libnotify dunst
+sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rofi-wayland hyprpaper libnotify dunst
 
 # install fonts
 sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation
+
+# cursor theme
+yay -S --needed --noconfirm rose-pine-hyprcursor rose-pine-cursor
 
 # install basic control applications
 sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
