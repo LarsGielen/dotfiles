@@ -17,8 +17,8 @@
 @define-color itembackground @background;
 @define-color workspacesbutton @primary;
 @define-color workspacesbuttonactive @primary;
-@define-color textcolor @on_surface;
-@define-color iconcolor @on_surface;
+@define-color textcolor @on-surface;
+@define-color iconcolor @on-surface;
 
 /* -----------------------------------------------------
  * General

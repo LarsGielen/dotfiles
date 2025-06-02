@@ -2,8 +2,8 @@
 @export secondary #89b4fa;
 @export background #1e1e2e;
 
-@export on_primary #FFFFFF;
-@export on_secondary #FFFFFF;
-@export on_surface #FFFFFF;
+@export on-primary #FFFFFF;
+@export on-secondary #FFFFFF;
+@export on-surface #FFFFFF;
 
 @export accent #89b4fa;
