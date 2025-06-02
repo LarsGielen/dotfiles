@@ -1,0 +1,8 @@
+/* 
+    Hide the title bar and header in Vivaldi
+    
+    You need to enable "Allow for using CSS modifications" in 'vivaldi://experiments'
+    and set this directory as the custom CSS directory.
+*/
+
+#header, #titlebar { display: none !important; }

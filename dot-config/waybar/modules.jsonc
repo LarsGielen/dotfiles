@@ -21,7 +21,8 @@
     "max-length": 60,
     "rewrite": {
       "(.*) - Visual Studio Code": "$1 - vscode",
-      "(.*) — Zen Browser": "$1 - Zen Browser"
+      "(.*) — Zen Browser": "$1 - Zen Browser",
+      "(.*) - Obsidian(.*)": "$1 - Obsidian"
     },
     "separate-outputs": true
   },

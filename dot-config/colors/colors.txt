@@ -6,4 +6,4 @@
 @export on_secondary #FFFFFF;
 @export on_surface #FFFFFF;
 
-@export border #89b4fa;
+@export accent #89b4fa;
