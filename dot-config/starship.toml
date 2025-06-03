@@ -18,6 +18,7 @@ $time\
 
 [character]
 success_symbol = '  [](bold green)'
+error_symbol = '  [](bold red)'
 
 [directory]
 style = "fg:#e3e5e5 bg:#769ff0"

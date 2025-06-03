@@ -36,7 +36,7 @@ sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto tt
 yay -S --needed --noconfirm rose-pine-hyprcursor rose-pine-cursor
 
 # terminal
-sudo pacman -S --needed --noconfirm kitty starship
+sudo pacman -S --needed --noconfirm kitty starship zsh fzf zoxide
 
 # basic control applications
 sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
