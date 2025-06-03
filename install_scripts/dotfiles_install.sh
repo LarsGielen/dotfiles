@@ -16,33 +16,36 @@ else
 	echo "yay already installed."
 fi
 
-# install drivers
+# drivers
 sudo pacman -S --needed --noconfirm amd-ucode nvidia-open nvidia-utils lib32-nvidia-utils
 
 ###########################
 ### Desktop Environment ###
 ###########################
 
-# install dotfiles
+# dotfiles
 stow . --dotfiles
 
-# install hyprland
+# hyprland
 sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rofi-wayland hyprpaper libnotify dunst
 
 # install fonts
-sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation
+sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
 
 # cursor theme
 yay -S --needed --noconfirm rose-pine-hyprcursor rose-pine-cursor
 
-# install basic control applications
+# terminal
+sudo pacman -S --needed --noconfirm kitty starship
+
+# basic control applications
 sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
 
 ############################
 ### General Applications ###
 ############################
 
-# install thunar and plugins
+# thunar and plugins
 sudo pacman -S --needed --noconfirm thunar thunar-media-tags-plugin tumbler
 # thunar auto mount support
 sudo pacman -S --needed --noconfirm thunar-volman gvfs gvfs-mtp gvfs-smb gvfs-gphoto2 udisks2
@@ -53,7 +56,7 @@ sudo pacman -S --needed --noconfirm thunar-archive-plugin xarchiver p7zip tar un
 sudo pacman -S --needed --noconfirm cups cups-pdf ghostscript gutenprint foomatic-db-engine
 
 # other applications
-sudo pacman -S --needed --noconfirm kitty pavucontrol blueman fastfetch htop vivaldi
+sudo pacman -S --needed --noconfirm pavucontrol blueman fastfetch htop vivaldi
 yay -S --needed --noconfirm visual-studio-code-bin checkupdates-with-aur 
 
 # Flatpak
