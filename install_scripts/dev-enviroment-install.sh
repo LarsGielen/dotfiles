@@ -4,10 +4,13 @@
 sudo pacman -S --needed --noconfirm git github-cli
 yay -S --needed --noconfirm visual-studio-code-bin
 
-# install python
+# Python
 sudo pacman -S --needed --noconfirm base-devel openssl zlib xz tk pyenv
 yay -S --needed --noconfirm pyenv-virtualenv
-pyenv install 3.12 --skip-existing
+pyenv install 3.12.11 --skip-existing
+
+# Nodejs
+sudo pacman -S --needed --noconfirm nodejs npm
 
 # bash configuration
 if ! grep -q 'export PYENV_ROOT="$HOME/.pyenv"' ~/.bashrc; then

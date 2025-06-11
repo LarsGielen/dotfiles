@@ -17,7 +17,7 @@ else
 fi
 
 # drivers
-sudo pacman -S --needed --noconfirm amd-ucode nvidia-open nvidia-utils lib32-nvidia-utils
+sudo pacman -S --needed --noconfirm amd-ucode nvidia-open nvidia-utils lib32-nvidia-utils linux-headers
 
 ###########################
 ### Desktop Environment ###
@@ -28,6 +28,7 @@ stow . --dotfiles
 
 # hyprland
 sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rofi-wayland hyprpaper libnotify dunst
+yay -S --needed --noconfirm checkupdates-with-aur 
 
 # install fonts
 sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
@@ -38,8 +39,12 @@ yay -S --needed --noconfirm rose-pine-hyprcursor rose-pine-cursor
 # terminal
 sudo pacman -S --needed --noconfirm kitty starship zsh fzf zoxide
 
+# File systems
+sudo pacman -S --needed --noconfirm ntfs-3g
+
 # basic control applications
 sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
+yay -S --needed --noconfirm hyprshot
 
 ############################
 ### General Applications ###
@@ -55,14 +60,15 @@ sudo pacman -S --needed --noconfirm thunar-archive-plugin xarchiver p7zip tar un
 # printing support
 sudo pacman -S --needed --noconfirm cups cups-pdf ghostscript gutenprint foomatic-db-engine
 
-# other applications
-sudo pacman -S --needed --noconfirm pavucontrol blueman fastfetch htop vivaldi
-yay -S --needed --noconfirm visual-studio-code-bin checkupdates-with-aur 
+# scanning support
+sudo pacman -S --needed --noconfirm simple-scan
+
+# basic applications
+sudo pacman -S --needed --noconfirm pavucontrol blueman fastfetch htop ufw reflector
 
 # Flatpak
 sudo pacman -S --needed --noconfirm flatpak
 flatpak install -y flathub com.github.tchx84.Flatseal 
-flatpak install -y flathub md.obsidian.Obsidian 
 
 #################################
 ### Post-installation cleanup ###
@@ -70,5 +76,6 @@ flatpak install -y flathub md.obsidian.Obsidian
 systemctl --user enable --now hyprpolkitagent.service
 sudo systemctl enable --now cups.service
 sudo systemctl enable --now bluetooth.service
+sudo systemctl enable --now ufw.service
+sudo ufw enable
 
-echo "Everything is installed, DONT FORGET TO ENABLE SYSTEM SERVICES AND FIREWALL, I CANT DO EVERYTHING FOR YOU!!"
