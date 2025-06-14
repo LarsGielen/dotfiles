@@ -43,8 +43,11 @@ sudo pacman -S --needed --noconfirm kitty starship zsh fzf zoxide
 sudo pacman -S --needed --noconfirm ntfs-3g
 
 # basic control applications
-sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost
+sudo pacman -S --needed --noconfirm pipewire wireplumber hyprpolkitagent xdg-desktop-portal-hyprland qt5-wayland qt6-wayland xorg-xhost nvidia-settings
 yay -S --needed --noconfirm hyprshot
+
+# eww
+yay -S --needed --noconfirm eww
 
 ############################
 ### General Applications ###
@@ -58,7 +61,8 @@ sudo pacman -S --needed --noconfirm thunar-volman gvfs gvfs-mtp gvfs-smb gvfs-gp
 sudo pacman -S --needed --noconfirm thunar-archive-plugin xarchiver p7zip tar unrar unzip
 
 # printing support
-sudo pacman -S --needed --noconfirm cups cups-pdf ghostscript gutenprint foomatic-db-engine
+sudo pacman -S --needed --noconfirm cups cups-pdf ghostscript gutenprint foomatic-db-engine 
+yay -S --needed --noconfirm epson-inkjet-printer-escpr
 
 # scanning support
 sudo pacman -S --needed --noconfirm simple-scan
