@@ -1,0 +1,43 @@
+.sysmon, .sysmon-bar {
+  .title {
+    background-color: rgba(0, 0, 0, 0);
+    color: #a6e3a1;
+    font-size: 20px;
+  }
+
+  .card {
+    background-color: rgba(49, 50, 68, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .stat-header {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+
+    .header {
+      background-color: rgba(0, 0, 0, 0);
+      margin-bottom: 5px;
+
+      label {
+        color: #cba6f7;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .logo {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+
+        min-width: 30px;
+        min-height: 30px;
+      }
+    }
+  }
+}
+
+.sysmon-progressbar {
+  .value {
+    color: #1e1e2e;
+  }
+}

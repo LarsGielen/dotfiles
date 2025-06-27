@@ -1,16 +1,1 @@
-(defwindow sysmon
-    :monitor 0
-    :geometry (
-        geometry 
-        :x "10px"
-        :y "0px"
-        :width "90%"
-        :height "30px"
-        :anchor "top center")
-    :stacking "fg"
-    :exclusive false
-    :wm-ignore false
-    
-    {EWW_TEMPS}
-)
-
+(include "./sysmon/sysmon.yuck")

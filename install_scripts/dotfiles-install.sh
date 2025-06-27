@@ -68,7 +68,7 @@ yay -S --needed --noconfirm epson-inkjet-printer-escpr
 sudo pacman -S --needed --noconfirm simple-scan
 
 # basic applications
-sudo pacman -S --needed --noconfirm pavucontrol blueman fastfetch htop ufw reflector
+sudo pacman -S --needed --noconfirm pavucontrol blueman bluez bluez-utils fastfetch htop ufw reflector
 
 # Flatpak
 sudo pacman -S --needed --noconfirm flatpak

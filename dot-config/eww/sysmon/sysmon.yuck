@@ -1,0 +1,292 @@
+;===================;
+;===== Windows =====;
+;===================;
+
+(defwindow sysmon
+  :monitor 0
+
+  :stacking "bg"
+  :exclusive "false"
+  :focusable "false"
+  :namespace "eww-sysmon"
+
+  :geometry (geometry :x 0 :y 0 :anchor "center")
+  
+  (box
+    :orientation "v"
+    :space-evenly "false"
+    :spacing "20"
+
+    (label :class "title card" :text " System Monitor")
+    
+    (box :orientation "h"
+      :space-evenly "false"
+      :spacing "20"
+
+      (sysmon-cpu :orientation "v" :progress-font-size 24)
+      (sysmon-cores)
+    )
+
+    (box :orientation "h"
+      :space-evenly "true"
+      :spacing "20"
+
+      (sysmon-gpu :progress-font-size 24)
+      (sysmon-memory :progress-font-size 24)
+    )
+  )
+)
+
+(defwindow sysmon-bar
+  :monitor 0
+
+  :stacking "fg"
+  :exclusive "true"
+  :focusable "false"
+  :namespace "eww-sysmon"
+
+  :geometry (geometry :x 0 :y 0 :anchor "bottom center")
+  
+  (box
+    :orientation "h"
+    :space-evenly "false"
+    :spacing "20"
+
+    (sysmon-cpu :orientation "h"      :progress-size 60 :progress-thickness 10 :hide-header true :header-orientation "h" )
+    (sysmon-gpu :orientation "h"      :progress-size 60 :progress-thickness 10 :hide-header true :header-orientation "h" )
+    (sysmon-memory :orientation "h"   :progress-size 60 :progress-thickness 10 :hide-header true :header-orientation "h" )
+  )
+)
+
+;==================;
+;===== Common =====;
+;==================;
+
+(defwidget sysmon-stat-header [logo label]
+  (box
+    :class "stat-header"
+
+    (box
+      :orientation "h"
+      :class "header"
+      
+      :space-evenly "false"
+      :spacing "10"
+
+      (label :class "logo" :justify "center" :text {logo})
+      (label :text {label})
+    )
+  )
+)
+
+(defwidget sysmon-progress [label value ?bar-color]
+
+  (box
+    :class "sysmon-progressbar"
+
+    :orientation "v"
+    :space-evenly "false"
+    :spacing "2"
+
+    (box 
+      :orientation "h"
+
+      (label  :xalign "0" :text {label})
+      (label :class "value" :xalign "1" :text {value + "%"})
+    )
+
+    (progress :value {value})
+  )
+)
+
+;==================;
+;=== CPU Widget ===;
+;==================;
+
+(defwidget sysmon-cpu [?orientation ?header-orientation ?progress-size ?progress-thickness ?progress-font-size ?hide-header]
+  (box 
+    :class "card"
+    :orientation { header-orientation ?: "v" }
+    :space-evenly "false"
+    :spacing "10"
+    
+    (sysmon-stat-header :logo "  " :label {(hide-header ?: false) ? "" : "CPU"})
+
+    (box 
+      :orientation { orientation ?: "h" } 
+      :space-evenly "false"
+      :spacing "10"
+      :valign "center"
+      :halign "center"
+
+      
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100}
+          (circular-progress :thickness {progress-thickness ?: "15"} :start-at "75"
+            :value {EWW_CPU.avg}
+            (label :text {round(EWW_CPU.avg, 0) + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "usg")
+      )
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100}
+          (circular-progress :thickness {progress-thickness ?: "15"} :start-at "75" :style "color: #e64553;"
+            :value {EWW_TEMPS.K10TEMP_TCCD1}
+            (label :text {round(EWW_TEMPS.K10TEMP_TCCD1, 0) + "°C"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "temp")
+      )
+    )
+  )
+)
+
+(defwidget sysmon-cores []
+  (box
+    :class "card"
+    :orientation "v"
+
+    :space-evenly "false"
+    :spacing "10" 
+    
+    (sysmon-stat-header :logo "  " :label "Cores")
+    
+    (box
+      :orientation "h"
+      :space-evenly "false"
+      :spacing "50"
+
+      :halign "center"
+      :valign "start"
+      
+      
+  
+      (box
+        :orientation "h"
+        :space-evenly "false"
+        :spacing "20"
+  
+        (box :orientation "v" :space-evenly "false" :spacing "40" (for core in "[0,   1,  2,  3]" (sysmon-progress :value {EWW_CPU.cores[core].usage} :label {"core" + " #" + (core + 1)}) ))
+        (box :orientation "v" :space-evenly "false" :spacing "40" (for core in "[4,   5,  6,  7]" (sysmon-progress :value {EWW_CPU.cores[core].usage} :label {"core" + " #" + (core + 1)}) ))
+        (box :orientation "v" :space-evenly "false" :spacing "40" (for core in "[8,   9, 10, 11]" (sysmon-progress :value {EWW_CPU.cores[core].usage} :label {"core" + " #" + (core + 1)}) ))
+        (box :orientation "v" :space-evenly "false" :spacing "40" (for core in "[12, 13, 14, 15]" (sysmon-progress :value {EWW_CPU.cores[core].usage} :label {"core" + " #" + (core + 1)}) ))
+      )
+    )
+  )
+)
+
+;==================;
+;=== GPU Widget ===;
+;==================;
+
+(defpoll CUSTOM_GPU 
+  :interval "1s"
+  :initial "{\"temp\": 0, \"usage\": 0, \"vram_used\": 0, \"vram_total\": 0, \"vram_usage\": 0, \"power_draw\": 0.0, \"power_limit\": 0.0}"
+  :run-while "true"
+
+  "nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used,memory.total,power.draw,power.limit --format=csv,noheader,nounits | awk -F, '{vram_usage = (\$3 / \$4) * 100; printf(\"{\\\"temp\\\": %s, \\\"usage\\\": %s, \\\"vram_used\\\": %s, \\\"vram_total\\\": %s, \\\"vram_usage\\\": %.0f, \\\"power_draw\\\": %s, \\\"power_limit\\\": %s}\", \$1, \$2, \$3, \$4, vram_usage, \$5, \$6)}'"
+)
+
+(defwidget sysmon-gpu [?orientation ?header-orientation ?progress-size ?progress-thickness ?progress-font-size ?hide-header]
+  (box
+    :class "card"
+    :orientation { header-orientation ?: "v" }
+    :space-evenly "false"
+    :spacing "10"
+
+    (sysmon-stat-header :logo "󰢮 " :label {(hide-header ?: false) ? "" : "GPU"})
+
+    (box
+      :orientation { orientation ?: "h" } 
+      :space-evenly "false"
+      :spacing "20"
+      :valign "center"
+      :halign "center"
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75"
+            :value {CUSTOM_GPU.usage}
+            (label :text {round(CUSTOM_GPU.usage, 0) + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "usg")
+      )
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75" :style "color: #e64553;"
+            :value {CUSTOM_GPU.temp}
+            (label :text {round(CUSTOM_GPU.temp, 0) + "°C"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "temp")
+      )
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75"
+            :value {CUSTOM_GPU.vram_usage}
+            (label :text {CUSTOM_GPU.vram_usage + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "vram")
+      )
+    )
+  )
+)
+
+;==================;
+;=== RAM Widget ===;
+;==================;
+
+(defwidget sysmon-memory [?orientation ?header-orientation ?progress-size ?progress-thickness ?progress-font-size ?hide-header]
+  (box
+    :class "card"
+    :orientation { header-orientation ?: "v" }
+    :space-evenly "false"
+    :spacing "10"
+
+    (sysmon-stat-header :logo "  " :label {(hide-header ?: false) ? "" : "Memory"})
+
+    (box
+      :orientation { orientation ?: "h" } 
+      :space-evenly "false"
+      :spacing "20"
+      :valign "center"
+      :halign "center"
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75"
+            :value {round(EWW_DISK["/"].used_perc, 0)}
+            (label :text {round(EWW_DISK["/"].used_perc, 0) + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "disk")
+      )
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75"
+            :value {round(EWW_RAM.used_mem_perc, 0)}
+            (label :text {round(EWW_RAM.used_mem_perc, 0) + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "ram")
+      )
+
+      (box :orientation "v" :space-evenly "false" :spacing "10"
+        (box :height {progress-size ?: 100} :width {progress-size ?: 100} :orientation "v"
+          (circular-progress :thickness {progress-thickness ?: 15} :start-at "75"
+            :value {round((EWW_RAM.total_swap - EWW_RAM.free_swap) / (1024 * 1024 * 1024), 0)}
+            (label :text {round((EWW_RAM.total_swap - EWW_RAM.free_swap) / (1024 * 1024 * 1024), 0) + "%"} :style {"font-size:" + (progress-font-size ?: "12") + "px;"})
+          )
+        )
+        (label :text "swap")
+      )
+    )
+  )
+)
