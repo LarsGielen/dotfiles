@@ -12,6 +12,13 @@ pyenv install 3.12.11 --skip-existing
 # Nodejs
 sudo pacman -S --needed --noconfirm nodejs npm
 
+# Unity
+sudo pacman -S --needed --noconfirm dotnet-runtime dotnet-sdk mono-msbuild mono-msbuild-sdkresolver mono aspnet-runtime
+yay -S --needed --noconfirm unityhub
+
+# Blender
+sudo pacman -S --needed --noconfirm blender cuda
+
 # Docker
 sudo pacman -S --needed --noconfirm docker docker-compose nvidia-container-toolkit docker-buildx
 

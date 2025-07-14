@@ -31,7 +31,7 @@ sudo pacman -S --needed --noconfirm uwsm libnewt hyprland egl-wayland waybar rof
 yay -S --needed --noconfirm checkupdates-with-aur 
 
 # install fonts
-sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
+sudo pacman -S --needed --noconfirm ttf-fira-sans ttf-font-awesome ttf-roboto ttf-dejavu ttf-liberation noto-fonts-emoji ttf-jetbrains-mono-nerd ttf-jetbrains-mono
 
 # cursor theme
 yay -S --needed --noconfirm rose-pine-hyprcursor rose-pine-cursor

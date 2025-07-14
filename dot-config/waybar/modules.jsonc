@@ -29,7 +29,7 @@
 
   // Updates Count
   "custom/updates": {
-    "format": "  {}",
+    "format": " {}",
     "escape": true,
     "return-type": "json",
     "exec": "~/.config/scripts/updates.sh",
@@ -51,11 +51,11 @@
 
   // Pulseaudio
   "pulseaudio": {
-    "scroll-step": 5,
-    "format": "{icon}  {volume}%",
+    "scroll-step": 1,
+    "format": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": {
-      "headset": " ",
+      "headset": "",
       "default": ["", "", ""]
     },
     "on-click": "amixer set 'Master' toggle",
