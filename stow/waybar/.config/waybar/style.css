@@ -1,0 +1,232 @@
+/*
+ * __        __          _                  ____  _         _
+ * \ \      / /_ _ _   _| |__   __ _ _ __  / ___|| |_ _   _| | ___
+ *  \ \ /\ / / _` | | | | '_ \ / _` | '__| \___ \| __| | | | |/ _ \
+ *   \ V  V / (_| | |_| | |_) | (_| | |     ___) | |_| |_| | |  __/
+ *    \_/\_/ \__,_|\__, |_.__/ \__,_|_|    |____/ \__|\__, |_|\___|
+ *                 |___/                              |___/
+ *
+ * -----------------------------------------------------
+*/
+
+/* -----------------------------------------------------
+ * Import colors
+ * ----------------------------------------------------- */
+@import './../../dotfiles/utils/colors/colors.css';
+ 
+@define-color itembackground @background;
+@define-color workspacesbutton @primary;
+@define-color workspacesbuttonactive @primary;
+@define-color textcolor @on-surface;
+@define-color iconcolor @on-surface;
+
+/* -----------------------------------------------------
+ * General
+ * ----------------------------------------------------- */
+
+ * {
+    font-family: "JetBrains Mono", "Font Awesome 6 Free";
+    border: none;
+    font-size: 14px; /* Reduced font size */
+    min-height: 0;   /* Allows the bar to be as small as possible */
+    border: none;
+    border-radius: 0px;
+}
+
+window#waybar {
+    background-color: rgba(0,0,0,0.8);
+    border-bottom: 0px solid #ffffff;
+    background: transparent;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+/* -----------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------- */
+
+#workspaces {
+    background: @itembackground;
+    margin: 2px 18px 3px 1px;
+    padding: 0px 2px;
+    border-radius: 5px 5px 5px 5px;
+    font-weight: bold;
+    font-style: normal;
+    opacity: 1.0;
+    color: @textcolor;
+}
+
+#workspaces button {
+    padding: 0px 6px;
+    margin: 3px 2px;
+    border-radius: 3px 3px 3px 3px;
+    color: @textcolor;
+    background-color: @workspacesbutton;
+    transition: all 0.1s linear;
+    opacity: 0.4;
+}
+
+#workspaces button.visible {
+    color: @textcolor;
+    background: @workspacesbuttonactive;
+    min-width: 30px;
+    transition: all 0.1s linear;
+    opacity:1.0;
+}
+
+#workspaces button.active {
+    color: @textcolor;
+    background: @workspacesbuttonactive;
+    min-width: 30px;
+    transition: all 0.1s linear;
+    opacity:1.0;
+}
+
+#workspaces button:hover {
+    background: @workspacesbutton;
+    opacity:0.7;
+}
+
+/* -----------------------------------------------------
+ * Tooltips
+ * ----------------------------------------------------- */
+
+tooltip {
+    border-radius: 16px;
+    background-color: @itembackground;
+    opacity:0.9;
+    padding:20px;
+    margin:0px;
+}
+
+tooltip label {
+    color: @textcolor;
+}
+
+/* -----------------------------------------------------
+ * Window
+ * ----------------------------------------------------- */
+
+#window {
+    margin: 3px 15px 3px 0px;
+    padding: 2px 10px 0px 10px;
+    border-radius: 5px 5px 5px 5px;
+    color:white;
+    font-size:16px;
+    font-weight:normal;
+    opacity:1.0;
+}
+
+/* -----------------------------------------------------
+ * Modules
+ * ----------------------------------------------------- */
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* -----------------------------------------------------
+ * Custom Quicklinks
+ * ----------------------------------------------------- */
+
+
+/* -----------------------------------------------------
+ * Custom Updates
+ * ----------------------------------------------------- */
+
+#custom-updates {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 10px 0px 10px;
+    margin: 3px 15px 3px 0px;
+    opacity:1.0;
+}
+
+#custom-updates.green {
+    background-color: @itembackground;
+}
+
+#custom-updates.yellow {
+    background-color: #ff9a3c;
+    color: #FFFFFF;
+}
+
+#custom-updates.red {
+    background-color: #dc2f2f;
+    color: #FFFFFF;
+}
+
+/* -----------------------------------------------------
+ * Hardware Group
+ * ----------------------------------------------------- */
+
+/* -----------------------------------------------------
+ * Clock
+ * ----------------------------------------------------- */
+
+#clock {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 3px 5px 3px 5px;
+    padding: 1px 10px 0px 10px;
+    margin: 3px 0px 3px 0px;
+    opacity:1.0;
+}
+
+/* -----------------------------------------------------
+ * Pulseaudio
+ * ----------------------------------------------------- */
+
+#pulseaudio {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 10px 0px 10px;
+    margin: 3px 15px 3px 0px;
+    opacity:1.0;
+}
+
+#pulseaudio.muted {
+    background-color: @itembackground;
+    color: @textcolor;
+}
+
+/* -----------------------------------------------------
+ * Bluetooth
+ * ----------------------------------------------------- */
+
+#bluetooth, #bluetooth.on, #bluetooth.connected {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 10px 0px 10px;
+    margin: 3px 15px 3px 0px;
+    opacity:1.0;
+}
+
+#bluetooth.off {
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+    padding: 0px 15px 0px 0px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
