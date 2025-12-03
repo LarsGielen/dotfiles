@@ -37,5 +37,6 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-zotero.sh
 
 . ./install-scripts/install-gaming.sh
+. ./install-scripts/install-slack.sh
 
 cd "$ORIGINAL_DIR" || exit 1
