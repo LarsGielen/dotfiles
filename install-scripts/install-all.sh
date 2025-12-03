@@ -24,7 +24,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-python.sh
 . ./install-scripts/install-nodejs.sh
 
-. ./install-scripts/installl-thunar.sh
+. ./install-scripts/install-thunar.sh
 
 . ./install-scripts/install-flatpak.sh
 
