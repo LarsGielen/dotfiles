@@ -42,6 +42,23 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+HYPR_CONFIG_DIR="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/config"
+OPTIONS=($(ls -1 "$HYPR_CONFIG_DIR"))
+echo "Available Hyprland config options:"
+select CHOSEN_OPTION in "${OPTIONS[@]}"; do
+    if [[ -n "$CHOSEN_OPTION" ]]; then
+        break
+    else
+        echo "Invalid selection."
+    fi
+done
+
+HYPR_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/hyprland.conf"
+# Remove last line containing "source"
+sed -i '${/source/d;}' "$HYPR_CONF"
+# Add new source line
+echo "source = ~/.config/hypr/config/pc/_hyprland-$CHOSEN_OPTION.conf" >> "$HYPR_CONF"
+
 echo "Removing old configs..."
 rm -rf ~/.bashrc
 rm -rf ~/.bash_profile

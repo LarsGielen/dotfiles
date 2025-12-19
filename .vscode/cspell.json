@@ -11,7 +11,8 @@
         "pacman",
         "Rofi",
         "ucode",
-        "Waybar"
+        "Waybar",
+        "windowrules"
     ],
     "ignoreWords": [],
     "import": []

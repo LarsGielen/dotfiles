@@ -11,7 +11,9 @@ if [ -z "$WS" ]; then
 fi
 
 PAD_X=20
-PAD_Y=12
+PAD_Y_TOP=40
+PAD_Y_BOTTOM=110
+PAD_Y_BETWEEN=12
 
 clients_json="$(hyprctl clients -j)"
 
@@ -55,7 +57,7 @@ MON_H=$(jq -r --argjson id "$FIRST_MON" '
 ' <<<"$monitors_json")
 
 WIN_W=$(( MON_H - 2 * PAD_X ))
-WIN_H=$(( (MON_W - (PAD_Y * (${#CLIENTS[@]} + 1))) / ${#CLIENTS[@]} ))
+WIN_H=$(( (MON_W - PAD_Y_TOP - PAD_Y_BOTTOM - (PAD_Y_BETWEEN * (${#CLIENTS[@]} - 1))) / ${#CLIENTS[@]} ))
 
 echo "Monitor size: ${MON_W}x${MON_H}, Window size: ${WIN_W}x${WIN_H}"
 
@@ -65,7 +67,7 @@ echo "Monitor size: ${MON_W}x${MON_H}, Window size: ${WIN_W}x${WIN_H}"
 
 echo "Using monitor $FIRST_MON at ($MON_X,$MON_Y)"
 
-Y_OFFSET=$PAD_Y
+Y_OFFSET=$PAD_Y_TOP
 
 for item in "${CLIENTS[@]}"; do
   IFS='|' read -r ADDR FLOATED MON <<<"$item"
@@ -88,5 +90,5 @@ for item in "${CLIENTS[@]}"; do
   hyprctl dispatch movewindowpixel exact "$TARGET_X" "$TARGET_Y","$ADDR_SPEC"
   sleep 0.01
 
-  Y_OFFSET=$(( Y_OFFSET + WIN_H + PAD_Y ))
+  Y_OFFSET=$(( Y_OFFSET + WIN_H + PAD_Y_BETWEEN ))
 done
