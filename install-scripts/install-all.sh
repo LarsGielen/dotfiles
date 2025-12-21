@@ -23,6 +23,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-htop.sh
 . ./install-scripts/install-nano.sh
 . ./install-scripts/install-blueman.sh
+. ./install-scripts/install-pavucontrol.sh
 
 # File manager
 . ./install-scripts/install-thunar.sh
