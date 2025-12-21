@@ -33,9 +33,6 @@ echo "Installing terminal applications..."
 sudo pacman -S --needed --noconfirm \
     kitty \
     starship \
-    zsh \
-    fzf \
-    zoxide
 
 echo "Installing file system support..."
 sudo pacman -S --needed --noconfirm \
@@ -54,7 +51,7 @@ sudo pacman -S --needed --noconfirm \
     xorg-xhost \
     nvidia-settings
 
-yay -S --needed --noconfirm hyprshot eww
+yay -S --needed --noconfirm hyprshot
 
 echo "Enabling and starting services..."
 systemctl --user enable --now hyprpolkitagent.service

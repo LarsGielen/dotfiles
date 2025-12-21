@@ -73,6 +73,7 @@ rm -rf ~/.config/rofi
 rm -rf ~/.config/starship.toml
 rm -rf ~/.config/uwsm
 rm -rf ~/.config/waybar
+rm -rf ~/.config/yazi
 
 echo "stowing dotfiles..."
 cd ~/$REPO_NAME/stow || exit 1
@@ -86,5 +87,6 @@ stow -t ~ starship
 stow -t ~ uwsm
 stow -t ~ waybar
 stow -t ~ zsh
+stow -t ~ yazi
 
 cd "$ORIGINAL_DIR" || exit 1

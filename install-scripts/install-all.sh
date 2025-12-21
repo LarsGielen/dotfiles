@@ -27,11 +27,11 @@ cd ~/dotfiles/install-scripts || exit 1
 
 # File manager
 . ./install-scripts/install-thunar.sh
+. ./install-scripts/install-yazi.sh
 
 # Development tools
 . ./install-scripts/install-docker.sh
 . ./install-scripts/install-python.sh
-. ./install-scripts/install-nodejs.sh
 . ./install-scripts/install-vscode.sh
 . ./install-scripts/install-blender.sh
 . ./install-scripts/install-unity.sh
