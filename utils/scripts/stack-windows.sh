@@ -10,7 +10,7 @@ if [ -z "$WS" ]; then
   exit 1
 fi
 
-PAD_X=20
+PAD_X=12
 PAD_Y_TOP=40
 PAD_Y_BOTTOM=110
 PAD_Y_BETWEEN=12
