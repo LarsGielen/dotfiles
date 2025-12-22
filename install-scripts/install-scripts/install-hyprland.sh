@@ -40,8 +40,6 @@ sudo pacman -S --needed --noconfirm \
 
 echo "Installing basic control applications..."
 sudo pacman -S --needed --noconfirm \
-    pipewire \
-    wireplumber \
     hyprpolkitagent \
     xdg-desktop-portal \
     xdg-desktop-portal-hyprland \

@@ -78,15 +78,15 @@ rm -rf ~/.config/yazi
 echo "stowing dotfiles..."
 cd ~/$REPO_NAME/stow || exit 1
 stow -t ~ bash
+stow -t ~ zsh
+stow -t ~ uwsm
 stow -t ~ eww
 stow -t ~ gtk
 stow -t ~ hyprland
 stow -t ~ kitty
 stow -t ~ rofi
 stow -t ~ starship
-stow -t ~ uwsm
 stow -t ~ waybar
-stow -t ~ zsh
 stow -t ~ yazi
 
 cd "$ORIGINAL_DIR" || exit 1

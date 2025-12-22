@@ -13,8 +13,11 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-hyprland.sh
 
 # Drivers and helpers
-. ./install-scripts/install-drivers.sh
+# . ./install-scripts/install-drivers.sh
 . ./install-scripts/install-yay.sh
+
+# Shell and shell utilities
+. ./install-scripts/install-zsh.sh
 
 # System utilities
 . ./install-scripts/install-ufw.sh
@@ -24,7 +27,6 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-nano.sh
 . ./install-scripts/install-blueman.sh
 . ./install-scripts/install-pavucontrol.sh
-. ./install-scripts/install-zsh.sh
 
 # File manager
 . ./install-scripts/install-thunar.sh
