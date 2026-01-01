@@ -35,9 +35,10 @@
 
     // Modules Right    
     "modules-right": [
-        "custom/updates",
         "pulseaudio",
         "bluetooth",
+        "battery",
+        "network",
         "tray",
         "clock"
     ]

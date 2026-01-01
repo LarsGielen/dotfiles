@@ -20,12 +20,14 @@
 @define-color textcolor @on-surface;
 @define-color iconcolor @on-surface;
 
+@define-color warningcolor #FF6E6E;
+
 /* -----------------------------------------------------
  * General
  * ----------------------------------------------------- */
 
  * {
-    font-family: "JetBrains Mono", "Font Awesome 6 Free";
+    font-family: "JetBrains Mono";
     border: none;
     font-size: 14px; /* Reduced font size */
     min-height: 0;   /* Allows the bar to be as small as possible */
@@ -143,7 +145,7 @@ tooltip label {
     color: @textcolor;
     border-radius: 5px 5px 5px 5px;
     padding: 2px 10px 0px 10px;
-    margin: 3px 15px 3px 0px;
+    margin: 3px 5px 3px 0px;
     opacity:1.0;
 }
 
@@ -179,7 +181,7 @@ tooltip label {
 }
 
 /* -----------------------------------------------------
- * Pulseaudio
+ * Audio
  * ----------------------------------------------------- */
 
 #pulseaudio {
@@ -187,11 +189,25 @@ tooltip label {
     color: @textcolor;
     border-radius: 5px 5px 5px 5px;
     padding: 2px 10px 0px 10px;
-    margin: 3px 15px 3px 0px;
+    margin: 3px 5px 3px 0px;
     opacity:1.0;
 }
 
 #pulseaudio.muted {
+    background-color: @itembackground;
+    color: @textcolor;
+}
+
+#wireplumber {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 10px 0px 10px;
+    margin: 3px 5px 3px 0px;
+    opacity:1.0;
+}
+
+#wireplumber.muted {
     background-color: @itembackground;
     color: @textcolor;
 }
@@ -205,7 +221,7 @@ tooltip label {
     color: @textcolor;
     border-radius: 5px 5px 5px 5px;
     padding: 2px 10px 0px 10px;
-    margin: 3px 15px 3px 0px;
+    margin: 3px 5px 3px 0px;
     opacity:1.0;
 }
 
@@ -220,7 +236,7 @@ tooltip label {
  * ----------------------------------------------------- */
 
 #tray {
-    padding: 0px 15px 0px 0px;
+    padding: 0px 5px 0px 0px;
 }
 
 #tray > .passive {
@@ -229,4 +245,35 @@ tooltip label {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
+}
+
+/* -----------------------------------------------------
+ * Network
+ * ----------------------------------------------------- */
+
+#network {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 10px 0px 10px;
+    margin: 3px 5px 3px 0px;
+    opacity:1.0;
+}
+
+#network.wifi {
+    background-color: @itembackground;
+    color: @textcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 12px 0px 8px;
+    margin: 3px 5px 3px 0px;
+    opacity:1.0;
+}
+
+#network.disconnected {
+    background-color: @itembackground;
+    color: @warningcolor;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px 12px 0px 8px;
+    margin: 3px 5px 3px 0px;
+    opacity:1.0;
 }

@@ -4,6 +4,7 @@ echo "Installing steam..."
 sudo pacman -S --needed --noconfirm \
     steam \
     gamemode \
-    gamescope
+    gamescope \
+    mangohud
 
 sudo usermod -aG gamemode $USER

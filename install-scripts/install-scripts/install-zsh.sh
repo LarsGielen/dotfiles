@@ -11,4 +11,4 @@ sudo pacman -S --needed --noconfirm \
     zoxide
 
 # Set Zsh as the default shell for the current user
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh)

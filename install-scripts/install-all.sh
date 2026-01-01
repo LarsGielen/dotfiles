@@ -11,6 +11,8 @@ cd ~/dotfiles/install-scripts || exit 1
 # Desktop environment
 . ./install-scripts/install-dotfiles.sh
 . ./install-scripts/install-hyprland.sh
+. ./install-scripts/install-eww.sh
+. ./install-scripts/install-waybar.sh
 
 # Drivers and helpers
 # . ./install-scripts/install-drivers.sh
@@ -26,7 +28,8 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-htop.sh
 . ./install-scripts/install-nano.sh
 . ./install-scripts/install-blueman.sh
-. ./install-scripts/install-pavucontrol.sh
+. ./install-scripts/install-audio.sh
+. ./install-scripts/install-snapper.sh
 
 # File manager
 . ./install-scripts/install-thunar.sh
@@ -40,8 +43,9 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-unity.sh
 . ./install-scripts/install-godot.sh
 . ./install-scripts/install-zotero.sh
+. ./install-scripts/install-gimp.sh
 
-# Multimedia and productivity
+# Productivity
 . ./install-scripts/install-flatpak.sh
 . ./install-scripts/install-obs.sh
 . ./install-scripts/install-vivaldi.sh

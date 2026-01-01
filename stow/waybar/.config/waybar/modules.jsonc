@@ -27,15 +27,6 @@
     "separate-outputs": true
   },
 
-  // Updates Count
-  "custom/updates": {
-    "format": " {}",
-    "escape": true,
-    "return-type": "json",
-    "exec": "~/dotfiles/utils/scripts/updates.sh",
-    "interval": 1800
-  },
-
   // System tray
   "tray": {
     "icon-size": 21,
@@ -49,7 +40,16 @@
     "tooltip": false
   },
 
-  // Pulseaudio
+  // audio
+  "wireplumber": {
+    "scroll-step": 1,
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": ["", "", ""],
+    "on-click": "amixer set 'Master' toggle",
+    "on-click-right": "pavucontrol"
+  },
+
   "pulseaudio": {
     "scroll-step": 1,
     "format": "{icon} {volume}%",
@@ -71,5 +71,19 @@
     "on-click": "blueman-manager",
     "on-click-right": "blueman-manager",
     "format-no-controller": ""
+  },
+
+  // Battery
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  // Network
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "󱚼",
+    "tooltip": false
   }
 }

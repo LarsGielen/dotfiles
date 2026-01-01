@@ -6,7 +6,6 @@ sudo pacman -S --needed --noconfirm \
     libnewt \
     hyprland \
     egl-wayland \
-    waybar \
     rofi-wayland \
     hyprpaper \
     libnotify \
