@@ -53,11 +53,8 @@ select CHOSEN_OPTION in "${OPTIONS[@]}"; do
     fi
 done
 
-HYPR_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/hyprland.conf"
-# Remove last line containing "source"
-sed -i '${/source/d;}' "$HYPR_CONF"
-# Add new source line
-echo "source = ~/.config/hypr/config/$CHOSEN_OPTION/_hyprland-$CHOSEN_OPTION.conf" >> "$HYPR_CONF"
+MACHINE_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/machine.conf"
+echo "source = ~/.config/hypr/config/$CHOSEN_OPTION/_hyprland-$CHOSEN_OPTION.conf" >> "$MACHINE_CONF"
 
 echo "Removing old configs..."
 rm -rf ~/.bashrc
