@@ -1,2 +1,6 @@
+#!/bin/bash
 
-sudo pacman -S --needed --noconfirm swaync libnotify
+sudo pacman -S --needed --noconfirm \
+    swaync \
+    libnotify \
+    ttf-jetbrains-mono-nerd
