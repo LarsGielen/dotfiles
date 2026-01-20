@@ -7,9 +7,7 @@ sudo pacman -S --needed --noconfirm \
     hyprland \
     egl-wayland \
     rofi-wayland \
-    hyprpaper \
-    libnotify \
-    dunst
+    hyprpaper 
 
 echo "Installing fonts..."
 sudo pacman -S --needed --noconfirm \

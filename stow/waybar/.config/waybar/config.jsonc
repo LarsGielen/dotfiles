@@ -25,6 +25,7 @@
 
     // Modules Left
     "modules-left": [
+        "clock",
         "hyprland/workspaces",
     ],
 
@@ -35,11 +36,11 @@
 
     // Modules Right    
     "modules-right": [
+        "tray",
         "pulseaudio",
         "bluetooth",
         "battery",
         "network",
-        "tray",
-        "clock"
+        "custom/notification",
     ]
 }

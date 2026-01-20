@@ -21,4 +21,10 @@
 	accent: #89b4fa;
 	accent-transparent: #89b4fa55;
 
+	warning: #aed124;
+	warning-transparent: #aed12455;
+
+	error: #b80909;
+	error-transparent: #b8090955;
+
 }

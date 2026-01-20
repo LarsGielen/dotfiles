@@ -13,6 +13,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-hyprland.sh
 . ./install-scripts/install-eww.sh
 . ./install-scripts/install-waybar.sh
+. ./install-scripts/install-notifications.sh
 
 # Drivers and helpers
 # . ./install-scripts/install-drivers.sh
