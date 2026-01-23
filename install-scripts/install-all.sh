@@ -20,6 +20,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-yay.sh
 
 # Shell and shell utilities
+. ./install-scripts/install-starship.sh
 . ./install-scripts/install-zsh.sh
 
 # System utilities

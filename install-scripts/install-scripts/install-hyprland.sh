@@ -28,8 +28,7 @@ yay -S --needed --noconfirm \
 
 echo "Installing terminal applications..."
 sudo pacman -S --needed --noconfirm \
-    kitty \
-    starship \
+    kitty 
 
 echo "Installing file system support..."
 sudo pacman -S --needed --noconfirm \
