@@ -32,6 +32,9 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-audio.sh
 . ./install-scripts/install-snapper.sh
 
+# Video and image tools
+. ./install-scripts/install-video.sh
+
 # File manager
 . ./install-scripts/install-thunar.sh
 . ./install-scripts/install-yazi.sh

@@ -25,13 +25,12 @@
 
     // Modules Left
     "modules-left": [
-        "clock",
-        "hyprland/workspaces",
+        "hyprland/workspaces"
     ],
-
+    
     // Modules Center
     "modules-center": [
-        "hyprland/window",
+        "clock"
     ],
 
     // Modules Right    
@@ -41,6 +40,6 @@
         "bluetooth",
         "battery",
         "network",
-        "custom/notification",
+        "custom/notification"
     ]
 }
