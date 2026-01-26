@@ -39,6 +39,13 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
+bindkey ' ' magic-space 
+
+# Insertion keys
+bindkey -s '^Xgc' 'git commit -m ""\C-b'
+bindkey -s '^Xgp' 'git push '
+bindkey -s '^Xga' 'git add '
+
 # Aliases
 alias ls='ls --color'
 

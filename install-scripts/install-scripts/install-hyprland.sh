@@ -7,9 +7,7 @@ sudo pacman -S --needed --noconfirm \
     hyprland \
     egl-wayland \
     rofi-wayland \
-    hyprpaper \
-    libnotify \
-    dunst
+    hyprpaper 
 
 echo "Installing fonts..."
 sudo pacman -S --needed --noconfirm \
@@ -30,8 +28,7 @@ yay -S --needed --noconfirm \
 
 echo "Installing terminal applications..."
 sudo pacman -S --needed --noconfirm \
-    kitty \
-    starship \
+    kitty 
 
 echo "Installing file system support..."
 sudo pacman -S --needed --noconfirm \

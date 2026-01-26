@@ -7,3 +7,6 @@
 @export on-surface #FFFFFF;
 
 @export accent #89b4fa;
+
+@export warning #aed124;
+@export error #b80909;

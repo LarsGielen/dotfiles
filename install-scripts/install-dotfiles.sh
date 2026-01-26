@@ -42,22 +42,21 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-HYPR_CONFIG_DIR="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/config"
-OPTIONS=($(ls -1 "$HYPR_CONFIG_DIR"))
-echo "Available Hyprland config options:"
-select CHOSEN_OPTION in "${OPTIONS[@]}"; do
-    if [[ -n "$CHOSEN_OPTION" ]]; then
-        break
-    else
-        echo "Invalid selection."
-    fi
-done
-
-HYPR_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/hyprland.conf"
-# Remove last line containing "source"
-sed -i '${/source/d;}' "$HYPR_CONF"
-# Add new source line
-echo "source = ~/.config/hypr/config/$CHOSEN_OPTION/_hyprland-$CHOSEN_OPTION.conf" >> "$HYPR_CONF"
+MACHINE_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/machine.conf"
+if [ ! -f "$MACHINE_CONF" ]; then
+    HYPR_CONFIG_DIR="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/config"
+    OPTIONS=($(ls -1 "$HYPR_CONFIG_DIR"))
+    echo "Available Hyprland config options:"
+    select CHOSEN_OPTION in "${OPTIONS[@]}"; do
+        if [[ -n "$CHOSEN_OPTION" ]]; then
+            break
+        else
+            echo "Invalid selection."
+        fi
+    done
+    mkdir -p "$(dirname "$MACHINE_CONF")"
+    echo "source = ~/.config/hypr/config/$CHOSEN_OPTION/_hyprland-$CHOSEN_OPTION.conf" >> "$MACHINE_CONF"
+fi
 
 echo "Removing old configs..."
 rm -rf ~/.bashrc
@@ -73,6 +72,7 @@ rm -rf ~/.config/rofi
 rm -rf ~/.config/starship.toml
 rm -rf ~/.config/uwsm
 rm -rf ~/.config/waybar
+rm -rf ~/.config/swaync
 rm -rf ~/.config/yazi
 
 echo "stowing dotfiles..."
@@ -87,6 +87,7 @@ stow -t ~ kitty
 stow -t ~ rofi
 stow -t ~ starship
 stow -t ~ waybar
+stow -t ~ swaync
 stow -t ~ yazi
 
 cd "$ORIGINAL_DIR" || exit 1

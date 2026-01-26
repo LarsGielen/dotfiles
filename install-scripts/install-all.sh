@@ -9,16 +9,18 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-git.sh
 
 # Desktop environment
-. ./install-scripts/install-dotfiles.sh
+. ./install-dotfiles.sh
 . ./install-scripts/install-hyprland.sh
 . ./install-scripts/install-eww.sh
 . ./install-scripts/install-waybar.sh
+. ./install-scripts/install-notifications.sh
 
 # Drivers and helpers
 # . ./install-scripts/install-drivers.sh
 . ./install-scripts/install-yay.sh
 
 # Shell and shell utilities
+. ./install-scripts/install-starship.sh
 . ./install-scripts/install-zsh.sh
 
 # System utilities
