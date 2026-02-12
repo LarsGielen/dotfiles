@@ -64,6 +64,8 @@ rm -rf ~/.bash_profile
 rm -rf ~/.zshrc
 rm -rf ~/.zprofile
 
+rm -rf ~/.config/keyd
+
 rm -rf ~/.config/eww
 rm -rf ~/.config/gtk-3.0
 rm -rf ~/.config/hypr
@@ -79,6 +81,9 @@ echo "stowing dotfiles..."
 cd ~/$REPO_NAME/stow || exit 1
 stow -t ~ bash
 stow -t ~ zsh
+
+stow -t ~ keyd
+
 stow -t ~ uwsm
 stow -t ~ eww
 stow -t ~ gtk

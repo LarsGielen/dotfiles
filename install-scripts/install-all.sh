@@ -15,6 +15,8 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-waybar.sh
 . ./install-scripts/install-notifications.sh
 
+. ./install-scripts/install-keyboard.sh
+
 # Drivers and helpers
 # . ./install-scripts/install-drivers.sh
 . ./install-scripts/install-yay.sh
