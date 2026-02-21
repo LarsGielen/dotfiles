@@ -34,6 +34,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-blueman.sh
 . ./install-scripts/install-audio.sh
 . ./install-scripts/install-snapper.sh
+. ./install-scripts/install-rclone.sh
 
 # Video and image tools
 . ./install-scripts/install-video.sh
