@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Installing docker..."
 sudo pacman -S --needed --noconfirm \
     docker \
     docker-compose \

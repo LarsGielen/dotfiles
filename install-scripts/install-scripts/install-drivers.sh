@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "Installing drivers..."
 
 sudo pacman -S --needed --noconfirm \
     amd-ucode \
