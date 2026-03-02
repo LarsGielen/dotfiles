@@ -11,6 +11,7 @@ cd ~/dotfiles/install-scripts || exit 1
 # Desktop environment
 . ./install-dotfiles.sh
 . ./install-scripts/install-hyprland.sh
+. ./install-scripts/install-rofi.sh
 . ./install-scripts/install-eww.sh
 . ./install-scripts/install-waybar.sh
 . ./install-scripts/install-notifications.sh
@@ -22,6 +23,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-yay.sh
 
 # Shell and shell utilities
+. ./install-scripts/install-kitty.sh
 . ./install-scripts/install-starship.sh
 . ./install-scripts/install-zsh.sh
 
