@@ -4,7 +4,6 @@
 # fzf - A command-line fuzzy finder
 # zoxide - A smarter cd command
 
-echo "Installing Zsh and related utilities..."
 sudo pacman -S --needed --noconfirm \
     zsh \
     fzf \

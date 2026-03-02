@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Installing unity..."
 sudo pacman -S --needed --noconfirm \
     dotnet-runtime \
     dotnet-sdk \

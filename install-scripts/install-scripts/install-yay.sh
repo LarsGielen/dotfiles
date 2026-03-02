@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "Installing yay..."
 
 is_installed_git() {
     pacman -Qi git &> /dev/null

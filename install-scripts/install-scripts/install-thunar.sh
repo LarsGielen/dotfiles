@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Installing Thunar..."
 sudo pacman -S --needed --noconfirm \
     thunar \
     thunar-media-tags-plugin \
