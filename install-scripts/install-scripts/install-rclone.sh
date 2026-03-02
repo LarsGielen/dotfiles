@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Install Rclone
-sudo pacman -S --noconfirm rclone
+sudo pacman -S --needed --noconfirm rclone
 
 # 2. Create systemd user directory
 SYNC_INTERVAL="1h"

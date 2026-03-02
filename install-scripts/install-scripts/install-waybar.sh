@@ -1,5 +1,5 @@
-#!bin/bash
+#!/bin/bash
 
 sudo pacman -S --needed --noconfirm \
     waybar \
-    ttf-jetbrains-mono \
+    ttf-jetbrains-mono 
