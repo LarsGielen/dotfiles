@@ -18,8 +18,7 @@ sudo pacman -S --needed --noconfirm \
     xdg-desktop-portal-gtk \
     qt5-wayland \
     qt6-wayland \
-    xorg-xhost \
-    nvidia-settings
+    xorg-xhost 
 
 yay -S --needed --noconfirm hyprshot
 
