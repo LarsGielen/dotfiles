@@ -5,5 +5,6 @@ sudo pacman -S --needed --noconfirm \
     nvidia-open \
     nvidia-utils \
     lib32-nvidia-utils \
-    nvidia-settings
+    nvidia-settings \
+    egl-wayland
     
