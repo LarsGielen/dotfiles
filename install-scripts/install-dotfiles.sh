@@ -77,6 +77,8 @@ rm -rf ~/.config/waybar
 rm -rf ~/.config/swaync
 rm -rf ~/.config/yazi
 
+rm -rf ~/.config/MangoHud
+
 echo "stowing dotfiles..."
 cd ~/$REPO_NAME/stow || exit 1
 stow -t ~ bash
@@ -94,5 +96,7 @@ stow -t ~ starship
 stow -t ~ waybar
 stow -t ~ swaync
 stow -t ~ yazi
+
+stow -t ~ MangoHud
 
 cd "$ORIGINAL_DIR" || exit 1
