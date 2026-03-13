@@ -17,17 +17,21 @@ for entry in /boot/loader/entries/*.conf; do
     fi
 done
 
-# Install and apply custom theme using stow
+# Install and apply custom theme
 THEME_NAME="custom_theme"
-STOW_DIR="$HOME/dotfiles/stow/plymouth"
+THEME_SRC="$HOME/dotfiles/stow/plymouth/$THEME_NAME"
+THEME_DEST="/usr/share/plymouth/themes/$THEME_NAME"
 
-# Ensure stow is installed
-sudo pacman -S --needed --noconfirm stow
+if [ -d "$THEME_SRC" ]; then
+    sudo cp -rT "$THEME_SRC" "$THEME_DEST"
+else
+    echo "Error: Theme source '$THEME_SRC' not found."
+    exit 1
+fi
 
-# Create symlinks. 
-# This assumes $STOW_DIR/$THEME_NAME contains the actual theme folder.
-# Example: ./stow_packages/my_theme/my_theme.plymouth
-sudo stow -t /usr/share/plymouth/themes -d "$STOW_DIR" "$THEME_NAME"
+if [ "$(plymouth-set-default-theme)" != "$THEME_NAME" ]; then
+    sudo plymouth-set-default-theme -R "$THEME_NAME"
+fi
 
 # Set the theme and automatically rebuild initramfs (-R flag)
 if [ "$(plymouth-set-default-theme)" != "$THEME_NAME" ]; then
