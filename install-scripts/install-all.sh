@@ -15,6 +15,7 @@ cd ~/dotfiles/install-scripts || exit 1
 . ./install-scripts/install-eww.sh
 . ./install-scripts/install-waybar.sh
 . ./install-scripts/install-notifications.sh
+. ./install-scripts/install-plymouth.sh
 
 . ./install-scripts/install-keyboard.sh
 
