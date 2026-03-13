@@ -13,7 +13,10 @@
     "on-click": "activate",
     "active-only": false,
     "all-outputs": false,
-    "format": "{}"
+    "format": "{icon}",
+    "format-icons": {
+      "game": "",
+    }
   },
 
   // Hyprland Window
@@ -30,7 +33,11 @@
   // System tray
   "tray": {
     "icon-size": 21,
-    "spacing": 10
+    "spacing": 10,
+    "ignore-list": [
+      "steam",
+      "Steam"
+    ]
   },
 
   // Clock
@@ -107,5 +114,15 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
+  },
+
+  // Custom steam module
+  "custom/steam": {
+      "exec": "pgrep -x steam > /dev/null && echo '{\"text\": \"\"}' || echo \"\"",
+      "return-type": "json",
+      "interval": 2,
+      "on-click": "hyprctl dispatch togglespecialworkspace steam",
+      "on-click-right": "steam -shutdown",
+      "tooltip": false
   }
 }

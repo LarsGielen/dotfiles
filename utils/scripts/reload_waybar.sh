@@ -5,3 +5,5 @@ killall -9 waybar
 
 uwsm app -s b -- swaync
 uwsm app -s b -- waybar
+
+notify-send "Waybar reloaded"

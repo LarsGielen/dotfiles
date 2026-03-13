@@ -35,7 +35,8 @@
 
     // Modules Right    
     "modules-right": [
-        "tray",
+        "custom/steam",
+        // "tray",
         "pulseaudio",
         "bluetooth",
         "battery",

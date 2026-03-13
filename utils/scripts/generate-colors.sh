@@ -63,3 +63,5 @@ done < "$INPUT"
 
 # Close rasi block
 echo "}" >> "$RASI_OUT"
+
+notify-send "Colors generated"
