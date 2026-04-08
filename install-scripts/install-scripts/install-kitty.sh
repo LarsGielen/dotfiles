@@ -1,7 +1,14 @@
 #!/bin/bash
 
-sudo pacman -S --needed --noconfirm \
-    kitty 
+REPO_NAME="dotfiles"
 
 sudo pacman -S --needed --noconfirm \
-    ttf-jetbrains-mono-nerd 
+    stow \
+    kitty \
+    ttf-jetbrains-mono-nerd
+
+rm -rf ~/.config/kitty
+
+stow -d ~/$REPO_NAME/stow -t ~ kitty
+
+echo "kitty installed and configured successfully!"

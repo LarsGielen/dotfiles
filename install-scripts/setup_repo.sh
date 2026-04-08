@@ -8,7 +8,7 @@ is_installed_git() {
     pacman -Qi git &> /dev/null
 }
 
-cd ~
+cd ~ || exit 1
 
 echo "Installing git..."
 sudo pacman -S --needed --noconfirm \
@@ -26,7 +26,7 @@ if [ -d "$REPO_NAME" ]; then
     echo "Dotfiles repository already exists. Pulling latest changes..."
     cd "$REPO_NAME" || exit 1
     git pull origin main
-    cd ~
+    cd ~ || exit 1
 else
     echo "Cloning dotfiles repository..."
     git clone "$REPO_URL"
@@ -37,3 +37,5 @@ if [ $? -ne 0 ]; then
     echo "Failed to clone the dotfiles repository."
     exit 1
 fi
+
+cd "$ORIGINAL_DIR" || exit 1
