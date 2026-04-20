@@ -8,14 +8,15 @@ if ! grep -q '\bplymouth\b' /etc/mkinitcpio.conf; then
     sudo sed -i '/^HOOKS=/ s/udev/udev plymouth/' /etc/mkinitcpio.conf
 fi
 
-# Add kernel parameters to systemd-boot entry
-for entry in /boot/loader/entries/*.conf; do
-    if [ -f "$entry" ] && grep -q "^options" "$entry"; then
-        if ! grep -q '\bsplash\b' "$entry"; then
-            sudo sed -i 's/^options .*/& quiet splash/' "$entry"
-        fi
-    fi
-done
+# Add kernel parameters for UKI
+sudo mkdir -p /etc/cmdline.d
+CMDLINE_FILE="/etc/cmdline.d/plymouth.conf"
+
+if [ ! -f "$CMDLINE_FILE" ]; then
+    echo "quiet splash" | sudo tee "$CMDLINE_FILE" > /dev/null
+elif ! grep -q '\bsplash\b' "$CMDLINE_FILE"; then
+    sudo sed -i '1s/$/ quiet splash/' "$CMDLINE_FILE"
+fi
 
 # Install and apply custom theme
 THEME_NAME="custom_theme"
@@ -29,11 +30,7 @@ else
     exit 1
 fi
 
-if [ "$(plymouth-set-default-theme)" != "$THEME_NAME" ]; then
-    sudo plymouth-set-default-theme -R "$THEME_NAME"
-fi
-
-# Set the theme and automatically rebuild initramfs (-R flag)
+# Set the theme and automatically rebuild initramfs/UKI (-R flag)
 if [ "$(plymouth-set-default-theme)" != "$THEME_NAME" ]; then
     sudo plymouth-set-default-theme -R "$THEME_NAME"
 fi
