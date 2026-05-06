@@ -3,6 +3,12 @@
 # Install Plymouth
 sudo pacman -S --needed --noconfirm plymouth
 
+# Enable NVIDIA Early KMS in mkinitcpio.conf
+NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+if ! grep -q 'nvidia' /etc/mkinitcpio.conf; then
+    sudo sed -i "s/^MODULES=(/MODULES=($NVIDIA_MODULES /" /etc/mkinitcpio.conf
+fi
+
 # Add plymouth to mkinitcpio.conf HOOKS
 if ! grep -q '\bplymouth\b' /etc/mkinitcpio.conf; then
     sudo sed -i '/^HOOKS=/ s/udev/udev plymouth/' /etc/mkinitcpio.conf
