@@ -1,0 +1,10 @@
+-- Default configuration
+require("config.default.animations")
+require("config.default.autostart")
+require("config.default.bindings")
+require("config.default.decorations")
+require("config.default.input")
+require("config.default.layouts")
+require("config.default.monitor")
+require("config.default.permissions")
+require("config.default.windowrules")

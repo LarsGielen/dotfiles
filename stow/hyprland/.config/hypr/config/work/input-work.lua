@@ -1,0 +1,32 @@
+-- https://wiki.hypr.land/Configuring/Basics/Variables/#input
+
+hl.config({
+    input = {
+        kb_layout = "us",
+        kb_variant = "colemak",
+        -- kb_model = "",
+        -- kb_options = "",
+        -- kb_rules = "",
+        numlock_by_default = true,
+
+        follow_mouse = 1,
+        sensitivity = 0.6, -- -1.0 - 1.0, 0 means no modification.
+        accel_profile = "flat",
+
+        touchpad = {
+            natural_scroll = true,
+        },
+
+        tablet = {
+            output = "current",
+        },
+    },
+
+    cursor = {
+        no_hardware_cursors = false,
+    },
+
+    gestures = {
+        -- workspace_swipe = true,
+    },
+})

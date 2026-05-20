@@ -35,8 +35,8 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm hyprshot
 
 # Configure machine-specific Hyprland config
-MACHINE_CONF="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/machine.conf"
-if [ ! -f "$MACHINE_CONF" ]; then
+MACHINE_LUA="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/machine.lua"
+if [ ! -f "$MACHINE_LUA" ]; then
     HYPR_CONFIG_DIR="$HOME/$REPO_NAME/stow/hyprland/.config/hypr/config"
     mapfile -t OPTIONS < <(ls -1 "$HYPR_CONFIG_DIR")
     echo "Available Hyprland config options:"
@@ -47,8 +47,8 @@ if [ ! -f "$MACHINE_CONF" ]; then
             echo "Invalid selection."
         fi
     done
-    mkdir -p "$(dirname "$MACHINE_CONF")"
-    echo "source = ~/.config/hypr/config/$CHOSEN_OPTION/_hyprland-$CHOSEN_OPTION.conf" >> "$MACHINE_CONF"
+    mkdir -p "$(dirname "$MACHINE_LUA")"
+    echo "require(\"config.$CHOSEN_OPTION._hyprland-$CHOSEN_OPTION\")" >> "$MACHINE_LUA"
 fi
 
 rm -rf ~/.config/hypr

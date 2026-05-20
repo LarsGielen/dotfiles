@@ -1,0 +1,10 @@
+-- Default configuration
+require("config.default.animations")
+require("config.work.autostart-work")
+require("config.default.bindings")
+require("config.default.decorations")
+require("config.work.input-work")
+require("config.work.layouts-work")
+require("config.work.monitor-work")
+require("config.default.permissions")
+require("config.default.windowrules")
