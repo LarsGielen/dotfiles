@@ -61,7 +61,7 @@ hl.window_rule({
 })
 
 -- Steam UI
-hl.window_rule({ match = { class = "steam" }, workspace = "special:steam silent" })
+-- hl.window_rule({ match = { class = "steam" }, workspace = "special:steam silent" })
 
 -- Game mode: toggle via SUPER + SHIFT + G (see bindings.lua).
 -- When disabled, gamescope windows open as regular tiled windows.

@@ -1,5 +1,5 @@
 hl.on("hyprland.start", function()
-    hl.exec_cmd("uwsm app -s b -- waybar")
+    hl.exec_cmd("uwsm app -s b -- qs -d")
     hl.exec_cmd("uwsm app -s b -- swaync")
     hl.exec_cmd("uwsm app -s b -- hyprpaper")
     hl.exec_cmd("uwsm app -s b -- hyprsunset")
