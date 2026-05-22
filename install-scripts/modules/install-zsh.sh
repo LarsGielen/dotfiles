@@ -5,7 +5,6 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 # fzf - A command-line fuzzy finder
 # zoxide - A smarter cd command
 install_packages \
-    stow \
     zsh \
     fzf \
     zoxide

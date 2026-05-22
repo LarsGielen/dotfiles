@@ -7,7 +7,6 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 # zoxide - For historical file navigation
 # wl-clipboard - For clipboard integration (Wayland)
 install_packages \
-    stow \
     yazi \
     ffmpeg \
     7zip \

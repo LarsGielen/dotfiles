@@ -3,7 +3,6 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 # Hyprland and core session bits
 install_packages \
-    stow \
     uwsm \
     libnewt \
     hyprland
