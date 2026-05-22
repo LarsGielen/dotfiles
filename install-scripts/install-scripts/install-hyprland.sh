@@ -20,8 +20,9 @@ sudo pacman -S --needed --noconfirm \
     xorg-xhost
 systemctl --user enable --now hyprpolkitagent.service
 
-# Install fonts 
-sudo pacman -S noto-fonts-emoji
+# Install fonts
+sudo pacman -S --needed --noconfirm \
+    noto-fonts-emoji
 
 # Install cursor themes
 yay -S --needed --noconfirm \

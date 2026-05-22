@@ -8,9 +8,9 @@
 {
   // Workspaces
   "hyprland/workspaces": {
-    "on-scroll-up": "hyprctl dispatch workspace r-1",
-    "on-scroll-down": "hyprctl dispatch workspace r+1",
-    "on-click": "activate",
+    "on-scroll-up":   "hyprctl dispatch 'hl.dsp.focus({ workspace = \"r-1\" })'",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"r+1\" })'",
+    "on-click":       "hyprctl dispatch 'hl.dsp.focus({ workspace = \"{name}\" })'",
     "active-only": false,
     "all-outputs": false,
     "format": "{icon}",
@@ -123,7 +123,7 @@
       "exec": "pgrep -x steam > /dev/null && echo '{\"text\": \"\"}' || echo \"\"",
       "return-type": "json",
       "interval": 2,
-      "on-click": "hyprctl dispatch togglespecialworkspace steam",
+      "on-click": "hyprctl dispatch 'hl.dsp.workspace.toggle_special(\"steam\")'",
       "on-click-right": "steam -shutdown",
       "tooltip": false
   }
