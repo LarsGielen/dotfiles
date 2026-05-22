@@ -1,0 +1,6 @@
+# Follow `source` directives into other files (e.g. lib/common.sh).
+external-sources=true
+
+# The shared library is sourced via a dynamic path ($(dirname ...)/../lib),
+# which ShellCheck cannot resolve statically. We lint it on its own instead.
+disable=SC1090,SC1091

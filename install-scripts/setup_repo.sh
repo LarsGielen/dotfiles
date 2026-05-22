@@ -1,41 +1,17 @@
 #!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
-ORIGINAL_DIR=$(pwd)
-REPO_URL="https://github.com/LarsGielen/dotfiles"
-REPO_NAME="dotfiles"
-
-is_installed_git() {
-    pacman -Qi git &> /dev/null
-}
-
-cd ~ || exit 1
-
-echo "Installing git..."
-sudo pacman -S --needed --noconfirm \
+install_packages \
     git \
     github-cli \
     git-lfs
 
-if ! is_installed_git; then
-    echo "Git is not installed."
-    exit 1
-fi
-
-# Check if the dotfiles repository already exists
-if [ -d "$REPO_NAME" ]; then
-    echo "Dotfiles repository already exists. Pulling latest changes..."
-    cd "$REPO_NAME" || exit 1
-    git pull origin main
-    cd ~ || exit 1
+if [ -d "$DOTFILES_DIR" ]; then
+    info "Dotfiles repository already exists. Pulling latest changes..."
+    run_cmd git -C "$DOTFILES_DIR" pull origin main
 else
-    echo "Cloning dotfiles repository..."
-    git clone "$REPO_URL"
+    info "Cloning dotfiles repository..."
+    run_quiet git clone "$REPO_URL" "$DOTFILES_DIR"
 fi
 
-# Check if clone was successful
-if [ $? -ne 0 ]; then
-    echo "Failed to clone the dotfiles repository."
-    exit 1
-fi
-
-cd "$ORIGINAL_DIR" || exit 1
+ok "Repository ready at $DOTFILES_DIR"
