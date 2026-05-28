@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell.Services.UPower
 
-// Battery indicator. Hidden entirely on machines without a laptop battery.
+import "../Theme"
+
 Rectangle {
   id: root
 

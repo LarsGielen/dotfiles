@@ -3,7 +3,8 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 
-// System tray icons. Left-click activates, right-click opens the menu.
+import "../Theme"
+
 Row {
   id: root
   spacing: 10

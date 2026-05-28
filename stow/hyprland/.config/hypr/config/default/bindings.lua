@@ -3,7 +3,6 @@ local home    = os.getenv("HOME")
 local dots    = home .. "/dotfiles"
 
 hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("uwsm stop"))
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("systemctl poweroff"))
 
 ---------------------------
 --- Launch Applications ---

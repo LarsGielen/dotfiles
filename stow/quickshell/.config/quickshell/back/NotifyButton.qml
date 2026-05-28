@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell.Io
 
-// Bell button that toggles the SwayNC notification panel.
+import "../Theme"
+
 Rectangle {
   id: root
   implicitWidth: Theme.itemHeight + 6
@@ -12,7 +13,7 @@ Rectangle {
 
   Text {
     anchors.centerIn: parent
-    text: Theme.icon(0xf0f3)   // nf-fa-bell
+    text: Theme.icon(0xf0f3)
     color: Theme.accent
     font.family: Theme.font
     font.pixelSize: Theme.iconSize

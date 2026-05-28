@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell
 
+import "../Theme"
+
 Scope {
   Variants {
     model: Quickshell.screens
@@ -23,41 +25,41 @@ Scope {
       Rectangle {
         id: bar
         anchors.fill: parent
-        anchors.topMargin: Theme.margin
-        anchors.leftMargin: Theme.margin
-        anchors.rightMargin: Theme.margin
+        anchors.topMargin: Theme.topMargin
+        anchors.leftMargin: Theme.sideMargin
+        anchors.rightMargin: Theme.sideMargin
         anchors.bottomMargin: 0
 
         color: Theme.transparent
         border.width: 0
+        radius: Theme.radius
 
         // Left
         Row {
           anchors.left: parent.left
-          anchors.leftMargin: Theme.padding
           anchors.verticalCenter: parent.verticalCenter
           spacing: Theme.gap
 
-          Workspaces { screenName: panel.modelData.name }
+          Workspaces { screenName: panel.modelData.name } 
         }
 
         // Center
-        Clock {
-          anchors.centerIn: parent
+        Row {
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.verticalCenter: parent.verticalCenter
+          spacing: Theme.gap  
+
+          Clock {}
         }
 
         // Right
         Row {
           anchors.right: parent.right
-          anchors.rightMargin: Theme.padding
           anchors.verticalCenter: parent.verticalCenter
           spacing: Theme.gap
 
-          Tray {}
-          Volume {}
-          Network {}
-          Battery {}
-          NotifyButton {}
+          Audio {}
+          ControlCenter {}
         }
       }
     }

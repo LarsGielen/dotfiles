@@ -1,8 +1,8 @@
 import QtQuick
 import Quickshell.Io
 
-// Connectivity indicator for systemd-networkd setups (no NetworkManager).
-// Polls the default-route interface and its operstate.
+import "../Theme"
+
 Rectangle {
   id: root
 

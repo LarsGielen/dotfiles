@@ -1,9 +1,8 @@
 import QtQuick
 import Quickshell.Hyprland
 
-// Hyprland workspace indicators for one monitor. The monitor's active
-// workspace stretches into a pill; others stay as dots.
-// Click to switch, scroll to cycle. Set screenName to this bar's monitor.
+import "../Theme"
+
 Rectangle {
   id: root
   property string screenName: ""
@@ -19,12 +18,17 @@ Rectangle {
     spacing: 2
 
     Repeater {
-      model: Hyprland.workspaces.values.filter(w => w.monitor && w.monitor.name === root.screenName).sort((a, b) => a.id - b.id)
+      model: Hyprland.workspaces.values
+        .filter(w => w.monitor && (root.screenName === "" || w.monitor.name === root.screenName))
+        .sort((a, b) => a.id - b.id)
 
       delegate: Item {
         id: ws
         required property var modelData
-        readonly property bool active: modelData.monitor && modelData.monitor.activeWorkspace && modelData.monitor.activeWorkspace.id === modelData.id
+        readonly property bool active: 
+          modelData.monitor 
+          && modelData.monitor.activeWorkspace 
+          && modelData.monitor.activeWorkspace.id === modelData.id
 
         implicitWidth: (active ? 22 : 10) + 8
         implicitHeight: Theme.itemHeight
@@ -54,9 +58,10 @@ Rectangle {
     }
   }
 
-  // Cycle to the next/previous workspace on THIS monitor only (wraps around).
   function cycle(dir) {
-    const list = Hyprland.workspaces.values.filter(w => w.monitor && w.monitor.name === root.screenName).sort((a, b) => a.id - b.id);
+    const list = Hyprland.workspaces.values
+      .filter(w => w.monitor && (root.screenName === "" || w.monitor.name === root.screenName))
+      .sort((a, b) => a.id - b.id);
     if (list.length === 0) return;
     const mon = list[0].monitor;
     const activeId = mon && mon.activeWorkspace ? mon.activeWorkspace.id : list[0].id;
@@ -68,6 +73,6 @@ Rectangle {
 
   WheelHandler {
     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-    onWheel: (event) => root.cycle(event.angleDelta.y < 0 ? 1 : -1)
+    onWheel: (event) => root.cycle(event.angleDelta.y < 0 ? -1 : 1)
   }
 }

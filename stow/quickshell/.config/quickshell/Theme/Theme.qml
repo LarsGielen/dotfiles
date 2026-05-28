@@ -3,12 +3,10 @@ pragma Singleton
 import Quickshell
 import QtQuick
 
-// Central place for all colors, sizing and fonts.
-// Palette: Catppuccin Mocha (matches the rest of the dotfiles).
 Singleton {
   id: root
 
-  // --- Palette -------------------------------------------------------------
+  // Palette
   readonly property color transparent: "transparent"
 
   readonly property color base:     "#1e1e2e"
@@ -34,22 +32,22 @@ Singleton {
 
   readonly property color accent:   blue
 
-  // --- Typography ----------------------------------------------------------
+  // Typography
   readonly property string font: "JetBrainsMono Nerd Font Propo"
   readonly property int fontSize: 13
   readonly property int iconSize: 15
 
-  // Render a Nerd Font glyph from its codepoint, e.g. Theme.icon(0xf017).
-  // Kept ASCII-only here so the source never depends on raw glyph bytes.
-  // fromCodePoint (not fromCharCode) so high-plane v3 icons like 0xf035b work.
   function icon(code) { return String.fromCodePoint(code); }
 
-  // --- Metrics -------------------------------------------------------------
-  readonly property int barHeight: 36   // visual height of the floating bar
-  readonly property int margin: 5       // gap around the floating bar
+  // Metrics
+  readonly property int topMargin: 10   // distance from top of screen to bar
+  readonly property int sideMargin: 10  // distance from sides of screen to bar
   readonly property int radius: 14      // bar corner radius
-  readonly property int itemHeight: 26  // height of pill widgets
-  readonly property int itemRadius: 9   // pill corner radius
+
+  readonly property int itemHeight: 26  // height of bar widgets
+  readonly property int itemRadius: 9   // bar widget corner radius
   readonly property int gap: 6          // gap between widgets
   readonly property int padding: 11     // horizontal padding inside a pill
+
+  readonly property int barHeight: itemHeight + topMargin  // visual height of the floating bar
 }

@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell
 
-// Centered clock: bold time with a lighter date beside it.
+import "../Theme"
+
 Rectangle {
   id: root
   implicitWidth: row.implicitWidth + Theme.padding * 2
