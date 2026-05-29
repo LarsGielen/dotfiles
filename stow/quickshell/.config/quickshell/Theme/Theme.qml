@@ -50,4 +50,14 @@ Singleton {
   readonly property int padding: 11     // horizontal padding inside a pill
 
   readonly property int barHeight: itemHeight + topMargin  // visual height of the floating bar
+
+  // Notification toasts (the pop-ups that appear on new notifications).
+  // Change these to move the stack around the screen.
+  readonly property string toastEdge:   "bottom"    // "top" | "bottom"  (vertical edge)
+  readonly property string toastSide:   "right"  // "left" | "right" | "center"
+  readonly property int    toastWidth:   360     // width of a toast card
+  readonly property int    toastMargin:  10      // gap from the screen edges
+  readonly property int    toastSpacing: 8       // gap between stacked toasts
+  readonly property int    toastTimeout: 6000    // ms before a toast auto-hides (0 = stay until dismissed)
+  readonly property int    toastMax:     5       // most toasts shown at once
 }
