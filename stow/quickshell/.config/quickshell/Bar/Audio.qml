@@ -64,7 +64,7 @@ Item {
         text: "Output"
         color: Theme.subtext
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 1
+        font.pixelSize: Theme.fontSize
         font.bold: true
       }
       Text {
@@ -72,7 +72,7 @@ Item {
         text: root.muted ? "Muted" : Math.round(root.volume * 100) + "%"
         color: root.muted ? Theme.red : Theme.subtext
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 1
+        font.pixelSize: Theme.fontSize
       }
     }
 
@@ -99,7 +99,7 @@ Item {
       text: "Input"
       color: Theme.subtext
       font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 1
+      font.pixelSize: Theme.fontSize
       font.bold: true
     }
 

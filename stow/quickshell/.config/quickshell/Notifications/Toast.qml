@@ -215,7 +215,7 @@ Rectangle {
       text: root.notif.body
       color: Theme.subtext
       font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 1
+      font.pixelSize: Theme.fontSize
       textFormat: Text.PlainText
       wrapMode: Text.WordWrap
       maximumLineCount: root.expanded ? 12 : 1

@@ -58,6 +58,8 @@ Scope {
           anchors.verticalCenter: parent.verticalCenter
           spacing: Theme.gap
 
+          ResourceMonitor {}
+          Tray {}
           Audio {}
           ControlCenter {}
         }

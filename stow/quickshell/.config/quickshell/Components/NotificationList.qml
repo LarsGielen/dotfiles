@@ -32,7 +32,7 @@ Column {
                                     : "Notifications"
       color: Theme.subtext
       font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 1
+      font.pixelSize: Theme.fontSize
       font.bold: true
     }
 
@@ -84,7 +84,7 @@ Column {
       text: "No notifications"
       color: Theme.overlay0
       font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 1
+      font.pixelSize: Theme.fontSize
     }
   }
 }
