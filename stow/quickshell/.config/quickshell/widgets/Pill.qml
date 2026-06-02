@@ -13,7 +13,7 @@ Rectangle {
 
   property int  itemHeight: Appearance.itemHeight
   property int  itemRadius: Appearance.itemRadius
-  property real hPadding:   Appearance.padding
+  property real hPadding:   Appearance.margin
 
   property color baseColor:   Theme.surface0
   property color hoverColor:  Theme.surface1

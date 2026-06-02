@@ -10,9 +10,10 @@ PopupWindow {
 
   property Item anchorItem
   property int contentWidth: 500
-  property int pad: 14
-  property int gap: 12
-  property int screenMargin: Appearance.sideMargin
+  property int pad: Appearance.margin
+  property int gap: Appearance.gap
+  property int radius: Appearance.radius
+  property int screenMargin: Appearance.margin
 
   default property alias content: layout.data
 
@@ -26,7 +27,7 @@ PopupWindow {
   color: Theme.transparent
 
   anchor.item: anchorItem
-  anchor.rect.y: anchorItem ? anchorItem.height + Appearance.gap : 0
+  anchor.rect.y: anchorItem ? anchorItem.height + 5 : 0
   anchor.rect.x: {
     if (!anchorItem || !root.screen) return 0
     const itemX = anchorItem.mapToItem(null, 0, 0).x
@@ -40,7 +41,7 @@ PopupWindow {
   Rectangle {
     anchors.fill: parent
     color: Theme.base
-    radius: Appearance.radius
+    radius: root.radius
     border.width: 1
     border.color: Theme.surface0
 

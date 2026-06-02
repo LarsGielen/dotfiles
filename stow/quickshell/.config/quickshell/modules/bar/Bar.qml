@@ -32,8 +32,6 @@ Scope {
         anchors.bottomMargin: 0
 
         color: Theme.transparent
-        border.width: 0
-        radius: Appearance.barRadius
 
         Row {
           anchors.left: parent.left

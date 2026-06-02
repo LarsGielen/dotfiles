@@ -22,9 +22,9 @@ Variants {
     anchors { top: true; bottom: true; left: true; right: true }
     mask: Region { item: stack }
 
-    readonly property bool atTop:    Appearance.toastEdge === "top"
-    readonly property bool atLeft:   Appearance.toastSide === "left"
-    readonly property bool atRight:  Appearance.toastSide === "right"
+    readonly property bool atTop: Appearance.toastEdge === "top"
+    readonly property bool atLeft: Appearance.toastSide === "left"
+    readonly property bool atRight: Appearance.toastSide === "right"
 
     Column {
       id: stack
@@ -32,13 +32,13 @@ Variants {
       spacing: Appearance.toastSpacing
 
       // Vertical: leave room for the bar when anchored at the top.
-      anchors.top:    win.atTop    ? parent.top    : undefined
-      anchors.bottom: !win.atTop   ? parent.bottom : undefined
+      anchors.top: win.atTop ? parent.top : undefined
+      anchors.bottom: !win.atTop ? parent.bottom : undefined
       anchors.topMargin:    Appearance.barHeight + Appearance.toastMargin
       anchors.bottomMargin: Appearance.toastMargin
 
-      anchors.left:             win.atLeft  ? parent.left  : undefined
-      anchors.right:            win.atRight ? parent.right : undefined
+      anchors.left: win.atLeft  ? parent.left  : undefined
+      anchors.right: win.atRight ? parent.right : undefined
       anchors.horizontalCenter: (!win.atLeft && !win.atRight) ? parent.horizontalCenter : undefined
       anchors.leftMargin:  Appearance.toastMargin
       anchors.rightMargin: Appearance.toastMargin

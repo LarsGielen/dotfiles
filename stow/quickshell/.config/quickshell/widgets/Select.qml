@@ -13,6 +13,9 @@ Item {
   property var current: undefined
   property string placeholder: "—"
 
+  property int itemHeight: Appearance.itemHeight
+  property int itemRadius: Appearance.itemRadius
+
   property bool expanded: false
 
   signal selected(var value)
@@ -33,8 +36,8 @@ Item {
 
     Rectangle {
       width: parent.width
-      height: Appearance.itemHeight + 8
-      radius: Appearance.itemRadius
+      height: root.itemHeight + 8
+      radius: root.itemRadius
       color: headerMouse.containsMouse ? Theme.surface1 : Theme.surface0
       Behavior on color { ColorAnimation { duration: 120 } }
 
@@ -98,8 +101,8 @@ Item {
           readonly property bool isCurrent: modelData.value === root.current
 
           width: parent.width
-          height: Appearance.itemHeight
-          radius: Appearance.itemRadius
+          height: root.itemHeight
+          radius: root.itemRadius
           color: optMouse.containsMouse ? Theme.surface1 : Theme.transparent
           Behavior on color { ColorAnimation { duration: 120 } }
 

@@ -11,33 +11,30 @@ Singleton {
   readonly property int iconSize: 15
 
   // Base geometry
-  readonly property int topMargin: 10   // distance from top of screen to bar
-  readonly property int sideMargin: 10  // distance from sides of screen to bar
-  readonly property int radius: 14      // bar corner radius
+  readonly property int margin: 10      // gap from edges of parent container
+  readonly property int radius: 14      // corner radius of containers
 
   readonly property int itemHeight: 26  // height of widgets
-  readonly property int itemRadius: 9   // bar widget corner radius
+  readonly property int itemRadius: 9   // widget corner radius
   readonly property int gap: 6          // gap between widgets
-  readonly property int padding: 11     // horizontal padding inside a pill
 
   // Bar geometry
-  readonly property int barTopMargin: topMargin   // distance from top of screen to bar
-  readonly property int barSideMargin: sideMargin  // distance from sides of screen to bar
-  readonly property int barRadius: radius      // bar corner radius
+  readonly property int barTopMargin: 10   // distance from top of screen to bar
+  readonly property int barSideMargin: 10  // distance from sides of screen to bar
 
-  readonly property int barItemHeight: itemHeight  // height of bar widgets
+  readonly property int barItemHeight: itemHeight   // height of bar widgets
   readonly property int barItemRadius: itemRadius   // bar widget corner radius
-  readonly property int barGap: gap          // gap between widgets
-  readonly property int barPadding: padding     // horizontal padding inside a pill
+  readonly property int barGap: gap                 // gap between widgets
+  readonly property int barPadding: margin          // horizontal padding inside a pill 
 
   readonly property int barHeight: barItemHeight + barTopMargin  // visual height of the floating bar
 
   // Notifications toast geometry
-  readonly property string toastEdge:    "bottom"  // "top" | "bottom"  (vertical edge)
-  readonly property string toastSide:    "right"   // "left" | "right" | "center"
-  readonly property int    toastWidth:    360       // width of a toast card
-  readonly property int    toastMargin:   10        // gap from the screen edges
-  readonly property int    toastSpacing:  8         // gap between stacked toasts
-  readonly property int    toastRadius:   9         // toast card corner radius
-  readonly property int    toastPadding:  12        // inner padding of a toast card
+  readonly property string toastEdge:    "bottom"     // "top" | "bottom"  (vertical edge)
+  readonly property string toastSide:    "right"      // "left" | "right" | "center"
+  readonly property int    toastWidth:    360         // width of a toast card
+  readonly property int    toastMargin:   10          // gap from the screen edges
+  readonly property int    toastSpacing:  gap         // gap between stacked toasts
+  readonly property int    toastRadius:   itemRadius  // toast card corner radius
+  readonly property int    toastPadding:  margin      // inner padding of a toast card
 }

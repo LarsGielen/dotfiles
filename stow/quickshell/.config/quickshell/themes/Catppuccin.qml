@@ -29,5 +29,5 @@ Singleton {
   readonly property color red:      "#f38ba8"
   readonly property color mauve:    "#cba6f7"
 
-  readonly property color accent:   blue
+  readonly property color accent: blue
 }
