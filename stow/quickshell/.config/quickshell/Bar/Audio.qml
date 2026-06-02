@@ -44,6 +44,7 @@ Item {
     icon: root.volIcon
     iconColor: root.muted ? Theme.red : Theme.subtext
     label: root.muted ? "Muted" : Math.round(root.volume * 100) + "%"
+    labelOnHover: true
     active: panel.visible
 
     onClicked: panel.toggle()
