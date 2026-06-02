@@ -4,30 +4,23 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
-// SystemStats ─ single source of truth for the bar's resource read-outs.
-//
-// Polls /proc, hwmon and nvidia-smi on a timer and exposes the latest
-// values as properties. It is a Singleton, so the probes run once for the
-// whole shell no matter how many monitors mount the ResourceMonitor widget.
-//
-//   Text { text: SystemStats.cpuUsageText }   // "12%"
-//   Text { text: SystemStats.gpuTempText  }   // "44°"
+// Polls /proc, hwmon and nvidia-smi; a Singleton so the probes run once for
+// the whole shell however many monitors mount ResourceMonitor.
 Singleton {
   id: root
 
-  // ── CPU ──────────────────────────────────────────────────────────
+  // CPU
   property real cpuUsage: 0    // %
   property real cpuTemp:  0    // °C  (AMD k10temp / Tctl)
-  // ── GPU (NVIDIA) ─────────────────────────────────────────────────
+  // GPU (NVIDIA)
   property real gpuUsage:  0   // %
   property real gpuTemp:   0   // °C
   property real vramUsed:  0   // GiB
   property real vramTotal: 0   // GiB
-  // ── Memory ───────────────────────────────────────────────────────
+  // Memory
   property real ramUsed:  0    // GiB
   property real ramTotal: 0    // GiB
 
-  // Pre-formatted strings for the view.
   readonly property string cpuUsageText: Math.round(cpuUsage) + "%"
   readonly property string gpuUsageText: Math.round(gpuUsage) + "%"
   readonly property string cpuTempText:  Math.round(cpuTemp) + "°"
@@ -35,7 +28,7 @@ Singleton {
   readonly property string ramText:      ramUsed.toFixed(1) + "G"
   readonly property string vramText:     vramUsed.toFixed(1) + "G"
 
-  // ── CPU usage: derived from the delta between /proc/stat samples ──
+  // CPU usage from the delta between /proc/stat samples.
   property real _prevTotal: 0
   property real _prevIdle:  0
 
@@ -57,7 +50,7 @@ Singleton {
     }
   }
 
-  // ── RAM + CPU temperature in one cheap probe (single output line) ─
+  // RAM + CPU temperature in one probe.
   Process {
     id: hostProc
     command: ["sh", "-c",
@@ -78,7 +71,7 @@ Singleton {
     }
   }
 
-  // ── GPU: usage / temp / VRAM straight out of nvidia-smi ──────────
+  // GPU usage/temp/VRAM from nvidia-smi.
   Process {
     id: gpuProc
     command: ["nvidia-smi",

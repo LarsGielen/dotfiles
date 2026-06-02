@@ -1,8 +1,9 @@
 import QtQuick
 import Quickshell.Services.Pipewire
 
-import "../Components"
-import "../Theme"
+import "../../widgets"
+import "../../themes"
+import "../../config"
 
 Item {
   id: root
@@ -41,6 +42,9 @@ Item {
 
   IconButton {
     id: toggle
+    itemHeight: Appearance.barItemHeight
+    itemRadius: Appearance.barItemRadius
+    hPadding: Appearance.barPadding
     icon: root.volIcon
     iconColor: root.muted ? Theme.red : Theme.subtext
     label: root.muted ? "Muted" : Math.round(root.volume * 100) + "%"
@@ -64,16 +68,16 @@ Item {
         anchors.left: parent.left
         text: "Output"
         color: Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
         font.bold: true
       }
       Text {
         anchors.right: parent.right
         text: root.muted ? "Muted" : Math.round(root.volume * 100) + "%"
         color: root.muted ? Theme.red : Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
       }
     }
 
@@ -99,8 +103,8 @@ Item {
       width: parent.width
       text: "Input"
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
     }
 

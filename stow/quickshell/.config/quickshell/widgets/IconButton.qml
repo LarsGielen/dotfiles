@@ -1,15 +1,9 @@
 import QtQuick
 
-import "../Theme"
+import "../themes"
+import "../config"
 
-// IconButton ─ a Pill carrying a Nerd-Font icon and/or a text label.
-//
-//   IconButton { icon: 0xf1eb; label: "Wi-Fi"; onClicked: ... }
-//   IconButton { icon: 0xf013; hPadding: 8 }            // icon-only, tight
-//   IconButton { icon: 0xf186; label: "DND"; active: dnd }   // toggled look
-//
-// `active` swaps to the accent background with dark fg, so the same button
-// doubles as a toggle. Inherits clicked / rightClicked / scrolled from Pill.
+// A Pill carrying a Nerd-Font icon and/or label; `active` gives a toggled look.
 Pill {
   id: root
   interactive: true
@@ -30,8 +24,8 @@ Pill {
       visible: root.icon !== 0
       text: root.icon !== 0 ? Theme.icon(root.icon) : ""
       color: root.active ? Theme.base : root.iconColor
-      font.family: Theme.font
-      font.pixelSize: Theme.iconSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.iconSize
     }
 
     Text {
@@ -41,8 +35,8 @@ Pill {
       opacity: root.labelVisible ? 1 : 0
       text: root.label
       color: root.active ? Theme.base : root.labelColor
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       Behavior on width { NumberAnimation { duration: 140; easing.type: Easing.OutCubic } }
       Behavior on opacity { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
     }

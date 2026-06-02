@@ -1,23 +1,19 @@
 import QtQuick
 
-import "../Theme"
+import "../themes"
+import "../config"
 
-// Pill ─ the rounded "surface" container every bar widget is built on.
-//
-//   Pill { Text { text: "hi" } }                       // static label pill
-//   Pill { interactive: true; onClicked: ...           // clickable
-//          Text { text: "click" } }
-//
-// Children are centred automatically and the pill grows to fit them
-// (plus `hPadding` on each side). Set `interactive` for hover feedback
-// and the clicked / rightClicked / scrolled signals.
+// Rounded surface container that grows to fit its centred children.
 Rectangle {
   id: root
 
   property bool interactive: false
   property bool active: false
   readonly property bool hovered: mouse.containsMouse
-  property real hPadding: Theme.padding
+
+  property int  itemHeight: Appearance.itemHeight
+  property int  itemRadius: Appearance.itemRadius
+  property real hPadding:   Appearance.padding
 
   property color baseColor:   Theme.surface0
   property color hoverColor:  Theme.surface1
@@ -30,8 +26,8 @@ Rectangle {
   default property alias content: container.data
 
   implicitWidth: container.implicitWidth + hPadding * 2
-  implicitHeight: Theme.itemHeight
-  radius: Theme.itemRadius
+  implicitHeight: itemHeight
+  radius: itemRadius
   color: active ? activeColor : (interactive && hovered ? hoverColor : baseColor)
   Behavior on color { ColorAnimation { duration: 120 } }
 

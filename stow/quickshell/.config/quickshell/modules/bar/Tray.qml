@@ -3,8 +3,9 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 
-import "../Components"
-import "../Theme"
+import "../../widgets"
+import "../../themes"
+import "../../config"
 
 Item {
   id: root
@@ -15,6 +16,9 @@ Item {
 
   IconButton {
     id: toggle
+    itemHeight: Appearance.barItemHeight
+    itemRadius: Appearance.barItemRadius
+    hPadding: Appearance.barPadding
     icon: panel.visible ? 0xf077 : 0xf078
     active: panel.visible
     onClicked: panel.toggle()
@@ -29,8 +33,8 @@ Item {
       width: parent.width
       text: "System Tray"
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
     }
 
@@ -46,17 +50,17 @@ Item {
           required property var modelData
 
           width: parent.width
-          height: Theme.itemHeight + 6
-          radius: Theme.itemRadius
+          height: Appearance.barItemHeight + 6
+          radius: Appearance.barItemRadius
           color: itemMouse.containsMouse ? Theme.surface0 : Theme.transparent
           Behavior on color { ColorAnimation { duration: 120 } }
 
           IconImage {
             id: trayIcon
             anchors.left: parent.left
-            anchors.leftMargin: Theme.padding
+            anchors.leftMargin: Appearance.barPadding
             anchors.verticalCenter: parent.verticalCenter
-            implicitSize: Theme.iconSize + 2
+            implicitSize: Appearance.iconSize + 2
             source: entry.modelData.icon
           }
 
@@ -64,12 +68,12 @@ Item {
             anchors.left: trayIcon.right
             anchors.leftMargin: 10
             anchors.right: parent.right
-            anchors.rightMargin: Theme.padding
+            anchors.rightMargin: Appearance.barPadding
             anchors.verticalCenter: parent.verticalCenter
             text: entry.modelData.tooltipTitle || entry.modelData.title || entry.modelData.id
             color: Theme.text
-            font.family: Theme.font
-            font.pixelSize: Theme.fontSize
+            font.family: Appearance.font
+            font.pixelSize: Appearance.fontSize
             elide: Text.ElideRight
           }
 

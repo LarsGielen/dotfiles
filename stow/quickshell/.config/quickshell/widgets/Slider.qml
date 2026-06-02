@@ -1,15 +1,9 @@
 import QtQuick
 
-import "../Theme"
+import "../themes"
+import "../config"
 
-// Slider ─ horizontal value slider with optional leading / trailing icons.
-//
-//   Slider { width: parent.width; value: 0.75
-//            leadingIcon: 0xf027; trailingIcon: 0xf028
-//            onMoved: (v) => audio.volume = v }
-//
-// `value` is the source of truth (range [from, to]); dragging or clicking
-// the track updates it and emits `moved`.
+// Horizontal value slider with optional leading/trailing icons.
 Item {
   id: root
 
@@ -31,7 +25,7 @@ Item {
     : Math.max(0, Math.min(1, (value - from) / (to - from)))
 
   implicitWidth: 180
-  implicitHeight: Math.max(handleSize, Theme.iconSize)
+  implicitHeight: Math.max(handleSize, Appearance.iconSize)
 
   Text {
     id: lead
@@ -40,8 +34,8 @@ Item {
     anchors.verticalCenter: parent.verticalCenter
     text: visible ? Theme.icon(root.leadingIcon) : ""
     color: Theme.subtext
-    font.family: Theme.font
-    font.pixelSize: Theme.iconSize
+    font.family: Appearance.font
+    font.pixelSize: Appearance.iconSize
   }
 
   Text {
@@ -51,8 +45,8 @@ Item {
     anchors.verticalCenter: parent.verticalCenter
     text: visible ? Theme.icon(root.trailingIcon) : ""
     color: Theme.subtext
-    font.family: Theme.font
-    font.pixelSize: Theme.iconSize
+    font.family: Appearance.font
+    font.pixelSize: Appearance.iconSize
   }
 
   Item {
@@ -64,7 +58,7 @@ Item {
     anchors.rightMargin: trail.visible ? 8 : 0
     height: parent.height
 
-    Rectangle {                                   // track background
+    Rectangle {
       anchors.verticalCenter: parent.verticalCenter
       width: parent.width
       height: root.trackHeight
@@ -72,7 +66,7 @@ Item {
       color: root.trackColor
     }
 
-    Rectangle {                                   // filled portion
+    Rectangle {
       anchors.verticalCenter: parent.verticalCenter
       width: handle.x + handle.width / 2
       height: root.trackHeight
@@ -80,7 +74,7 @@ Item {
       color: root.fillColor
     }
 
-    Rectangle {                                   // handle
+    Rectangle {
       id: handle
       y: (parent.height - height) / 2
       x: root.ratio * (track.width - width)

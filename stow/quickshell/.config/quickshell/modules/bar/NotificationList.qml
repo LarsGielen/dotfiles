@@ -1,26 +1,15 @@
 import QtQuick
 
-import "../Theme"
-import "../Services"
+import "../../themes"
+import "../../config"
+import "../../services"
 
-// NotificationList ─ the Control Center's notification section: a header with a
-// "Clear all" action over a fixed-height, scrolling list of NotificationItem
-// cards (with an empty-state line). Reads everything from the Notifications
-// singleton.
-//
-// The list area is a FIXED height on purpose: dismissing or receiving a
-// notification then scrolls the list internally instead of resizing the popup.
-// Resizing a mapped xdg-popup leaves ghost surfaces on Hyprland (hyprwm/
-// Hyprland#6682), which is what made the panel appear to render twice.
-//
-//   NotificationList { width: parent.width }
 Column {
   id: root
-  spacing: Theme.gap
+  spacing: Appearance.barGap
 
   property int listHeight: 280
 
-  // Header: title + count, with a Clear all action on the right.
   Item {
     width: parent.width
     height: 20
@@ -31,8 +20,8 @@ Column {
       text: Notifications.count > 0 ? "Notifications (" + Notifications.count + ")"
                                     : "Notifications"
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
     }
 
@@ -43,8 +32,8 @@ Column {
       visible: Notifications.count > 0
       text: "Clear all"
       color: clearArea.containsMouse ? Theme.red : Theme.overlay1
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 2
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize - 2
 
       MouseArea {
         id: clearArea
@@ -57,7 +46,7 @@ Column {
     }
   }
 
-  // Fixed-height area so the popup never resizes as notifications come and go.
+  // Fixed height: resizing a mapped xdg-popup leaves ghost surfaces on Hyprland (hyprwm/Hyprland#6682).
   Item {
     width: parent.width
     height: root.listHeight
@@ -65,9 +54,8 @@ Column {
     ListView {
       id: listView
       anchors.fill: parent
-      spacing: Theme.gap
+      spacing: Appearance.barGap
       clip: true
-      // Only grab drags when there's actually something to scroll.
       interactive: contentHeight > height
       model: Notifications.list
 
@@ -83,8 +71,8 @@ Column {
       visible: Notifications.count === 0
       text: "No notifications"
       color: Theme.overlay0
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
     }
   }
 }

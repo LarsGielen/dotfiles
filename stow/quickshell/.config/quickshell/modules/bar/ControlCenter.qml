@@ -1,7 +1,8 @@
 import QtQuick
 
-import "../Components"
-import "../Theme"
+import "../../widgets"
+import "../../themes"
+import "../../config"
 
 Item {
   id: root
@@ -16,6 +17,9 @@ Item {
 
   IconButton {
     id: toggle
+    itemHeight: Appearance.barItemHeight
+    itemRadius: Appearance.barItemRadius
+    hPadding: Appearance.barPadding
     icon: 0xf015
     active: panel.visible
     onClicked: panel.toggle()
@@ -25,13 +29,12 @@ Item {
     id: panel
     anchorItem: toggle
 
-    // Header
     Text {
       width: parent.width
       text: "Control Center"
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
     }
 

@@ -1,13 +1,14 @@
 import QtQuick
 import Quickshell
 
-import "../Theme"
+import "../../themes"
+import "../../config"
 
 Rectangle {
   id: root
-  implicitWidth: row.implicitWidth + Theme.padding * 2
-  implicitHeight: Theme.itemHeight
-  radius: Theme.itemRadius
+  implicitWidth: row.implicitWidth + Appearance.barPadding * 2
+  implicitHeight: Appearance.barItemHeight
+  radius: Appearance.barItemRadius
   color: Theme.surface0
 
   SystemClock {
@@ -24,16 +25,16 @@ Rectangle {
       anchors.verticalCenter: parent.verticalCenter
       text: Theme.icon(0xf017)   // nf-fa-clock_o
       color: Theme.accent
-      font.family: Theme.font
-      font.pixelSize: Theme.iconSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.iconSize
     }
 
     Text {
       anchors.verticalCenter: parent.verticalCenter
       text: Qt.formatDateTime(clock.date, "HH:mm")
       color: Theme.text
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
     }
 
@@ -41,8 +42,8 @@ Rectangle {
       anchors.verticalCenter: parent.verticalCenter
       text: Qt.formatDateTime(clock.date, "ddd d MMM")
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
     }
   }
 }

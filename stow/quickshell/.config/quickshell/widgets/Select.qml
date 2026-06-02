@@ -1,22 +1,10 @@
 import QtQuick
 
-import "../Theme"
+import "../themes"
+import "../config"
 
-// Select ─ an inline expanding dropdown selector.
-//
-//   Select {
-//     width: parent.width
-//     icon: 0xf028
-//     model: [{ text: "Speakers", value: nodeA },
-//             { text: "HDMI",     value: nodeB }]
-//     current: someValue
-//     onSelected: (value) => doThing(value)
-//   }
-//
-// Shows the current selection as a header row; clicking it expands the
-// option list beneath. Picking an option collapses the list and emits
-// `selected`. `model` is an array of { text, value } pairs; `value` may
-// be any type and is matched against `current` by identity.
+// Inline expanding selector. `model` is an array of { text, value } pairs;
+// `value` is matched against `current` by identity.
 Item {
   id: root
 
@@ -43,11 +31,10 @@ Item {
     width: parent.width
     spacing: 4
 
-    // Header ─ shows the current selection, toggles the option list.
     Rectangle {
       width: parent.width
-      height: Theme.itemHeight + 8
-      radius: Theme.itemRadius
+      height: Appearance.itemHeight + 8
+      radius: Appearance.itemRadius
       color: headerMouse.containsMouse ? Theme.surface1 : Theme.surface0
       Behavior on color { ColorAnimation { duration: 120 } }
 
@@ -59,8 +46,8 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         text: root.icon !== 0 ? Theme.icon(root.icon) : ""
         color: Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.iconSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.iconSize
       }
 
       Text {
@@ -72,8 +59,8 @@ Item {
         text: root.currentText
         elide: Text.ElideRight
         color: Theme.text
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
       }
 
       Text {
@@ -83,8 +70,8 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         text: Theme.icon(root.expanded ? 0xf077 : 0xf078)  // chevron up / down
         color: Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 2
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize - 2
       }
 
       MouseArea {
@@ -96,7 +83,6 @@ Item {
       }
     }
 
-    // Option list ─ excluded from layout (and height) while collapsed.
     Column {
       width: parent.width
       spacing: 2
@@ -112,8 +98,8 @@ Item {
           readonly property bool isCurrent: modelData.value === root.current
 
           width: parent.width
-          height: Theme.itemHeight
-          radius: Theme.itemRadius
+          height: Appearance.itemHeight
+          radius: Appearance.itemRadius
           color: optMouse.containsMouse ? Theme.surface1 : Theme.transparent
           Behavior on color { ColorAnimation { duration: 120 } }
 
@@ -126,8 +112,8 @@ Item {
             text: opt.modelData.text
             elide: Text.ElideRight
             color: opt.isCurrent ? Theme.accent : Theme.text
-            font.family: Theme.font
-            font.pixelSize: Theme.fontSize
+            font.family: Appearance.font
+            font.pixelSize: Appearance.fontSize
           }
 
           Text {
@@ -138,8 +124,8 @@ Item {
             visible: opt.isCurrent
             text: Theme.icon(0xf00c)  // check
             color: Theme.accent
-            font.family: Theme.font
-            font.pixelSize: Theme.fontSize - 2
+            font.family: Appearance.font
+            font.pixelSize: Appearance.fontSize - 2
           }
 
           MouseArea {

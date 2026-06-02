@@ -1,10 +1,9 @@
 import QtQuick
 
-import "../Theme"
+import "../themes"
+import "../config"
 
-// Toggle ─ a compact on/off switch.
-//
-//   Toggle { checked: dnd; onToggled: (on) => dnd = on }
+// Compact on/off switch.
 Item {
   id: root
 

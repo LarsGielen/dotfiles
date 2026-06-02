@@ -1,15 +1,16 @@
 import QtQuick
 import Quickshell.Hyprland
 
-import "../Theme"
+import "../../themes"
+import "../../config"
 
 Rectangle {
   id: root
   property string screenName: ""
 
-  implicitWidth: row.implicitWidth + Theme.padding * 2
-  implicitHeight: Theme.itemHeight
-  radius: Theme.itemRadius
+  implicitWidth: row.implicitWidth + Appearance.barPadding * 2
+  implicitHeight: Appearance.barItemHeight
+  radius: Appearance.barItemRadius
   color: Theme.surface0
 
   Row {
@@ -31,7 +32,7 @@ Rectangle {
           && modelData.monitor.activeWorkspace.id === modelData.id
 
         implicitWidth: (active ? 22 : 10) + 8
-        implicitHeight: Theme.itemHeight
+        implicitHeight: Appearance.barItemHeight
         Behavior on implicitWidth { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
 
         Rectangle {

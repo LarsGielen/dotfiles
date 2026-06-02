@@ -1,23 +1,24 @@
 import QtQuick
 
-import "../Components"
-import "../Processes"
-import "../Theme"
+import "../../widgets"
+import "../../services"
+import "../../themes"
+import "../../config"
 
 Row {
   id: root
-  spacing: detail.visible ? Theme.gap : 0
+  spacing: detail.visible ? Appearance.barGap : 0
 
   property bool expanded: false
 
   Rectangle {
     id: detail
-    height: Theme.itemHeight
-    radius: Theme.itemRadius
+    height: Appearance.barItemHeight
+    radius: Appearance.barItemRadius
     color: Theme.surface0
     clip: true
 
-    width: root.expanded ? inner.implicitWidth + Theme.padding * 2 : 0
+    width: root.expanded ? inner.implicitWidth + Appearance.barPadding * 2 : 0
     opacity: root.expanded ? 1 : 0
     visible: width > 1
 
@@ -27,7 +28,7 @@ Row {
     Row {
       id: inner
       anchors.right: parent.right
-      anchors.rightMargin: Theme.padding
+      anchors.rightMargin: Appearance.barPadding
       anchors.verticalCenter: parent.verticalCenter
       spacing: 13
 
@@ -59,6 +60,9 @@ Row {
   Pill {
     id: toggle
     interactive: true
+    itemHeight: Appearance.barItemHeight
+    itemRadius: Appearance.barItemRadius
+    hPadding: Appearance.barPadding
     active: root.expanded
     onClicked: root.expanded = !root.expanded
 
@@ -69,16 +73,16 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         text: Theme.icon(0xf2db)  // microchip
         color: toggle.active ? Theme.base : Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.iconSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.iconSize
       }
 
       Text {
         anchors.verticalCenter: parent.verticalCenter
         text: SystemStats.cpuUsageText
         color: toggle.active ? Theme.base : Theme.blue
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
         font.bold: true
       }
 
@@ -86,16 +90,16 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         text: "·"
         color: toggle.active ? Theme.base : Theme.overlay1
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
       }
 
       Text {
         anchors.verticalCenter: parent.verticalCenter
         text: SystemStats.gpuUsageText
         color: toggle.active ? Theme.base : Theme.green
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize
         font.bold: true
       }
 
@@ -103,8 +107,8 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         text: Theme.icon(0xf053)  // chevron-left
         color: toggle.active ? Theme.base : Theme.subtext
-        font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 2
+        font.family: Appearance.font
+        font.pixelSize: Appearance.fontSize - 2
         rotation: root.expanded ? 180 : 0
         Behavior on rotation { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
       }

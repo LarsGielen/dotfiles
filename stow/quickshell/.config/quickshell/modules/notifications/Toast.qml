@@ -2,26 +2,22 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.Notifications
 
-import "../Theme"
-import "../Services"
+import "../../themes"
+import "../../config"
+import "../../services"
 
-// Toast ─ one notification rendered as a floating pop-up. It starts collapsed
-// (app name + summary + one line of body) and expands on the chevron to reveal
-// the full body, an image and any action buttons. Clicking the card "opens" the
-// notification: it invokes the notification's default action if it has one, and
-// otherwise falls back to opening the folder of a file path found in the text
-// (so a finished download opens the file manager at the right place).
-//
-//   Toast { notif: someNotification }
+// One notification as a floating pop-up; expands on the chevron. NotificationItem
+// is the static Control Center variant. Clicking opens the default action, or
+// falls back to the file manager at a path found in the text.
 Rectangle {
   id: root
 
   required property var notif
-  property int pad: 12
+  property int pad: Appearance.toastPadding
   property bool expanded: false
   readonly property bool hovered: cardArea.containsMouse
 
-  radius: Theme.itemRadius
+  radius: Appearance.toastRadius
   color: cardArea.containsMouse ? Theme.base : Theme.mantle
   border.width: 1
   border.color: Theme.surface0
@@ -31,7 +27,6 @@ Rectangle {
   implicitHeight: content.implicitHeight + pad * 2
   Behavior on implicitHeight { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
 
-  // Entrance fade-in.
   opacity: 0
   Component.onCompleted: opacity = 1
   Behavior on opacity { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
@@ -41,13 +36,12 @@ Rectangle {
       notif.urgency === NotificationUrgency.Low      ? Theme.overlay0 :
                                                        Theme.accent
 
-  // ── "Open" target detection ───────────────────────────────────────────────
   readonly property var actionList: notif.actions
   readonly property bool hasDefault: {
     for (const a of actionList) if (a.identifier === "default") return true
     return false
   }
-  // A file path / file:// URI mentioned in the notification, if any.
+  // file path / file:// URI found in the text, if any
   readonly property string filePath: {
     const text = (notif.body || "") + "\n" + (notif.summary || "")
     let m = text.match(/file:\/\/(\/[^\s'"]+)/)
@@ -69,9 +63,9 @@ Rectangle {
     }
   }
 
-  // Pause the auto-hide countdown while hovered or expanded; restart it on leave.
+  // Pause the auto-hide countdown while hovered or expanded; restart on leave.
   Timer {
-    running: Theme.toastTimeout > 0 && !root.hovered && !root.expanded
+    running: Settings.toastTimeout > 0 && !root.hovered && !root.expanded
     interval: Notifications.popupRemaining(root.notif)
     repeat: false
     onTriggered: Notifications.removePopup(root.notif)
@@ -79,7 +73,6 @@ Rectangle {
   onHoveredChanged: if (!hovered) Notifications.touchPopup(notif)
   onExpandedChanged: if (!expanded) Notifications.touchPopup(notif)
 
-  // Click anywhere on the card (except the buttons, which sit on top) to open it.
   MouseArea {
     id: cardArea
     anchors.fill: parent
@@ -101,7 +94,6 @@ Rectangle {
     }
   }
 
-  // Optional thumbnail (notification image), shown small while collapsed.
   Rectangle {
     id: thumb
     visible: root.notif.image !== ""
@@ -127,13 +119,12 @@ Rectangle {
     }
   }
 
-  // Expand / collapse chevron.
   Text {
     id: chevron
     text: root.expanded ? Theme.icon(0xf077) : Theme.icon(0xf078)  // up / down
     color: chevronArea.containsMouse ? Theme.text : Theme.overlay1
-    font.family: Theme.font
-    font.pixelSize: Theme.fontSize - 2
+    font.family: Appearance.font
+    font.pixelSize: Appearance.fontSize - 2
     anchors {
       top: parent.top
       right: dismiss.left
@@ -150,14 +141,13 @@ Rectangle {
     }
   }
 
-  // Dismiss (hover-revealed).
   Text {
     id: dismiss
     text: "✕"
     visible: root.hovered || dismissArea.containsMouse
     color: dismissArea.containsMouse ? Theme.red : Theme.overlay1
-    font.family: Theme.font
-    font.pixelSize: Theme.fontSize
+    font.family: Appearance.font
+    font.pixelSize: Appearance.fontSize
     anchors {
       top: parent.top
       right: parent.right
@@ -190,8 +180,8 @@ Rectangle {
       visible: root.notif.appName !== ""
       text: root.notif.appName
       color: root.accent
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 3
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize - 3
       font.bold: true
       elide: Text.ElideRight
     }
@@ -201,8 +191,8 @@ Rectangle {
       visible: root.notif.summary !== ""
       text: root.notif.summary
       color: Theme.text
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
       elide: Text.ElideRight
       maximumLineCount: root.expanded ? 3 : 1
@@ -214,28 +204,26 @@ Rectangle {
       visible: root.notif.body !== ""
       text: root.notif.body
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       textFormat: Text.PlainText
       wrapMode: Text.WordWrap
       maximumLineCount: root.expanded ? 12 : 1
       elide: Text.ElideRight
     }
 
-    // Hint that the card is clickable, only while collapsed.
     Text {
       width: parent.width
       visible: root.clickable && !root.expanded
       text: root.hasDefault ? "↵ Click to open"
                             : "↵ Click to open in file manager"
       color: Theme.overlay0
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 3
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize - 3
       elide: Text.ElideRight
     }
 
-    // Action buttons (expanded only). The default action is handled by clicking
-    // the card itself, so it's excluded here.
+    // Action buttons (expanded); default action lives on the card click, so it's excluded.
     Flow {
       width: parent.width
       spacing: 6
@@ -251,7 +239,7 @@ Rectangle {
           required property var modelData
           height: 24
           width: actionLabel.implicitWidth + 18
-          radius: Theme.itemRadius - 2
+          radius: Appearance.toastRadius - 2
           color: actionBtn.containsMouse ? Theme.surface1 : Theme.surface0
           Behavior on color { ColorAnimation { duration: 120 } }
 
@@ -260,8 +248,8 @@ Rectangle {
             anchors.centerIn: parent
             text: modelData.text
             color: Theme.text
-            font.family: Theme.font
-            font.pixelSize: Theme.fontSize - 2
+            font.family: Appearance.font
+            font.pixelSize: Appearance.fontSize - 2
           }
 
           MouseArea {

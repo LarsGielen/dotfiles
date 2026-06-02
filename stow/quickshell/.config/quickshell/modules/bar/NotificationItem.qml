@@ -1,12 +1,10 @@
 import QtQuick
 import Quickshell.Services.Notifications
 
-import "../Theme"
+import "../../themes"
+import "../../config"
 
-// NotificationItem ─ one notification rendered as a card: an urgency-coloured
-// stripe, app name, summary and body, with a hover-to-reveal dismiss button.
-//
-//   NotificationItem { notif: someNotification }
+// One notification as a card (Control Center). Toast is the floating variant.
 Rectangle {
   id: root
 
@@ -14,7 +12,7 @@ Rectangle {
   property int pad: 12
 
   implicitHeight: content.implicitHeight + pad * 2
-  radius: Theme.itemRadius
+  radius: Appearance.barItemRadius
   color: Theme.mantle
   border.width: 1
   border.color: Theme.surface0
@@ -42,8 +40,8 @@ Rectangle {
     id: dismiss
     text: "✕"
     color: dismissArea.containsMouse ? Theme.red : Theme.overlay1
-    font.family: Theme.font
-    font.pixelSize: Theme.fontSize
+    font.family: Appearance.font
+    font.pixelSize: Appearance.fontSize
     anchors {
       top: parent.top
       right: parent.right
@@ -77,8 +75,8 @@ Rectangle {
       visible: root.notif.appName !== ""
       text: root.notif.appName
       color: root.accent
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize - 3
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize - 3
       font.bold: true
       elide: Text.ElideRight
     }
@@ -88,8 +86,8 @@ Rectangle {
       visible: root.notif.summary !== ""
       text: root.notif.summary
       color: Theme.text
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       font.bold: true
       elide: Text.ElideRight
     }
@@ -99,8 +97,8 @@ Rectangle {
       visible: root.notif.body !== ""
       text: root.notif.body
       color: Theme.subtext
-      font.family: Theme.font
-      font.pixelSize: Theme.fontSize
+      font.family: Appearance.font
+      font.pixelSize: Appearance.fontSize
       textFormat: Text.PlainText
       wrapMode: Text.WordWrap
       maximumLineCount: 4

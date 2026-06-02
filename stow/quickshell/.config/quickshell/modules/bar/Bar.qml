@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell
 
-import "../Theme"
+import "../../themes"
+import "../../config"
 
 Scope {
   Variants {
@@ -20,43 +21,40 @@ Scope {
         right: true
       }
 
-      implicitHeight: Theme.barHeight
+      implicitHeight: Appearance.barHeight
 
       Rectangle {
         id: bar
         anchors.fill: parent
-        anchors.topMargin: Theme.topMargin
-        anchors.leftMargin: Theme.sideMargin
-        anchors.rightMargin: Theme.sideMargin
+        anchors.topMargin: Appearance.barTopMargin
+        anchors.leftMargin: Appearance.barSideMargin
+        anchors.rightMargin: Appearance.barSideMargin
         anchors.bottomMargin: 0
 
         color: Theme.transparent
         border.width: 0
-        radius: Theme.radius
+        radius: Appearance.barRadius
 
-        // Left
         Row {
           anchors.left: parent.left
           anchors.verticalCenter: parent.verticalCenter
-          spacing: Theme.gap
+          spacing: Appearance.barGap
 
-          Workspaces { screenName: panel.modelData.name } 
+          Workspaces { screenName: panel.modelData.name }
         }
 
-        // Center
         Row {
           anchors.horizontalCenter: parent.horizontalCenter
           anchors.verticalCenter: parent.verticalCenter
-          spacing: Theme.gap  
+          spacing: Appearance.barGap  
 
           Clock {}
         }
 
-        // Right
         Row {
           anchors.right: parent.right
           anchors.verticalCenter: parent.verticalCenter
-          spacing: Theme.gap
+          spacing: Appearance.barGap
 
           ResourceMonitor {}
           Tray {}

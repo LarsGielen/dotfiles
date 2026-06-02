@@ -1,7 +1,7 @@
-// shell.qml
 import Quickshell
-import "Bar"
-import "Notifications"
+
+import "modules/bar"
+import "modules/notifications"
 
 Scope {
   Bar {}

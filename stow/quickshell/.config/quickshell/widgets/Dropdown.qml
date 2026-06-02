@@ -2,8 +2,8 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 
-import "../Theme"
-
+import "../themes"
+import "../config"
 
 PopupWindow {
   id: root
@@ -12,7 +12,7 @@ PopupWindow {
   property int contentWidth: 500
   property int pad: 14
   property int gap: 12
-  property int screenMargin: Theme.sideMargin
+  property int screenMargin: Appearance.sideMargin
 
   default property alias content: layout.data
 
@@ -26,7 +26,7 @@ PopupWindow {
   color: Theme.transparent
 
   anchor.item: anchorItem
-  anchor.rect.y: anchorItem ? anchorItem.height + Theme.gap : 0
+  anchor.rect.y: anchorItem ? anchorItem.height + Appearance.gap : 0
   anchor.rect.x: {
     if (!anchorItem || !root.screen) return 0
     const itemX = anchorItem.mapToItem(null, 0, 0).x
@@ -40,7 +40,7 @@ PopupWindow {
   Rectangle {
     anchors.fill: parent
     color: Theme.base
-    radius: Theme.radius
+    radius: Appearance.radius
     border.width: 1
     border.color: Theme.surface0
 
