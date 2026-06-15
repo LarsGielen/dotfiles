@@ -56,6 +56,7 @@ Scope {
 
           ResourceMonitor {}
           Tray {}
+          Network {}
           Audio {}
           ControlCenter {}
         }
