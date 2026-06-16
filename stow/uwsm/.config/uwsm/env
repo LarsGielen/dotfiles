@@ -2,3 +2,6 @@ export LIBVA_DRIVER_NAME=nvidia
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export GBM_BACKEND=nvidia-drm
 // export WLR_NO_HARDWARE_CURSORS=1
+
+export GTK_USE_PORTAL=1
+export GDK_DEBUG=portals

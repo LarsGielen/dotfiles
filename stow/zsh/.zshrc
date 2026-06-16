@@ -52,7 +52,6 @@ alias ls='ls --color'
 # Shell integrations
 eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # Yazi configuration
 function y() {
@@ -70,3 +69,6 @@ eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# zoxide must be initialized last, after all PATH/hook changes (e.g. pyenv)
+eval "$(zoxide init --cmd cd zsh)"
