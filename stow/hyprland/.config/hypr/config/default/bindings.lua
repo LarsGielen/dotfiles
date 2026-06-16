@@ -46,9 +46,6 @@ end
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Toggle game-mode window rules on/off (see windowrules.lua)
-hl.bind(mainMod .. " + SHIFT + G", function() _G.toggle_game_mode() end)
-
 ----------------------
 --- RESIZE SUBMAP ---
 ----------------------
