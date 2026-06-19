@@ -7,9 +7,10 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 
 # Aspects of the base system, in install order.
-# Bootstrap (git, yay) first so the rest can use git and the AUR.
+# Bootstrap (git, yay, stow) first so the rest can use git, the AUR, and
+# stow_config to symlink configs.
 BASE_MODULES=(
-    git yay
+    git yay stow
     drivers audio video bluetooth
     hyprland quickshell rofi
     keyboard kitty
