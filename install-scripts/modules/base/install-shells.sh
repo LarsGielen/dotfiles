@@ -15,4 +15,4 @@ stow_config zsh ~/.zshrc ~/.zprofile
 
 # Make zsh the default shell for the current user.
 info "Setting zsh as the default shell..."
-run_cmd sudo chsh -s "$(command -v zsh)"
+run_cmd chsh -s "$(command -v zsh)"
