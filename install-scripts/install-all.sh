@@ -5,8 +5,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 MODULES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/modules" && pwd)"
 
-# Must run before any AUR install (git for cloning, yay as the AUR helper).
-BOOTSTRAP=(git yay)
+# 'base' bootstraps the system (git, yay/AUR, drivers, …); run it before any
+# app module, which may depend on what base installs.
+BOOTSTRAP=(base)
 
 module_path() { echo "$MODULES_DIR/install-$1.sh"; }
 
