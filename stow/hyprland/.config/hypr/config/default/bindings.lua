@@ -4,6 +4,8 @@ local dots    = home .. "/dotfiles"
 
 hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("uwsm stop"))
 
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("qs ipc call bar toggle"), { release = true })
+
 ---------------------------
 --- Launch Applications ---
 ---------------------------
