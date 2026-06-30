@@ -15,7 +15,7 @@ BASE_MODULES=(
     hyprland quickshell rofi
     keyboard kitty
     shells starship yazi
-    snapper ufw reflector plymouth
+    snapper ufw reflector
     cli-tools
 )
 

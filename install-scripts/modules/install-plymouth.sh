@@ -3,14 +3,6 @@ source "$(dirname "${BASH_SOURCE[0]}")/../../lib/common.sh"
 
 install_packages plymouth
 
-# Host-specific: early-KMS modules (NVIDIA here) and the bundled theme name.
-# Adjust these two for a different GPU vendor or theme.
-NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-if ! grep -q 'nvidia' /etc/mkinitcpio.conf; then
-    info "Adding NVIDIA early KMS modules to mkinitcpio.conf..."
-    run_cmd sudo sed -i "s/^MODULES=(/MODULES=($NVIDIA_MODULES /" /etc/mkinitcpio.conf
-fi
-
 # Add plymouth to mkinitcpio.conf HOOKS
 if ! grep -q '\bplymouth\b' /etc/mkinitcpio.conf; then
     info "Adding plymouth hook to mkinitcpio.conf..."
