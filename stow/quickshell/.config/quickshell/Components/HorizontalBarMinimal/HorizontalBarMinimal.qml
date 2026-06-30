@@ -27,7 +27,7 @@ Scope {
 
             anchors { top: true; left: true; right: true }
             margins.top: Theme.screenMarginTop
-            property int _contentHeight: Math.max(clock.implicitHeight, control.implicitHeight || 0, workspaces.implicitHeight || 0)
+            property int _contentHeight: Math.max(clock.implicitHeight, control.implicitHeight || 0, notificationBell.implicitHeight || 0, workspaces.implicitHeight || 0)
             implicitHeight: _contentHeight + Theme.paddingV * 2
             color: "transparent"
 
@@ -90,6 +90,13 @@ Scope {
 
                 Clock {
                     id: clock
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.screenMarginSide + control.width + Theme.spacing + notificationBell.width + Theme.spacing
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                NotificationBell {
+                    id: notificationBell
                     anchors.right: parent.right
                     anchors.rightMargin: Theme.screenMarginSide + control.width + Theme.spacing
                     anchors.verticalCenter: parent.verticalCenter

@@ -17,6 +17,11 @@ Singleton {
     // toast resumes its countdown instead of restarting.
     property var expiry: ({})
 
+    // Do Not Disturb: notifications are still tracked into `list`, but no toast
+    // is floated while this is on.
+    property bool dnd: false
+    function toggleDnd(): void { dnd = !dnd }
+
     function dismissAll(): void {
         // Dismissing mutates the model, so iterate over a copy.
         for (const n of list.values.slice()) n.dismiss()
@@ -67,7 +72,8 @@ Singleton {
 
         onNotification: n => {
             n.tracked = true
-            root.pushPopup(n)
+            // DND keeps the notification in `list` but suppresses the toast.
+            if (!root.dnd) root.pushPopup(n)
             // When closed/dismissed from anywhere, pull its toast.
             n.closed.connect(() => root.removePopup(n))
         }
