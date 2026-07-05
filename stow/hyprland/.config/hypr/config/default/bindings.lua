@@ -2,7 +2,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local home    = os.getenv("HOME")
 local dots    = home .. "/dotfiles"
 
-hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("uwsm stop"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs ipc call session toggle"))
 
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("qs ipc call bar toggle"), { release = true })
 
@@ -13,7 +13,7 @@ hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("qs ipc call bar toggle"), { release 
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd("uwsm app -- kitty"))
 hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("uwsm app -- kitty zsh -ic \"y; exec zsh\""))
 hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("uwsm app -- vivaldi-stable --profile-directory=\"Default\""))
-hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("rofi -show drun -run-command 'uwsm app -- {cmd}'"))
+hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind("PRINT",                hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -------------------------

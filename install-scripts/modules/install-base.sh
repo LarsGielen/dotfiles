@@ -12,11 +12,11 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 BASE_MODULES=(
     git yay stow
     drivers audio video bluetooth
-    hyprland quickshell rofi
+    hyprland quickshell
     keyboard kitty
     shells starship yazi
     snapper ufw reflector
-    cli-tools
+    cli-tools general
 )
 
 for m in "${BASE_MODULES[@]}"; do

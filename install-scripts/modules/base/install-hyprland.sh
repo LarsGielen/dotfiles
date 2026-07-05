@@ -8,16 +8,16 @@ install_packages \
     hyprland
 
 # Hyprland dependencies
+# Note: the polkit authentication agent is provided by the Quickshell shell
+# (Components/Polkit/PolkitPrompt.qml), so hyprpolkitagent is intentionally not
+# installed or enabled here — only one polkit agent can serve the session.
 install_packages \
-    hyprpolkitagent \
     xdg-desktop-portal \
     xdg-desktop-portal-hyprland \
     xdg-desktop-portal-gtk \
     qt5-wayland \
     qt6-wayland \
     xorg-xhost
-    
-run_cmd systemctl --user enable --now hyprpolkitagent.service
 
 # Fonts
 install_packages noto-fonts-emoji

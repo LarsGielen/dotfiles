@@ -1,10 +1,5 @@
--- Visual
-hl.layer_rule({ match = { namespace = "rofi" },        blur = true, ignore_alpha = 0 })
-hl.layer_rule({ match = { namespace = "eww-sysmon" },  blur = true, ignore_alpha = 0 })
-
--- Notifications
-hl.layer_rule({ match = { namespace = "swaync-control-center" },     blur = true, ignore_alpha = 0.5 })
-hl.layer_rule({ match = { namespace = "swaync-notification-window" }, blur = true, ignore_alpha = 0.5 })
+-- Quickshell modal overlays (launcher / session menu / auth prompt)
+hl.layer_rule({ match = { namespace = "quickshell-overlay" }, blur = true, ignore_alpha = 0.4 })
 
 -- Floating
 hl.window_rule({ match = { title = "Open File" }, float = true, center = true })
@@ -16,7 +11,7 @@ hl.window_rule({ match = { class = "steam", title = "Sign in to Steam" }, center
 
 -- General
 -- Ignore maximize requests from apps.
--- hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
+hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
 
 -- Fix some dragging issues with XWayland
 hl.window_rule({
@@ -67,23 +62,3 @@ hl.window_rule({
     size = { 900, 600 },
     center = true,
 })
-
--- Steam UI
--- hl.window_rule({ match = { class = "steam" }, workspace = "special:steam silent" })
-
--- Game mode: toggle via SUPER + SHIFT + G (see bindings.lua).
--- When disabled, gamescope windows open as regular tiled windows.
--- local game_rules = {
---     hl.window_rule({ match = { class = "gamescope" },  tag = "+game" }),
---     hl.window_rule({ match = { tag = "game" }, workspace = "name:game silent" }),
---     hl.window_rule({ match = { tag = "game" }, fullscreen = true }),
---     hl.window_rule({ match = { tag = "game" }, tile = true }),
--- }
--- local game_enabled = true
--- _G.toggle_game_mode = function()
---     game_enabled = not game_enabled
---     for _, rule in ipairs(game_rules) do
---         rule:set_enabled(game_enabled)
---     end
---     hl.exec_cmd("notify-send 'Game mode " .. (game_enabled and "on" or "off") .. "'")
--- end

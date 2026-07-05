@@ -5,7 +5,7 @@ install_packages \
     steam \
     gamemode \
     gamescope \
-    mangohud
+    mangohud 
 
 info "Adding $USER to the gamemode group..."
 run_cmd sudo usermod -aG gamemode "$USER"
@@ -22,7 +22,7 @@ install_proton_ge() {
     local release tag url
     release=$(curl -fsSL "$api")
     tag=$(grep -oP '"tag_name":\s*"\K[^"]+' <<< "$release")
-    url=$(grep -oP '"browser_download_url":\s*"\K[^"]+\.tar\.gz' <<< "$release")
+    url=$(grep -oP '"browser_download_url":\s*"\K[^"]+\.tar\.gz' <<< "$release" | grep -v -- '-aarch64\.tar\.gz$')
 
     if [[ -d "$install_dir/$tag" ]]; then
         info "Proton-GE $tag already installed, skipping."

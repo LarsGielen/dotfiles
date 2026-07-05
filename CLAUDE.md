@@ -38,7 +38,7 @@ There is no test suite; `make lint`/`make check` are the only verification steps
   module name is the filename minus `install-` and `.sh`.
 - **Base aspects:** `modules/install-base.sh` delegates to
   `modules/base/install-<aspect>.sh`, run in the fixed order defined in that file
-  (bootstrap → drivers/audio/video → hyprland/quickshell/rofi → shells/tools → system).
+  (bootstrap → drivers/audio/video → shells/tools → system).
 - **Shared library:** every script sources `install-scripts/lib/common.sh`, which
   provides:
   - `install_packages <pkg>...` (pacman), `install_aur <pkg>...` (yay) — both skip
