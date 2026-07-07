@@ -112,10 +112,10 @@ Scope {
 
             // Off-screen slide offset the content enters from / exits to.
             readonly property int slideFrom: root.position === OverlayConfig.Pos.BottomCenter
-                                             ? OverlayConfig.slideDistance
-                                             : root.position === OverlayConfig.Pos.TopCenter
-                                               ? -OverlayConfig.slideDistance
-                                               : 0
+                ? OverlayConfig.slideDistance
+                : root.position === OverlayConfig.Pos.TopCenter
+                ? -OverlayConfig.slideDistance
+                : 0
 
             Item {
                 id: card
@@ -132,14 +132,16 @@ Scope {
                 }
 
                 opacity: 0
-                scale: 0.9
+                scale: 0
                 transform: Translate { id: slide; y: 0 }
             }
 
             ParallelAnimation {
                 id: openAnim
-                NumberAnimation { target: card;  property: "opacity"; from: 0; to: 1; duration: OverlayConfig.animOpen; easing.type: Easing.OutCubic }
-                NumberAnimation { target: card;  property: "scale";   from: 0.9; to: 1; duration: OverlayConfig.animOpen; easing.type: Easing.OutBack; easing.overshoot: OverlayConfig.overshoot }
+                // opacity ramps in faster than the scale so the card isn't
+                // invisible while it's still tiny.
+                NumberAnimation { target: card;  property: "opacity"; from: 0; to: 1; duration: Math.round(OverlayConfig.animOpen * 0.6); easing.type: Easing.OutCubic }
+                NumberAnimation { target: card;  property: "scale";   from: 0.5; to: 1; duration: OverlayConfig.animOpen; easing.type: Easing.OutBack; easing.overshoot: OverlayConfig.overshoot }
                 NumberAnimation { target: slide; property: "y"; from: focusScope.slideFrom; to: 0; duration: OverlayConfig.animOpen; easing.type: Easing.OutCubic }
             }
 
@@ -147,7 +149,7 @@ Scope {
                 id: closeAnim
                 ParallelAnimation {
                     NumberAnimation { target: card;  property: "opacity"; to: 0; duration: OverlayConfig.animClose; easing.type: Easing.InCubic }
-                    NumberAnimation { target: card;  property: "scale";   to: 0.9; duration: OverlayConfig.animClose; easing.type: Easing.InCubic }
+                    NumberAnimation { target: card;  property: "scale";   to: 0; duration: OverlayConfig.animClose; easing.type: Easing.InBack; easing.overshoot: OverlayConfig.overshoot }
                     NumberAnimation { target: slide; property: "y"; to: focusScope.slideFrom; duration: OverlayConfig.animClose; easing.type: Easing.InCubic }
                 }
                 ScriptAction { script: win.visible = false }

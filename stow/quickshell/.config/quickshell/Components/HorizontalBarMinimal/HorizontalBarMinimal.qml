@@ -35,7 +35,6 @@ Scope {
             property bool barIn: true
 
             readonly property int reservedHeight: implicitHeight
-            readonly property int hiddenY: -(panel.height + Theme.ScreenMarginTop)
 
             exclusiveZone: panel.reserveOn ? reservedHeight : 0
 
@@ -52,61 +51,92 @@ Scope {
                 }
             }
             Timer { id: barInTimer; interval: 130; onTriggered: panel.barIn = true }
-            Timer { id: reserveOffTimer; interval: Math.round(Theme.animNormal * 0.5); onTriggered: panel.reserveOn = false }
+            Timer { id: reserveOffTimer; interval: Theme.animNormal; onTriggered: panel.reserveOn = false }
 
             mask: panel.barIn ? clickRegion : emptyRegion
             Region { id: clickRegion; item: reveal }
             Region { id: emptyRegion }
 
+            component BarItem: Item {
+                id: cell
+                property real drive: 1
+                anchors.verticalCenter: parent.verticalCenter
+                enabled: panel.barIn
+                opacity: Math.min(1, drive * 2)
+                transform: Scale {
+                    origin.x: cell.width / 2
+                    origin.y: cell.height / 2
+                    xScale: cell.drive
+                    yScale: cell.drive
+                }
+
+                NumberAnimation {
+                    id: popAnim
+                    target: cell
+                    property: "drive"
+                    easing.overshoot: 2
+                }
+                Connections {
+                    target: panel
+                    function onBarInChanged() {
+                        popAnim.stop();
+                        if (panel.barIn) {
+                            popAnim.from = 0;
+                            popAnim.to = 1;
+                            popAnim.duration = Theme.animNormal * 1.5;
+                            popAnim.easing.type = Easing.OutBack;
+                        } else {
+                            popAnim.from = cell.drive;
+                            popAnim.to = 0;
+                            popAnim.duration = Theme.animNormal * 1.5;
+                            popAnim.easing.type = Easing.InBack;
+                        }
+                        popAnim.restart();
+                    }
+                }
+            }
+
             Item {
                 id: reveal
                 anchors.fill: parent
-                enabled: panel.barIn
 
-                opacity: panel.barIn ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: Theme.animNormal; easing.type: Easing.OutCubic } }
+                BarItem {
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.screenMarginSide
+                    implicitWidth: workspaces.implicitWidth
+                    implicitHeight: workspaces.implicitHeight
 
-                transform: Translate {
-                    y: panel.barIn ? 0 : panel.hiddenY
-                    Behavior on y {
-                        NumberAnimation {
-                            duration: Theme.animNormal
-                            easing.type: root.revealed ? Easing.OutBack : Easing.InBack
-                            easing.overshoot: 1.3
-                        }
+                    Workspaces {
+                        id: workspaces
+                        anchors.fill: parent
+                        screen: panel.screen
+                        display: Workspaces.Display.AllScreens
+                        perMonitor: true
                     }
                 }
 
-                Workspaces {
-                    id: workspaces
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.screenMarginSide
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    screen: panel.screen
-                    display: Workspaces.Display.AllScreens
-                    perMonitor: true
-                }
-
-                Clock {
-                    id: clock
+                BarItem {
                     anchors.right: parent.right
                     anchors.rightMargin: Theme.screenMarginSide + control.width + Theme.spacing + notificationBell.width + Theme.spacing
-                    anchors.verticalCenter: parent.verticalCenter
+                    implicitWidth: clock.implicitWidth
+                    implicitHeight: clock.implicitHeight
+                    Clock { id: clock; anchors.fill: parent }
                 }
 
-                NotificationBell {
-                    id: notificationBell
+                BarItem {
                     anchors.right: parent.right
                     anchors.rightMargin: Theme.screenMarginSide + control.width + Theme.spacing
-                    anchors.verticalCenter: parent.verticalCenter
+                    implicitWidth: notificationBell.implicitWidth
+                    implicitHeight: notificationBell.implicitHeight
+                    NotificationBell { id: notificationBell; anchors.fill: parent }
                 }
 
-                Control {
-                    id: control
+                BarItem {
                     anchors.right: parent.right
                     anchors.rightMargin: Theme.screenMarginSide
-                    anchors.verticalCenter: parent.verticalCenter
+                    implicitWidth: control.implicitWidth
+                    implicitHeight: control.implicitHeight
+                    Control { id: control; anchors.fill: parent }
                 }
             }
         }

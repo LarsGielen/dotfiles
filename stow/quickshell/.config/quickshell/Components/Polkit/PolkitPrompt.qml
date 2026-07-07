@@ -32,11 +32,21 @@ Scope {
             if (overlay.flow) overlay.flow.submit(field.text)
         }
 
+        // Retry UX: a failed attempt keeps the flow alive, so just clear the
+        // field and refocus for another try.
         Connections {
             target: overlay.flow
-            function onAuthenticationSucceeded() { overlay.close() }
             function onAuthenticationFailed() { field.clear(); field.input.forceActiveFocus() }
-            function onAuthenticationRequestCancelled() { overlay.close() }
+        }
+
+        // Close when the request finishes. On success (or agent-side cancel) the
+        // agent tears down `flow` -> null, and that teardown races the flow's own
+        // authenticationSucceeded/Cancelled signals — by the time they fire, the
+        // Connections above has already disconnected from the null flow. Watching
+        // the agent (which persists) lose its flow is the reliable close trigger.
+        Connections {
+            target: agent
+            function onFlowChanged() { if (!agent.flow) overlay.close() }
         }
 
         StyledRect {

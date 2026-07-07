@@ -24,8 +24,8 @@ Singleton {
 
     // Reveal / dismiss animation.
     property int  animOpen: Theme.animNormal
-    property int  animClose: Theme.animFast
-    property real overshoot: 1.15
+    property int  animClose: Theme.animNormal
+    property real overshoot: 1.2
     // How far (px) content slides in from the anchored edge on open.
     property int  slideDistance: 40
 

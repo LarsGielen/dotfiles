@@ -12,7 +12,7 @@ hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("qs ipc call bar toggle"), { release 
 
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd("uwsm app -- kitty"))
 hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("uwsm app -- kitty zsh -ic \"y; exec zsh\""))
-hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("uwsm app -- vivaldi-stable --profile-directory=\"Default\""))
+hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("uwsm app -- vivaldi-stable --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --canvas-oop-rasterization --enable-gpu-rasterization --profile-directory=\"Default\""))
 hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind("PRINT",                hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
