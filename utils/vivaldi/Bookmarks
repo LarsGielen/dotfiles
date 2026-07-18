@@ -1,0 +1,493 @@
+{
+  "checksum": "fbb202e8c459d99e926dcd807ff89078",
+  "roots": {
+    "bookmark_bar": {
+      "children": [
+        {
+          "date_added": "13419011270381610",
+          "date_last_used": "0",
+          "guid": "e9fe9b1c-3de8-48dc-a4d4-d0ad12ce0a54",
+          "id": "82",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Onshape",
+          "type": "url",
+          "url": "https://cad.onshape.com/documents?resourceType=resourcecompanyowner&nodeId=68edfe8249d88481e0023104"
+        },
+        {
+          "date_added": "13424948180403590",
+          "date_last_used": "0",
+          "guid": "ffc8625f-eb25-4f8d-b84e-d0f5ddd8c23f",
+          "id": "83",
+          "meta_info": {
+            "Nickname": "Fiets",
+            "ThemeColor": "4294967295",
+            "power_bookmark_meta": ""
+          },
+          "name": "Fiets Vergoeding",
+          "type": "url",
+          "url": "https://uhasselt.get.be/Primetime/webapp/?locale=nl"
+        },
+        {
+          "date_added": "13418723743198947",
+          "date_last_used": "0",
+          "guid": "68d1e678-cd5b-480c-9293-01ae9ddd1dd5",
+          "id": "84",
+          "meta_info": {
+            "Nickname": "bb",
+            "power_bookmark_meta": ""
+          },
+          "name": "Blackboard Uhasselt",
+          "type": "url",
+          "url": "https://bb.uhasselt.be/ultra/course"
+        },
+        {
+          "date_added": "13420880282143129",
+          "date_last_used": "0",
+          "guid": "fd595d1a-f662-4a5b-b714-5877dd4e5250",
+          "id": "85",
+          "meta_info": {
+            "Nickname": "kbc",
+            "power_bookmark_meta": ""
+          },
+          "name": "KBC Touch",
+          "type": "url",
+          "url": "https://kbctouch.kbc.be/LAE-P/A044/resources/0001/nl/authenticated/payments/payment-dashboard/personal/dashboard?version=2602"
+        },
+        {
+          "date_added": "13423225547350850",
+          "date_last_used": "0",
+          "guid": "a912b078-78ba-4466-9d97-d88e2a3a781f",
+          "id": "86",
+          "meta_info": {
+            "Nickname": "Hypr",
+            "power_bookmark_meta": ""
+          },
+          "name": "Hyprland",
+          "type": "url",
+          "url": "https://hypr.land/news/"
+        },
+        {
+          "date_added": "13411773641386480",
+          "date_last_used": "0",
+          "guid": "b2a03519-76df-47be-9e24-fd43834fc63e",
+          "id": "87",
+          "meta_info": {
+            "Nickname": "f95",
+            "power_bookmark_meta": ""
+          },
+          "name": "f95zone",
+          "type": "url",
+          "url": "https://f95zone.to/"
+        },
+        {
+          "date_added": "13414339038049066",
+          "date_last_used": "0",
+          "guid": "d619d4a6-8798-4532-96e1-45843db8cf74",
+          "id": "88",
+          "meta_info": {
+            "Nickname": "Cron",
+            "power_bookmark_meta": ""
+          },
+          "name": "Cronometer",
+          "type": "url",
+          "url": "https://cronometer.com/"
+        },
+        {
+          "date_added": "13416158873243108",
+          "date_last_used": "0",
+          "guid": "0c8c737f-82e5-490e-9065-ea55cb197dd9",
+          "id": "89",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "KBC Touch",
+          "type": "url",
+          "url": "https://kbctouch.kbc.be/LAE-P/A044/resources/0001/nl/authenticated/payments/payment-dashboard/personal/dashboard?version=2510"
+        },
+        {
+          "date_added": "13409142232364751",
+          "date_last_used": "0",
+          "guid": "a3fb33be-8d97-406d-85a9-c524fe66d8e7",
+          "id": "90",
+          "meta_info": {
+            "ThemeColor": "4280165159",
+            "power_bookmark_meta": ""
+          },
+          "name": "Git",
+          "type": "url",
+          "url": "https://github.com/"
+        },
+        {
+          "children": [
+            {
+              "date_added": "13404581423258221",
+              "date_last_used": "0",
+              "guid": "8b069b45-5528-40c6-be41-61784701937a",
+              "id": "92",
+              "meta_info": {
+                "Nickname": "Cla",
+                "ThemeColor": "4279703318",
+                "power_bookmark_meta": ""
+              },
+              "name": "Claude",
+              "type": "url",
+              "url": "https://claude.ai/new"
+            },
+            {
+              "date_added": "13399461563922216",
+              "date_last_used": "0",
+              "guid": "b8506cbf-e14c-4ef4-b581-18a4aba368fe",
+              "id": "93",
+              "meta_info": {
+                "Nickname": "Gem",
+                "ThemeColor": "4294967295",
+                "power_bookmark_meta": ""
+              },
+              "name": "Gemini",
+              "type": "url",
+              "url": "https://gemini.google.com/"
+            },
+            {
+              "date_added": "13393370409493404",
+              "date_last_used": "0",
+              "guid": "30f68b47-33b6-4223-875e-33aa318bd64d",
+              "id": "94",
+              "meta_info": {
+                "Nickname": "gp",
+                "ThemeColor": "4280165159",
+                "power_bookmark_meta": ""
+              },
+              "name": "ChatGPT",
+              "type": "url",
+              "url": "https://chatgpt.com/"
+            }
+          ],
+          "date_added": "13406822365561945",
+          "date_last_used": "0",
+          "date_modified": "13406822365561945",
+          "guid": "2e721df8-4fd5-4228-b92e-139580759c29",
+          "id": "91",
+          "name": "AI",
+          "type": "folder"
+        },
+        {
+          "children": [
+            {
+              "date_added": "13409576604660486",
+              "date_last_used": "0",
+              "guid": "75053ac0-2023-4dbd-8eb1-648c2843b78c",
+              "id": "96",
+              "meta_info": {
+                "power_bookmark_meta": ""
+              },
+              "name": "Benefits@work",
+              "type": "url",
+              "url": "https://uhasselt.benefitsatwork.be/"
+            },
+            {
+              "date_added": "13406818459832336",
+              "date_last_used": "0",
+              "guid": "305b3be6-2992-48f3-a906-9b7cf1ad5aff",
+              "id": "97",
+              "meta_info": {
+                "ThemeColor": "4278190244",
+                "power_bookmark_meta": ""
+              },
+              "name": "Bol",
+              "type": "url",
+              "url": "https://www.bol.com/be/nl/"
+            },
+            {
+              "date_added": "13406818408142268",
+              "date_last_used": "0",
+              "guid": "3e9f838b-628d-4be4-85e8-0dda1535e83b",
+              "id": "98",
+              "meta_info": {
+                "power_bookmark_meta": ""
+              },
+              "name": "Amazon",
+              "type": "url",
+              "url": "https://www.amazon.com.be/"
+            }
+          ],
+          "date_added": "13406818400771516",
+          "date_last_used": "0",
+          "date_modified": "13409576604660486",
+          "guid": "e9637061-94cf-46b5-b52e-d99a1c806de5",
+          "id": "95",
+          "name": "Winkels",
+          "type": "folder"
+        },
+        {
+          "children": [
+            {
+              "date_added": "13397068973825435",
+              "date_last_used": "0",
+              "guid": "59852c73-cc01-4930-85c8-dea46fbdbe5b",
+              "id": "100",
+              "meta_info": {
+                "Nickname": "Net",
+                "power_bookmark_meta": ""
+              },
+              "name": "Netflix",
+              "type": "url",
+              "url": "https://www.netflix.com/browse"
+            },
+            {
+              "date_added": "13394362946750053",
+              "date_last_used": "0",
+              "guid": "ed6176ec-73d8-451b-918d-a9fdc2c269f8",
+              "id": "101",
+              "meta_info": {
+                "ThemeColor": "4294967295",
+                "power_bookmark_meta": ""
+              },
+              "name": "Disney",
+              "type": "url",
+              "url": "https://www.disneyplus.com/nl-nl/home"
+            },
+            {
+              "date_added": "13393372342733119",
+              "date_last_used": "0",
+              "guid": "6837f434-1300-4f97-9f77-18c1c040f7a1",
+              "id": "102",
+              "meta_info": {
+                "Nickname": "Sp",
+                "power_bookmark_meta": ""
+              },
+              "name": "Spotify",
+              "type": "url",
+              "url": "http://open.spotify.com/"
+            },
+            {
+              "date_added": "13393370310041094",
+              "date_last_used": "0",
+              "guid": "66548825-7766-4e6e-99b6-0bd5987ca16b",
+              "id": "103",
+              "meta_info": {
+                "Nickname": "yt",
+                "ThemeColor": "4196475169",
+                "power_bookmark_meta": ""
+              },
+              "name": "Youtube",
+              "type": "url",
+              "url": "https://www.youtube.com/feed/subscriptions"
+            }
+          ],
+          "date_added": "13406822387435540",
+          "date_last_used": "0",
+          "date_modified": "13406822387435540",
+          "guid": "278d7cfb-c6d0-4728-9d95-81ad7c213b83",
+          "id": "99",
+          "name": "Media",
+          "type": "folder"
+        },
+        {
+          "date_added": "13406465418108492",
+          "date_last_used": "0",
+          "guid": "63ccf851-0e81-4b2f-92cf-a44da1b9c3b9",
+          "id": "104",
+          "meta_info": {
+            "Nickname": "Cal",
+            "ThemeColor": "4279966491",
+            "power_bookmark_meta": ""
+          },
+          "name": "Calender",
+          "type": "url",
+          "url": "https://outlook.cloud.microsoft/calendar/view/workweek?culture=en-us&country=us"
+        },
+        {
+          "date_added": "13397482206038774",
+          "date_last_used": "0",
+          "guid": "9c6b52a7-a061-409e-8c67-53aad3d51cd0",
+          "id": "105",
+          "meta_info": {
+            "ThemeColor": "4294246487",
+            "power_bookmark_meta": ""
+          },
+          "name": "Proton",
+          "type": "url",
+          "url": "https://www.protondb.com/"
+        },
+        {
+          "date_added": "13397598470762362",
+          "date_last_used": "0",
+          "guid": "56bb7eb5-9675-42c1-bb94-f998b1726dbb",
+          "id": "106",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Weer",
+          "type": "url",
+          "url": "https://www.google.com/search?q=pelt+weerbericht&sourceid=chrome&ie=UTF-8"
+        },
+        {
+          "date_added": "13397658231555362",
+          "date_last_used": "0",
+          "guid": "628503ec-0afc-4281-8597-1d7bd8d5ef09",
+          "id": "107",
+          "meta_info": {
+            "ThemeColor": "4279242772",
+            "power_bookmark_meta": ""
+          },
+          "name": "fab",
+          "type": "url",
+          "url": "https://www.fab.com/"
+        },
+        {
+          "date_added": "13397756080326085",
+          "date_last_used": "0",
+          "guid": "00b75208-b529-4c1c-8bae-26a05667177c",
+          "id": "108",
+          "meta_info": {
+            "ThemeColor": "4294967295",
+            "power_bookmark_meta": ""
+          },
+          "name": "Overleaf",
+          "type": "url",
+          "url": "https://www.overleaf.com/project"
+        },
+        {
+          "date_added": "13397760665727711",
+          "date_last_used": "0",
+          "guid": "7a15d2b6-3fad-4b65-8d21-1889f322f5b7",
+          "id": "109",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Maps",
+          "type": "url",
+          "url": "https://www.google.com/maps"
+        },
+        {
+          "date_added": "13398075146664155",
+          "date_last_used": "0",
+          "guid": "9745f32a-c1bf-4452-8eb3-5aa6a42d3c47",
+          "id": "110",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Unity",
+          "type": "url",
+          "url": "https://assetstore.unity.com/"
+        },
+        {
+          "date_added": "13395767904564058",
+          "date_last_used": "0",
+          "guid": "42532d58-32dc-40f8-957f-0ed5126ba077",
+          "id": "111",
+          "meta_info": {
+            "Nickname": "Arch",
+            "power_bookmark_meta": ""
+          },
+          "name": "Arch Wiki",
+          "type": "url",
+          "url": "https://wiki.archlinux.org/title/Main_page"
+        },
+        {
+          "date_added": "13393370864190722",
+          "date_last_used": "0",
+          "guid": "d07c0074-5741-4d2b-a831-d38d244806f4",
+          "id": "112",
+          "meta_info": {
+            "Nickname": "wa",
+            "ThemeColor": "4280098591",
+            "power_bookmark_meta": ""
+          },
+          "name": "WhatsApp",
+          "type": "url",
+          "url": "https://web.whatsapp.com/"
+        },
+        {
+          "date_added": "13393436165171897",
+          "date_last_used": "0",
+          "guid": "5a820891-e891-4522-afec-b9f329a9a53c",
+          "id": "113",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Keybr",
+          "type": "url",
+          "url": "https://www.keybr.com/"
+        },
+        {
+          "date_added": "13406825285454186",
+          "date_last_used": "0",
+          "guid": "2dd283ef-9056-4326-a17f-c0777fb5473a",
+          "id": "114",
+          "meta_info": {
+            "ThemeColor": "4294967295",
+            "power_bookmark_meta": ""
+          },
+          "name": "JustETF",
+          "type": "url",
+          "url": "https://www.justetf.com/en/search.html?search=ETFS"
+        },
+        {
+          "date_added": "13393536957493126",
+          "date_last_used": "0",
+          "guid": "5bcb4f07-5f10-467a-9b9c-233770b568a2",
+          "id": "115",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Mail",
+          "type": "url",
+          "url": "https://outlook.office.com/mail/?culture=en-us&country=us"
+        },
+        {
+          "date_added": "13401053848754364",
+          "date_last_used": "0",
+          "guid": "fd07a3d4-93c8-40a0-9352-ceed485771ad",
+          "id": "116",
+          "meta_info": {
+            "power_bookmark_meta": ""
+          },
+          "name": "Drive",
+          "type": "url",
+          "url": "https://drive.google.com/drive/u/0/my-drive"
+        }
+      ],
+      "date_added": "13428403072078435",
+      "date_last_used": "0",
+      "date_modified": "13424948180403590",
+      "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+      "id": "1",
+      "name": "Bookmarks",
+      "type": "folder"
+    },
+    "other": {
+      "children": [],
+      "date_added": "13428403072078435",
+      "date_last_used": "0",
+      "date_modified": "0",
+      "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+      "id": "2",
+      "name": "Other bookmarks",
+      "type": "folder"
+    },
+    "synced": {
+      "children": [],
+      "date_added": "13428403072078435",
+      "date_last_used": "0",
+      "date_modified": "0",
+      "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+      "id": "3",
+      "name": "Mobile bookmarks",
+      "type": "folder"
+    },
+    "trash": {
+      "children": [],
+      "date_added": "13428403072078435",
+      "date_last_used": "0",
+      "date_modified": "13428404225578271",
+      "guid": "9f32a0fb-bfd9-5032-be46-07afe4a25400",
+      "id": "4",
+      "name": "Trash",
+      "type": "folder"
+    }
+  },
+  "version": 1
+}

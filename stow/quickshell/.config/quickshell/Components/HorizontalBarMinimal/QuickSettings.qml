@@ -13,7 +13,7 @@ ColumnLayout {
     id: root
     spacing: Theme.spacing
 
-    // "" | "audio" | "bluetooth" — which tile's drawer is open (one at a time).
+    // "" | "audio" | "bluetooth" | "vpn" — which tile's drawer is open (one at a time).
     property string openSection: ""
     function _toggle(s: string): void { root.openSection = root.openSection === s ? "" : s }
 
@@ -89,6 +89,22 @@ ColumnLayout {
             onPrimary: Bluetooth.toggle()
             onExpand: root._toggle("bluetooth")
         }
+
+        Tile {
+            Layout.fillWidth: true
+            Layout.columnSpan: 2
+            icon: ""                                    // shield
+            title: "VPN"
+            subtitle: !Vpn.profiles.length ? "No profiles"
+                    : Vpn.busy               ? "Connecting…"
+                    : Vpn.connected          ? Vpn.activeProfile
+                    : "Off"
+            active: Vpn.connected
+            expandable: Vpn.profiles.length > 0
+            expanded: root.openSection === "vpn"
+            onPrimary: Vpn.toggle()
+            onExpand: root._toggle("vpn")
+        }
     }
 
     // --- detail drawer (shared, one open at a time) ---
@@ -108,6 +124,7 @@ ColumnLayout {
             Repeater {
                 model: root.openSection === "audio"     ? Audio.sinks
                      : root.openSection === "bluetooth" ? Bluetooth.devices
+                     : root.openSection === "vpn"       ? Vpn.profiles
                      : []
 
                 delegate: MenuItem {
@@ -115,13 +132,19 @@ ColumnLayout {
                     Layout.fillWidth: true
                     label: root.openSection === "audio"
                         ? (modelData.description || modelData.nickname || modelData.name)
-                        : (modelData.name || modelData.deviceName || modelData.address)
+                        : root.openSection === "bluetooth"
+                        ? (modelData.name || modelData.deviceName || modelData.address)
+                        : modelData
                     selected: root.openSection === "audio"
                         ? (modelData === Audio.sink)
-                        : modelData.connected
+                        : root.openSection === "bluetooth"
+                        ? modelData.connected
+                        : modelData === Vpn.activeProfile
                     onClicked: {
                         if (root.openSection === "audio") Audio.setSink(modelData)
-                        else Bluetooth.toggleDevice(modelData)
+                        else if (root.openSection === "bluetooth") Bluetooth.toggleDevice(modelData)
+                        else if (modelData === Vpn.activeProfile) Vpn.disconnect()
+                        else Vpn.connect(modelData)
                     }
                 }
             }
