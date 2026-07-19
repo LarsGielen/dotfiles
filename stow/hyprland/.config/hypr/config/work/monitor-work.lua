@@ -12,6 +12,6 @@ hl.monitor({ output = "",        mode = "preferred", position = "auto",       sc
 hl.workspace_rule({ workspace = "1", monitor = primary,   persistent = true })
 hl.workspace_rule({ workspace = "2", monitor = primary,   persistent = true })
 hl.workspace_rule({ workspace = "3", monitor = primary,   persistent = true })
-hl.workspace_rule({ workspace = "4", monitor = secondary, persistent = true, layout = "scrolling" })
-hl.workspace_rule({ workspace = "5", monitor = secondary, persistent = true, layout = "scrolling" })
+hl.workspace_rule({ workspace = "4", monitor = secondary, persistent = true, layout = "lua:even" })
+hl.workspace_rule({ workspace = "5", monitor = secondary, persistent = true, layout = "lua:even" })
 hl.workspace_rule({ workspace = "6", monitor = laptop,    persistent = true })

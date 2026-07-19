@@ -3,7 +3,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 install_packages \
     wireguard-tools \
-    systemd-resolvconf
+    systemd-resolvconf \
+    nftables \
+    libnotify   # notify-send, used by the quickshell VPN widget's drop alert
 
 run_cmd systemctl enable --now systemd-resolved
 
