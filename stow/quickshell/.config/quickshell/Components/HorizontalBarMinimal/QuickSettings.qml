@@ -17,6 +17,10 @@ ColumnLayout {
     property string openSection: ""
     function _toggle(s: string): void { root.openSection = root.openSection === s ? "" : s }
 
+    // hyprsunset's schedule can flip the state while the shell runs; re-read it
+    // whenever the panel is shown so the night-light tile isn't stale.
+    onVisibleChanged: if (visible) Hyprsunset.refresh()
+
     // --- volume ---
     StyledRect {
         Layout.fillWidth: true
@@ -92,7 +96,6 @@ ColumnLayout {
 
         Tile {
             Layout.fillWidth: true
-            Layout.columnSpan: 2
             icon: ""                                    // shield
             title: "VPN"
             subtitle: !Vpn.profiles.length ? "No profiles"
@@ -104,6 +107,15 @@ ColumnLayout {
             expanded: root.openSection === "vpn"
             onPrimary: Vpn.toggle()
             onExpand: root._toggle("vpn")
+        }
+
+        Tile {
+            Layout.fillWidth: true
+            icon: ""                                    // moon
+            title: "Night Light"
+            subtitle: Hyprsunset.enabled ? "On" : "Off"
+            active: Hyprsunset.enabled
+            onPrimary: Hyprsunset.toggle()
         }
     }
 

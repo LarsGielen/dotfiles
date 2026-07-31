@@ -27,7 +27,13 @@ Scope {
 
             anchors { top: true; left: true; right: true }
             margins.top: Theme.screenMarginTop
-            property int _contentHeight: Math.max(clock.implicitHeight, control.implicitHeight || 0, notificationBell.implicitHeight || 0, workspaces.implicitHeight || 0)
+            property int _contentHeight: Math.max(clock.implicitHeight, control.implicitHeight || 0, notificationBell.implicitHeight || 0, tray.implicitHeight || 0, workspaces.implicitHeight || 0)
+
+            // The right-hand items stack leftwards from the screen edge, each
+            // offsetting past the ones outside it. The tray drops out of the
+            // row entirely when nothing is registered.
+            readonly property int trayOffset: Theme.screenMarginSide + control.width + Theme.spacing + notificationBell.width + Theme.spacing
+            readonly property int clockOffset: trayOffset + (tray.hasItems ? tray.width + Theme.spacing : 0)
             implicitHeight: _contentHeight + Theme.paddingV * 2
             color: "transparent"
 
@@ -117,10 +123,19 @@ Scope {
 
                 BarItem {
                     anchors.right: parent.right
-                    anchors.rightMargin: Theme.screenMarginSide + control.width + Theme.spacing + notificationBell.width + Theme.spacing
+                    anchors.rightMargin: panel.clockOffset
                     implicitWidth: clock.implicitWidth
                     implicitHeight: clock.implicitHeight
                     Clock { id: clock; anchors.fill: parent }
+                }
+
+                BarItem {
+                    anchors.right: parent.right
+                    anchors.rightMargin: panel.trayOffset
+                    visible: tray.hasItems
+                    implicitWidth: tray.implicitWidth
+                    implicitHeight: tray.implicitHeight
+                    Tray { id: tray; anchors.fill: parent }
                 }
 
                 BarItem {
