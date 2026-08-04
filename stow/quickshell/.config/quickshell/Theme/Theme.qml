@@ -5,19 +5,22 @@ import QtQuick
 Singleton {
     id: root
 
-    property string palette: "gruvbox"
-    readonly property var c: Palettes.byName[palette] ?? Palettes.gruvbox
+    readonly property string palette: Palettes.name
+    readonly property var c: Palettes.colors
 
+    readonly property color base:        c.base
+    readonly property color mantle:      c.mantle
     readonly property color surface:     c.surface
     readonly property color surfaceAlt:  c.surfaceAlt
     readonly property color overlay:     c.overlay
+    readonly property color border:      c.border
     readonly property color text:        c.text
     readonly property color subtext:     c.subtext
     readonly property color accent:      c.accent
-    readonly property color onAccent:    c.onaccent
-    readonly property color error:       c.red
-    readonly property color success:     c.green
-    readonly property color warning:     c.yellow
+    readonly property color onAccent:    c.onAccent
+    readonly property color error:       c.brightRed
+    readonly property color success:     c.brightGreen
+    readonly property color warning:     c.brightYellow
     readonly property color transparent: "transparent"
 
     readonly property int screenMarginSide: 10

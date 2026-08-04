@@ -4,10 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop. Two halves:
+Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 
 - `install-scripts/` — an idempotent, modular installer (bash + shellcheck).
 - `stow/` — GNU Stow packages whose contents are symlinked into `$HOME` (e.g. `stow/kitty/.config/kitty/` -> `~/.config/kitty/`).
+- `theme/` — the global colour system: `palettes.toml` plus the generator that
+  feeds quickshell, Hyprland, kitty and Zed.
 - `utils/` — helper scripts and wallpapers shared across configs.
 
 `DOTFILES_DIR` defaults to `$HOME/dotfiles`; the repo expects to live there.
@@ -21,6 +23,11 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop. Two halves
 ./install-scripts/install-all.sh base vscode docker   # specific modules
 ./install-scripts/install-all.sh --all --dry-run      # print actions, change nothing
 # flags: --all, --dry-run, --yes/-y, --verbose/-v, --help/-h
+
+# Theme (run from repo root)
+./theme/switch.sh                   # show active palette + alternatives
+./theme/switch.sh catppuccin        # switch every app, live
+python3 theme/generate.py --dry-run # regenerate without writing
 
 # Lint shell scripts (run from install-scripts/)
 cd install-scripts && make lint     # shellcheck -x on all *.sh
@@ -69,3 +76,37 @@ which `require("machine")` after some global setup:
   `config/{default,pc,work}/_hyprland-<profile>.lua`. Each profile layers
   machine-specific overrides on top of `config/default/`.
 - IPC dispatch from Lua uses dispatch objects (`hl.dsp.*`), not raw command strings.
+- `_G.colors` comes from the generated `hypr/colors.lua` (see below), so border
+  colours follow the global palette.
+
+## Theme system
+
+`theme/palettes.toml` is the single source of truth for colours. `theme/generate.py`
+fills the templates in `theme/templates/` with the active palette, and
+`theme/switch.sh <palette>` activates one across the running session.
+
+- **Adding a program:** drop a template in `theme/templates/` and add one line to the
+  `[outputs]` table in `palettes.toml` mapping it to its destination. No Python changes.
+- Placeholders are `{{accent}}` (`#fabd2f`), `{{accent:rgb}}` (`rgb(fabd2f)`, the only
+  colour form Hyprland parses) and `{{accent:50}}` (`#fabd2f80`, alpha percent), plus
+  `{{name}}`, `{{label}}` and `{{banner}}`. An unknown key or filter is a hard error
+  naming the template, and nothing is written unless every template renders.
+- Zed's syntax highlighting maps to the **ANSI** colours, not the semantic ones, so a
+  new palette only needs the 16 values terminal themes already publish.
+- **Never hand-edit a generated file** — they all carry a "do not edit" banner:
+  `Theme/Palettes.qml`, `hypr/colors.lua`, `kitty/current-theme.conf`,
+  `zed/themes/dotfiles.json`. Edit the template or `palettes.toml` and regenerate.
+- Every palette carries a `[ui]` block (semantic: `base`/`mantle`/`surface`/…) and a
+  full 16-colour `[ansi]` block. Both are mandatory; a missing key is a hard error in
+  `generate.py` rather than a silently black widget.
+- Every output holds only the **active** palette, so all four are gitignored — they
+  change on every switch. A fresh clone gets them from `modules/base/install-theme.sh`,
+  which runs before the hyprland/quickshell/kitty aspects.
+  `~/.local/state/dotfiles/theme` records the choice for `generate.py` to resolve.
+- The generator skips files whose content is unchanged, so regenerating the palette
+  already in use doesn't churn mtimes or bounce quickshell.
+- Each app notices its own file changing: quickshell hot-reloads its config, Zed
+  watches its themes dir. Hyprland and kitty need an explicit nudge, which
+  `switch.sh` does (`hyprctl reload`, `pkill -SIGUSR1 kitty`).
+- Zed's theme is always named `"Dotfiles Dark"`; only its contents change, so
+  `settings.json` (JSONC, with comments) never needs patching.

@@ -9,9 +9,12 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 # Aspects of the base system, in install order.
 # Bootstrap (git, yay, stow) first so the rest can use git, the AUR, and
 # stow_config to symlink configs.
+# 'theme' generates the colour configs that hyprland, quickshell and kitty stow,
+# so it has to come before them.
 BASE_MODULES=(
     git yay stow
     drivers audio video bluetooth
+    theme
     hyprland quickshell
     keyboard kitty
     shells starship yazi

@@ -6,8 +6,8 @@ hl.config({
         gaps_out = 10,
         border_size = 2,
         col = {
-            active_border   = colors.accent,
-            inactive_border = colors.primary,
+            active_border   = colors.accentMuted,
+            inactive_border = colors.accentDim,
         },
         layout = "master",
         resize_on_border = false,

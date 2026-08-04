@@ -7,6 +7,5 @@
 --
 -- Full documentation: https://wiki.hypr.land
 
-_G.colors = dofile(os.getenv("HOME") .. "/dotfiles/utils/colors/colors.lua")
-
+_G.colors = dofile(os.getenv("HOME") .. "/.config/hypr/colors.lua")
 require("machine")

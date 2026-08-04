@@ -1,0 +1,86 @@
+# Run `theme/switch.sh <name>` to activate a palette;
+
+# Fallback when ~/.local/state/dotfiles/theme is missing or unreadable.
+default = "gruvbox"
+
+# theme/templates/<template> -> where the filled-in copy is written.
+# Adding a program means dropping a template here and adding one line.
+[outputs]
+"quickshell.qml" = "stow/quickshell/.config/quickshell/Theme/Palettes.qml"
+"hyprland.lua" = "stow/hyprland/.config/hypr/colors.lua"
+"kitty.conf" = "stow/kitty/.config/kitty/current-theme.conf"
+"zed.json" = "stow/editor_zed/.config/zed/themes/dotfiles.json"
+
+
+# ---------------------------------------------------------------------------
+# Gruvbox Dark  -  https://github.com/morhetz/gruvbox
+# ---------------------------------------------------------------------------
+[palettes.gruvbox]
+label = "Gruvbox Dark"
+
+[palettes.gruvbox.ui]
+base       = "#282828"
+mantle     = "#1d2021"
+surface    = "#3c3836"
+surfaceAlt = "#504945"
+overlay    = "#665c54"
+border     = "#504945"
+text       = "#ebdbb2"
+subtext    = "#a89984"
+accent     = "#fabd2f"
+onAccent   = "#282828"
+
+[palettes.gruvbox.ansi]
+black         = "#282828"
+red           = "#cc241d"
+green         = "#98971a"
+yellow        = "#d79921"
+blue          = "#458588"
+magenta       = "#b16286"
+cyan          = "#689d6a"
+white         = "#a89984"
+brightBlack   = "#928374"
+brightRed     = "#fb4934"
+brightGreen   = "#b8bb26"
+brightYellow  = "#fabd2f"
+brightBlue    = "#83a598"
+brightMagenta = "#d3869b"
+brightCyan    = "#8ec07c"
+brightWhite   = "#ebdbb2"
+
+
+# ---------------------------------------------------------------------------
+# Catppuccin Mocha  -  https://github.com/catppuccin/catppuccin
+# ---------------------------------------------------------------------------
+[palettes.catppuccin]
+label = "Catppuccin Mocha"
+
+[palettes.catppuccin.ui]
+base       = "#1e1e2e"
+mantle     = "#181825"
+surface    = "#313244"
+surfaceAlt = "#45475a"
+overlay    = "#585b70"
+border     = "#45475a"
+text       = "#cdd6f4"
+subtext    = "#a6adc8"
+accent     = "#cba6f7"
+onAccent   = "#1e1e2e"
+
+[palettes.catppuccin.ansi]
+black         = "#45475a"
+red           = "#f38ba8"
+green         = "#a6e3a1"
+yellow        = "#f9e2af"
+blue          = "#89b4fa"
+magenta       = "#f5c2e7"
+cyan          = "#94e2d5"
+white         = "#bac2de"
+brightBlack   = "#585b70"
+brightRed     = "#f38ba8"
+brightGreen   = "#a6e3a1"
+brightYellow  = "#f9e2af"
+brightBlue    = "#89b4fa"
+brightMagenta = "#f5c2e7"
+brightCyan    = "#94e2d5"
+brightWhite   = "#a6adc8"
