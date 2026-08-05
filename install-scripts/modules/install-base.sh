@@ -5,8 +5,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 
 # Bootstrap (git, yay, stow) first so the rest can use git, the AUR, and
-# stow_config. 'theme' generates the colour configs that hyprland, quickshell
-# and kitty stow, so it has to come before them.
+# stow_config. 'theme' generates the colour configs that hyprland, quickshell,
+# kitty and starship stow, so it has to come before them.
 BASE_MODULES=(
     git yay stow
     drivers audio video bluetooth

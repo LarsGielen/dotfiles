@@ -1,0 +1,69 @@
+# {{banner}}
+# Active palette: {{label}} ({{name}})
+
+# A minimal single-line prompt: where you are, what toolchain is in play, and a
+# chevron that goes red when the last command failed. Colours come from the
+# names in [palettes.dotfiles] at the bottom.
+palette = "dotfiles"
+add_newline = true
+
+format = """
+$directory\
+$nodejs$python$rust$golang$php\
+$character"""
+
+[directory]
+# Plain foreground, not accent: the path is context, the chevron is the signal.
+style = "bold text"
+format = "[$path]($style)[$read_only]($read_only_style) "
+read_only = "  "
+read_only_style = "error"
+truncation_length = 3
+truncation_symbol = "…/"
+truncate_to_repo = false
+
+[directory.substitutions]
+
+[character]
+success_symbol = "[❯](bold success)"
+error_symbol = "[❯](bold error)"
+vimcmd_symbol = "[❮](bold accent)"
+
+# Toolchains stay quiet: symbol and version in the muted colour
+[nodejs]
+symbol = " "
+style = "subtext"
+format = "[$symbol$version]($style) "
+
+[python]
+symbol = " "
+style = "subtext"
+format = "[$symbol$version]($style) "
+
+[rust]
+symbol = " "
+style = "subtext"
+format = "[$symbol$version]($style) "
+
+[golang]
+symbol = " "
+style = "subtext"
+format = "[$symbol$version]($style) "
+
+[php]
+symbol = " "
+style = "subtext"
+format = "[$symbol$version]($style) "
+
+[palettes.dotfiles]
+base        = "{{base}}"
+mantle      = "{{mantle}}"
+surface     = "{{surface}}"
+surface_alt = "{{surfaceAlt}}"
+overlay     = "{{overlay}}"
+text        = "{{text}}"
+subtext     = "{{subtext}}"
+accent      = "{{accent}}"
+on_accent   = "{{onAccent}}"
+success     = "{{brightGreen}}"
+error       = "{{brightRed}}"

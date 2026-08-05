@@ -7,6 +7,7 @@ stow/quickshell/.config/quickshell/Theme/Palettes.qml
 stow/hyprland/.config/hypr/colors.lua
 stow/kitty/.config/kitty/current-theme.conf
 stow/editor_zed/.config/zed/themes/dotfiles.json
+stow/starship/.config/starship.toml
 
 .vscode/
 .claude/

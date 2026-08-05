@@ -10,6 +10,7 @@ default = "gruvbox"
 "hyprland.lua" = "stow/hyprland/.config/hypr/colors.lua"
 "kitty.conf" = "stow/kitty/.config/kitty/current-theme.conf"
 "zed.json" = "stow/editor_zed/.config/zed/themes/dotfiles.json"
+"starship.toml" = "stow/starship/.config/starship.toml"
 
 
 # ---------------------------------------------------------------------------

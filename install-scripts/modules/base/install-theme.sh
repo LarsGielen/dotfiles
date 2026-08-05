@@ -2,8 +2,9 @@
 source "$(dirname "${BASH_SOURCE[0]}")/../../lib/common.sh"
 
 # Generates the per-app theme configs from theme/palettes.toml. Must run before
-# the hyprland/quickshell/kitty aspects, since it writes into their stow
-# packages (hypr/colors.lua, kitty/current-theme.conf, Theme/Palettes.qml).
+# the hyprland/quickshell/kitty/starship aspects, since it writes into their
+# stow packages (hypr/colors.lua, kitty/current-theme.conf, Theme/Palettes.qml,
+# starship.toml).
 
 require_cmd python3
 

@@ -8,8 +8,7 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 
 - `install-scripts/` — an idempotent, modular installer (bash + shellcheck).
 - `stow/` — GNU Stow packages whose contents are symlinked into `$HOME` (e.g. `stow/kitty/.config/kitty/` -> `~/.config/kitty/`).
-- `theme/` — the global colour system: `palettes.toml` plus the generator that
-  feeds quickshell, Hyprland, kitty and Zed.
+- `theme/` — the global colour system: `palettes.toml` plus the generator that feeds the whole system
 - `utils/` — helper scripts and wallpapers shared across configs.
 
 `DOTFILES_DIR` defaults to `$HOME/dotfiles`; the repo expects to live there.
@@ -93,20 +92,23 @@ fills the templates in `theme/templates/` with the active palette, and
   naming the template, and nothing is written unless every template renders.
 - Zed's syntax highlighting maps to the **ANSI** colours, not the semantic ones, so a
   new palette only needs the 16 values terminal themes already publish.
-- **Never hand-edit a generated file** — they all carry a "do not edit" banner:
-  `Theme/Palettes.qml`, `hypr/colors.lua`, `kitty/current-theme.conf`,
-  `zed/themes/dotfiles.json`. Edit the template or `palettes.toml` and regenerate.
+- **Never hand-edit a generated file** — they all carry a "do not edit" banner: Edit the template or `palettes.toml` and regenerate.
 - Every palette carries a `[ui]` block (semantic: `base`/`mantle`/`surface`/…) and a
   full 16-colour `[ansi]` block. Both are mandatory; a missing key is a hard error in
   `generate.py` rather than a silently black widget.
-- Every output holds only the **active** palette, so all four are gitignored — they
+- starship has no include mechanism, so the whole `starship.toml` is the template;
+  it defines a `[palettes.dotfiles]` table and every segment styles itself by those
+  names. Starship lowercases style tokens, so those names are snake_case, not the
+  camelCase used elsewhere.
+- Every output holds only the **active** palette, so all of them are gitignored — they
   change on every switch. A fresh clone gets them from `modules/base/install-theme.sh`,
-  which runs before the hyprland/quickshell/kitty aspects.
+  which runs before the hyprland/quickshell/kitty/starship aspects.
   `~/.local/state/dotfiles/theme` records the choice for `generate.py` to resolve.
 - The generator skips files whose content is unchanged, so regenerating the palette
   already in use doesn't churn mtimes or bounce quickshell.
 - Each app notices its own file changing: quickshell hot-reloads its config, Zed
-  watches its themes dir. Hyprland and kitty need an explicit nudge, which
-  `switch.sh` does (`hyprctl reload`, `pkill -SIGUSR1 kitty`).
+  watches its themes dir, starship re-reads its config on every prompt. Hyprland
+  and kitty need an explicit nudge, which `switch.sh` does (`hyprctl reload`,
+  `pkill -SIGUSR1 kitty`).
 - Zed's theme is always named `"Dotfiles Dark"`; only its contents change, so
   `settings.json` (JSONC, with comments) never needs patching.

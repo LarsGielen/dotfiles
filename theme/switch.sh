@@ -15,7 +15,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [palette] [--dry-run]
 
-Activates a colour palette across quickshell, Hyprland, kitty and Zed.
+Activates a colour palette across the whole system.
 With no palette, prints the active one and lists the alternatives.
 
 Options:
@@ -79,7 +79,8 @@ else
     printf '%s\n' "$PALETTE" >"$STATE_FILE"
 fi
 
-# quickshell hot-reloads its own config; Zed watches its themes dir.
+# quickshell hot-reloads its own config; Zed watches its themes dir; starship
+# re-reads starship.toml on every prompt, so the next one is already themed.
 if command -v hyprctl >/dev/null 2>&1 && [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
     run_quiet hyprctl reload && ok "Hyprland reloaded"
 fi
