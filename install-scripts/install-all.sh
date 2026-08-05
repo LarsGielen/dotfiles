@@ -63,13 +63,13 @@ WANT_ALL=false
 SELECTED=()
 for arg in "$@"; do
     case "$arg" in
-        --all)         WANT_ALL=true ;;
-        --dry-run)     DRY_RUN=true ;;
-        --yes|-y)      YES=true ;;
-        --verbose|-v)  VERBOSE=true ;;
-        --help|-h)     usage_all; exit 0 ;;
-        -*)            die "Unknown option: $arg" ;;
-        *)             SELECTED+=("$arg") ;;
+        --all) WANT_ALL=true ;;
+        --dry-run) DRY_RUN=true ;;
+        --yes|-y) YES=true ;;
+        --verbose|-v) VERBOSE=true ;;
+        --help|-h) usage_all; exit 0 ;;
+        -*) die "Unknown option: $arg" ;;
+        *) SELECTED+=("$arg") ;;
     esac
 done
 PARSED_ARGS=true
@@ -109,7 +109,7 @@ for m in "${CHOSEN[@]}"; do
 done
 
 # --- confirm ---------------------------------------------------------------
-if [ "$YES" != true ] && [ "$DRY_RUN" != true ]; then
+if [ "${YES}" != true ] && [ "${DRY_RUN}" != true ]; then
     info "About to install ${#RUN_LIST[@]} module(s): ${RUN_LIST[*]}"
     read -rp "Proceed? [y/N] " ans
     case "$ans" in

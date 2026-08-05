@@ -86,6 +86,12 @@
   },
   {
     "context": "Terminal",
+    "bindings": {
+      "ctrl-l": "terminal::Clear"
+    }
+  },
+  {
+    "context": "Terminal",
     "unbind": {
       "ctrl-shift-l": "terminal::Clear"
     }

@@ -24,7 +24,7 @@ run_cmd sudo mkdir -p /etc/systemd/system/systemd-networkd-wait-online.service.d
 if [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] write systemd-networkd-wait-online override.conf"
 else
-    sudo tee /etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf > /dev/null <<EOF
+    sudo tee /etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf >/dev/null <<EOF
 [Service]
 ExecStart=
 ExecStart=/usr/lib/systemd/systemd-networkd-wait-online --interface=$ETH_INTERFACE
@@ -35,7 +35,7 @@ fi
 if [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] write /etc/systemd/network/99-ignore-wifi.network"
 else
-    sudo tee /etc/systemd/network/99-ignore-wifi.network > /dev/null <<EOF
+    sudo tee /etc/systemd/network/99-ignore-wifi.network >/dev/null <<EOF
 [Match]
 Name=wl*
 
@@ -44,7 +44,6 @@ Unmanaged=yes
 EOF
 fi
 
-# Reload systemd to apply the override and enable Docker
 info "Reloading systemd and (re)starting Docker..."
 run_cmd sudo systemctl daemon-reload
 run_cmd sudo systemctl restart systemd-networkd

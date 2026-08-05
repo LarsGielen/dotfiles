@@ -3,7 +3,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 install_packages flatpak
 
-# flatpak_install [remote] <app-id>  -- last argument is the app id / ref
+# flatpak_install [remote] <app-id> -- the app id is the last argument
 flatpak_install() {
     local app="${*: -1}"
     if flatpak info "$app" >/dev/null 2>&1; then
@@ -12,6 +12,7 @@ flatpak_install() {
     fi
     info "Installing flatpak: $app..."
     run_quiet flatpak install -y "$@"
+    ok "flatpak $app installed"
 }
 
 flatpak_install flathub com.github.tchx84.Flatseal

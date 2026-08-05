@@ -6,4 +6,6 @@ install_packages \
     htop \
     jq \
     nano \
-    man-db
+    man-db \
+    shellcheck \
+    reflector # run by hand; its timer stays disabled

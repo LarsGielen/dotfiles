@@ -9,14 +9,13 @@ TIMER_FILE="$HOME/.config/systemd/user/rclone-sync.timer"
 
 run_cmd mkdir -p "$(dirname "$SERVICE_FILE")"
 
-# Service file (defines the 'What')
 if [ -f "$SERVICE_FILE" ]; then
     ok "rclone-sync.service already exists"
 elif [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] create $SERVICE_FILE"
 else
     info "Creating $SERVICE_FILE..."
-    cat <<EOF > "$SERVICE_FILE"
+    cat >"$SERVICE_FILE" <<EOF
 [Unit]
 Description=Sync remote folders using rclone
 After=network-online.target
@@ -32,23 +31,20 @@ WantedBy=default.target
 EOF
 fi
 
-# Timer file (defines the 'When')
 if [ -f "$TIMER_FILE" ]; then
     ok "rclone-sync.timer already exists"
 elif [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] create $TIMER_FILE"
 else
     info "Creating $TIMER_FILE..."
-    cat <<EOF > "$TIMER_FILE"
+    cat >"$TIMER_FILE" <<EOF
 [Unit]
 Description=Scheduled sync for remote drives
 
 [Timer]
-# Initial delay after boot
 OnBootSec=1min
-# Frequency of sync while running
 OnUnitActiveSec=$SYNC_INTERVAL
-# Run immediately if a scheduled sync was missed while PC was off
+# Catch up on a sync that was missed while the machine was off.
 Persistent=true
 
 [Install]

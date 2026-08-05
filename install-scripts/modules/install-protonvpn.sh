@@ -7,7 +7,8 @@ install_packages \
     nftables \
     libnotify   # notify-send, used by the quickshell VPN widget's drop alert
 
-run_cmd systemctl enable --now systemd-resolved
+info "Enabling systemd-resolved..."
+run_cmd sudo systemctl enable --now systemd-resolved
 
 # /etc/wireguard holds wg-quick profiles (drop ProtonVPN's .conf exports here);
 # the quickshell quick-settings VPN widget picks them up by filename. Group-own

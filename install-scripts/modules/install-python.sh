@@ -1,7 +1,13 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
-install_packages base-devel openssl zlib xz tk pyenv
+install_packages \
+    base-devel \
+    openssl \
+    zlib \
+    xz \
+    tk \
+    pyenv
 install_aur pyenv-virtualenv
 
 info "Installing Python 3.12.11 via pyenv..."

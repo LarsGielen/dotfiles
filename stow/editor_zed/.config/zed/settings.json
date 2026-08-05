@@ -1,13 +1,8 @@
 // Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
-	"telemetry": { "diagnostics": false, "metrics": false, "anthropic_retention": false },
+	// General
+	"cli_default_open_behavior": "new_window",
+ 	"telemetry": { "diagnostics": false, "metrics": false, "anthropic_retention": false },
 
 	// theme
 	"theme": { "mode": "dark", "light": "Dotfiles Dark", "dark": "Dotfiles Dark" },
@@ -39,4 +34,21 @@
 	// keymaps
 	"base_keymap": "VSCode",
 	// "vim_mode": true,
+
+	// language settings
+	"languages": {
+		"Rust": { },
+	},
+
+	// lsp settings
+	"lsp": {
+		"rust-analyzer": {
+			"initialization_options": {
+				"inlayHints": {
+					"lifetimeElisionHints": { "enable": "skip_trivial", "useParameterNames": true },
+					"closureReturnTypeHints": { "enable": "always" }
+				}
+			}
+		}
+	}
 }

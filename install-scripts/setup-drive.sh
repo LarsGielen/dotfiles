@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# setup-encrypted-drive.sh
+# setup-drive.sh
 # -----------------------------------------------------------------------------
 # Set up a secondary drive with LUKS2 encryption, a root-stored keyfile for
 # automatic unlock at boot, and an auto-mount via /etc/fstab.
@@ -20,33 +20,37 @@
 # and requires you to type the device name to confirm. It is idempotent: it
 # will not reformat an existing LUKS container or wipe an existing filesystem.
 #
-# Usage:  sudo ./setup-encrypted-drive.sh
+# Standalone on purpose: it must be runnable as root on a machine that has no
+# checkout of this repo, so it does not source lib/common.sh and has no
+# --dry-run.
+#
+# Usage:  sudo ./setup-drive.sh
 # -----------------------------------------------------------------------------
 
 set -euo pipefail
 
 ### ==== Configuration — edit these ==========================================
-TARGET_DEVICE="/dev/nvme1n1"                       # whole disk to encrypt
-MAPPER_NAME="cryptdata"                            # /dev/mapper/<name>
-MOUNT_POINT="/mnt/data"                            # where it gets mounted
-FILESYSTEM="ext4"                                  # ext4 | btrfs | xfs ...
-KEYFILE="/etc/cryptsetup-keys.d/${MAPPER_NAME}.key"  # MUST live outside the repo
-LUKS_LABEL="${MAPPER_NAME}"                         # LUKS2 container label
-FS_LABEL="DATA"                                    # filesystem label
-DRIVE_OWNER="${SUDO_USER:-}"                        # user to own the mount (auto from sudo)
-ENABLE_TRIM=true                                   # allow periodic fstrim (SSD)
+TARGET_DEVICE="/dev/nvme1n1"
+MAPPER_NAME="cryptdata"
+MOUNT_POINT="/mnt/data"
+FILESYSTEM="ext4" # ext4 | btrfs | xfs ...
+KEYFILE="/etc/cryptsetup-keys.d/${MAPPER_NAME}.key" # MUST live outside the repo
+LUKS_LABEL="${MAPPER_NAME}"
+FS_LABEL="DATA"
+DRIVE_OWNER="${SUDO_USER:-}" # defaults to whoever ran sudo
+ENABLE_TRIM=true # periodic fstrim, SSDs only
 ### =========================================================================
 
 # --- pretty logging -------------------------------------------------------
-c_red=$'\e[31m'; c_grn=$'\e[32m'; c_ylw=$'\e[33m'; c_blu=$'\e[34m'; c_rst=$'\e[0m'
-log()  { printf '%s[*]%s %s\n'  "$c_blu" "$c_rst" "$*"; }
-ok()   { printf '%s[+]%s %s\n'  "$c_grn" "$c_rst" "$*"; }
-warn() { printf '%s[!]%s %s\n'  "$c_ylw" "$c_rst" "$*"; }
-die()  { printf '%s[x]%s %s\n'  "$c_red" "$c_rst" "$*" >&2; exit 1; }
+c_red=$'\e[31m' c_grn=$'\e[32m' c_ylw=$'\e[33m' c_blu=$'\e[34m' c_rst=$'\e[0m'
+info() { printf '%s[*]%s %s\n' "$c_blu" "$c_rst" "$*"; }
+ok() { printf '%s[+]%s %s\n' "$c_grn" "$c_rst" "$*"; }
+warn() { printf '%s[!]%s %s\n' "$c_ylw" "$c_rst" "$*"; }
+die() { printf '%s[x]%s %s\n' "$c_red" "$c_rst" "$*" >&2; exit 1; }
 
 # --- preflight ------------------------------------------------------------
 require_root() {
-    [[ $EUID -eq 0 ]] || die "Run as root (sudo)."
+    [ "$EUID" -eq 0 ] || die "Run as root (sudo)."
 }
 
 check_deps() {
@@ -54,7 +58,7 @@ check_deps() {
     for cmd in cryptsetup blkid lsblk findmnt "mkfs.${FILESYSTEM}"; do
         command -v "$cmd" >/dev/null 2>&1 || missing+=("$cmd")
     done
-    ((${#missing[@]} == 0)) || die "Missing commands: ${missing[*]}"
+    [ ${#missing[@]} -eq 0 ] || die "Missing commands: ${missing[*]}"
 }
 
 # Refuse if the keyfile would ever end up in a repo / user home.
@@ -66,7 +70,7 @@ guard_keyfile_location() {
 }
 
 validate_device() {
-    [[ -b "$TARGET_DEVICE" ]] || die "Not a block device: $TARGET_DEVICE"
+    [ -b "$TARGET_DEVICE" ] || die "Not a block device: $TARGET_DEVICE"
 
     # Never touch the disk that backs '/'.
     local root_src root_disk
@@ -79,7 +83,7 @@ validate_device() {
     # Refuse if the device or any child is currently mounted.
     local mounted
     mounted=$(lsblk -nro MOUNTPOINT "$TARGET_DEVICE" | sed '/^$/d' || true)
-    if [[ -n "$mounted" ]]; then
+    if [ -n "$mounted" ]; then
         die "$TARGET_DEVICE has mounted filesystems:"$'\n'"$mounted"
     fi
 }
@@ -96,26 +100,27 @@ confirm_destruction() {
     echo
     warn "ALL DATA on $TARGET_DEVICE will be permanently destroyed."
     read -rp "Type the device name (${TARGET_DEVICE}) to continue: " reply
-    [[ "$reply" == "$TARGET_DEVICE" ]] || die "Confirmation mismatch. Aborting."
+    [ "$reply" = "$TARGET_DEVICE" ] || die "Confirmation mismatch. Aborting."
 }
 
 # --- steps ----------------------------------------------------------------
 create_keyfile() {
     install -d -m 700 -o root -g root "$(dirname "$KEYFILE")"
-    if [[ -f "$KEYFILE" ]]; then
-        log "Keyfile already exists: $KEYFILE"
+    if [ -f "$KEYFILE" ]; then
+        info "Keyfile already exists: $KEYFILE"
     else
-        log "Generating random keyfile: $KEYFILE"
+        info "Generating random keyfile: $KEYFILE"
         dd if=/dev/urandom of="$KEYFILE" bs=512 count=8 status=none
     fi
-    chmod 600 "$KEYFILE"; chown root:root "$KEYFILE"
+    chmod 600 "$KEYFILE"
+    chown root:root "$KEYFILE"
 }
 
 luks_format_and_key() {
     if cryptsetup isLuks "$TARGET_DEVICE" 2>/dev/null; then
-        log "Existing LUKS container detected — skipping luksFormat."
+        info "Existing LUKS container detected — skipping luksFormat."
     else
-        log "Formatting $TARGET_DEVICE as LUKS2."
+        info "Formatting $TARGET_DEVICE as LUKS2."
         warn "You'll now set a RECOVERY PASSPHRASE (your manual fallback key)."
         cryptsetup luksFormat --type luks2 --label "$LUKS_LABEL" "$TARGET_DEVICE"
     fi
@@ -123,30 +128,30 @@ luks_format_and_key() {
     # Add the keyfile as an unlock key only if it isn't already valid.
     if cryptsetup open --test-passphrase --key-file "$KEYFILE" \
             "$TARGET_DEVICE" >/dev/null 2>&1; then
-        log "Keyfile is already a valid unlock key — skipping luksAddKey."
+        info "Keyfile is already a valid unlock key — skipping luksAddKey."
     else
-        log "Adding keyfile as an unlock key (enter an existing passphrase)."
+        info "Adding keyfile as an unlock key (enter an existing passphrase)."
         cryptsetup luksAddKey "$TARGET_DEVICE" "$KEYFILE"
     fi
 }
 
 open_and_format() {
-    if [[ ! -e "/dev/mapper/${MAPPER_NAME}" ]]; then
-        log "Opening container as /dev/mapper/${MAPPER_NAME}."
+    if [ ! -e "/dev/mapper/${MAPPER_NAME}" ]; then
+        info "Opening container as /dev/mapper/${MAPPER_NAME}."
         cryptsetup open --key-file "$KEYFILE" "$TARGET_DEVICE" "$MAPPER_NAME"
     fi
 
     local existing_fs
     existing_fs=$(blkid -s TYPE -o value "/dev/mapper/${MAPPER_NAME}" 2>/dev/null || true)
-    if [[ -n "$existing_fs" ]]; then
-        log "Filesystem already present (${existing_fs}) — skipping mkfs."
+    if [ -n "$existing_fs" ]; then
+        info "Filesystem already present (${existing_fs}) — skipping mkfs."
     else
-        log "Creating ${FILESYSTEM} filesystem."
+        info "Creating ${FILESYSTEM} filesystem."
         case "$FILESYSTEM" in
-            ext4)      mkfs.ext4  -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
-            xfs)       mkfs.xfs   -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
-            btrfs)     mkfs.btrfs -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
-            *)         "mkfs.${FILESYSTEM}" "/dev/mapper/${MAPPER_NAME}" ;;
+            ext4) mkfs.ext4 -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
+            xfs) mkfs.xfs -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
+            btrfs) mkfs.btrfs -L "$FS_LABEL" "/dev/mapper/${MAPPER_NAME}" ;;
+            *) "mkfs.${FILESYSTEM}" "/dev/mapper/${MAPPER_NAME}" ;;
         esac
     fi
 }
@@ -156,7 +161,7 @@ append_once() {
     local file="$1" match_regex="$2" line="$3"
     touch "$file"
     if grep -qE "$match_regex" "$file"; then
-        log "Entry already present in $file — leaving it alone."
+        info "Entry already present in $file — leaving it alone."
     else
         cp -a "$file" "${file}.bak.$(date +%Y%m%d-%H%M%S)"
         printf '%s\n' "$line" >> "$file"
@@ -168,7 +173,7 @@ configure_crypttab() {
     local luks_uuid crypt_opts
     luks_uuid=$(cryptsetup luksUUID "$TARGET_DEVICE")
     crypt_opts="luks"
-    [[ "$ENABLE_TRIM" == true ]] && crypt_opts="luks,discard"
+    [ "$ENABLE_TRIM" = true ] && crypt_opts="luks,discard"
     append_once /etc/crypttab \
         "^[[:space:]]*${MAPPER_NAME}[[:space:]]" \
         "${MAPPER_NAME} UUID=${luks_uuid} ${KEYFILE} ${crypt_opts}"
@@ -188,7 +193,7 @@ configure_fstab() {
 # we never mass-chown data that may already live on a reused drive.
 set_ownership() {
     local owner="$DRIVE_OWNER"
-    if [[ -z "$owner" ]]; then
+    if [ -z "$owner" ]; then
         warn "DRIVE_OWNER unset and no \$SUDO_USER — leaving root ownership."
         warn "  Fix manually: sudo chown <user>: ${MOUNT_POINT}"
         return 0
@@ -202,18 +207,18 @@ set_ownership() {
         warn "  sudo chown ${owner}: ${MOUNT_POINT}"
         return 0
     fi
-    log "Granting ownership of ${MOUNT_POINT} to ${owner}."
+    info "Granting ownership of ${MOUNT_POINT} to ${owner}."
     chown "${owner}:${owner}" "$MOUNT_POINT"
     chmod 755 "$MOUNT_POINT"
     ok "${owner} can now read/write ${MOUNT_POINT}."
 }
 
 finalize() {
-    log "Reloading systemd and mounting."
+    info "Reloading systemd and mounting."
     systemctl daemon-reload
     mount "$MOUNT_POINT" 2>/dev/null || warn "Mount deferred — will mount on next boot."
     set_ownership
-    if [[ "$ENABLE_TRIM" == true ]]; then
+    if [ "$ENABLE_TRIM" = true ]; then
         systemctl enable --now fstrim.timer >/dev/null 2>&1 || true
     fi
     echo

@@ -10,24 +10,27 @@ install_packages \
 
 stow_config yazi ~/.config/yazi
 
-# For picking files from the terminal inside yazi
-install_aur \
-    xdg-desktop-portal-termfilechooser-hunkyburrito-git
-    
+install_aur xdg-desktop-portal-termfilechooser-hunkyburrito-git
+
 PORTAL_CONFIG_DIR="$HOME/.config/xdg-desktop-portal-termfilechooser"
 PORTAL_MAP_DIR="$HOME/.config/xdg-desktop-portal"
-mkdir -p "$PORTAL_CONFIG_DIR" "$PORTAL_MAP_DIR"
 
-cat <<EOF > "$PORTAL_CONFIG_DIR/config"
+info "Configuring the terminal file picker portal..."
+if [ "${DRY_RUN}" = true ]; then
+    info "[DRY-RUN] write $PORTAL_CONFIG_DIR/config and $PORTAL_MAP_DIR/portals.conf"
+else
+    mkdir -p "$PORTAL_CONFIG_DIR" "$PORTAL_MAP_DIR"
+    cat >"$PORTAL_CONFIG_DIR/config" <<EOF
 [filechooser]
 cmd=$HOME/.config/yazi/scripts/yazi-picker.sh
 default_dir=\$HOME
 open_mode=suggested
 save_mode=last
 EOF
-
-cat <<EOF > "$PORTAL_MAP_DIR/portals.conf"
+    cat >"$PORTAL_MAP_DIR/portals.conf" <<'EOF'
 [preferred]
 default=hyprland;gtk
 org.freedesktop.impl.portal.FileChooser=termfilechooser
 EOF
+fi
+ok "file picker portal configured"

@@ -19,7 +19,7 @@ elif [ ! -f "$STATE_FILE" ]; then
     mapfile -t PALETTES < <(python3 "$GENERATE" --list)
     info "Available colour palettes:"
     select CHOSEN_PALETTE in "${PALETTES[@]}"; do
-        if [[ -n "$CHOSEN_PALETTE" ]]; then
+        if [ -n "$CHOSEN_PALETTE" ]; then
             break
         else
             warn "Invalid selection."
@@ -32,10 +32,6 @@ else
 fi
 
 # No --palette: the generator resolves it from the state file we just wrote.
-if [ "${DRY_RUN}" = true ]; then
-    run_cmd python3 "$GENERATE" --dry-run
-else
-    python3 "$GENERATE"
-fi
+run_cmd python3 "$GENERATE"
 
 ok "theme configs generated"

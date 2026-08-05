@@ -10,7 +10,9 @@ install_packages \
     egl-wayland
 
 NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-if ! grep -q 'nvidia' /etc/mkinitcpio.conf; then
+if grep -q 'nvidia' /etc/mkinitcpio.conf; then
+    ok "NVIDIA early KMS modules already in mkinitcpio.conf"
+else
     info "Adding NVIDIA early KMS modules to mkinitcpio.conf..."
     run_cmd sudo sed -i "s/^MODULES=(/MODULES=($NVIDIA_MODULES /" /etc/mkinitcpio.conf
 fi
