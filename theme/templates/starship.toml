@@ -35,10 +35,12 @@ symbol = " "
 style = "subtext"
 format = "[$symbol$version]($style) "
 
+# The venv name rides along here rather than in PS1: pyenv-virtualenv's own
+# prefix is silenced in .zshrc/.bashrc (PYENV_VIRTUALENV_DISABLE_PROMPT).
 [python]
 symbol = " "
 style = "subtext"
-format = "[$symbol$version]($style) "
+format = "[$symbol$version( \\($virtualenv\\))]($style) "
 
 [rust]
 symbol = " "

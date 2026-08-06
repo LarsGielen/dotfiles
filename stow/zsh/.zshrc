@@ -66,6 +66,8 @@ function y() {
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
+# starship shows the venv name in [python]; don't also prepend it to PS1.
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(pyenv virtualenv-init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
