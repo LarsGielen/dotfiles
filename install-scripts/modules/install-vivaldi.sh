@@ -18,13 +18,15 @@ else
         BASE="$(cat "$PREFS")"
     fi
     MERGED="$(jq --slurpfile settings "$DEFAULTS_DIR/settings.json" \
-        '.vivaldi = ((.vivaldi // {}) * $settings[0])' <<<"$BASE")"
+        --slurpfile prefs "$DEFAULTS_DIR/preferences.json" \
+        '. * $prefs[0] | .vivaldi = ((.vivaldi // {}) * $settings[0])' <<<"$BASE")"
     if [ "${DRY_RUN}" = true ]; then
-        info "[DRY-RUN] merge $DEFAULTS_DIR/settings.json into $PREFS"
+        info "[DRY-RUN] merge $DEFAULTS_DIR/settings.json and preferences.json into $PREFS"
     else
         printf '%s\n' "$MERGED" >"$PREFS"
     fi
 
     run_cmd cp "$DEFAULTS_DIR/Bookmarks" "$PROFILE_DIR/Bookmarks"
+    run_cmd cp "$DEFAULTS_DIR/AdBlockState" "$PROFILE_DIR/AdBlockState"
     ok "Vivaldi settings and bookmarks applied"
 fi

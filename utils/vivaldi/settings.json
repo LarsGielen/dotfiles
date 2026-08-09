@@ -90,6 +90,7 @@
       "COMMAND_FOCUS_PANEL": {},
       "COMMAND_FOCUS_PREVIOUS": {},
       "COMMAND_FOCUS_SEARCHFIELD": {},
+      "COMMAND_FOCUS_TABBAR": {},
       "COMMAND_FOCUS_WEBVIEW": {},
       "COMMAND_FULLSCREEN": {},
       "COMMAND_GO_TO_PARENT_DIRECTORY": {
@@ -241,6 +242,7 @@
       "COMMAND_SAVE_PAGE": {},
       "COMMAND_SHOW_BOOKMARKS": {},
       "COMMAND_SHOW_BOOKMARK_BAR": {},
+      "COMMAND_SHOW_BOOKMARK_PANEL": {},
       "COMMAND_SHOW_CLEAR_PRIVATE_DATA": {},
       "COMMAND_SHOW_DOWNLOADS_PANEL": {},
       "COMMAND_SHOW_EXTENSIONS": {},
@@ -351,6 +353,7 @@
         "shortcuts": []
       },
       "COMMAND_TOGGLE_CARET_BROWSING": {},
+      "COMMAND_TOGGLE_FLOATING_PANEL": {},
       "COMMAND_TOGGLE_FOOTER": {},
       "COMMAND_TOGGLE_FORCE_DARK_MODE": {
         "shortcuts": []
@@ -414,7 +417,7 @@
   ],
   "address_bar": {
     "position": 0,
-    "show_search_suggestions_warning": 4,
+    "show_search_suggestions_warning": 5,
     "visible": false
   },
   "appearance": {
@@ -574,7 +577,7 @@
     "seen": {
       "EnableCalendarContextDialog": false,
       "EnableMailContextDialog": false,
-      "EnableSyncContextDialog": false
+      "EnableSyncContextDialog": true
     }
   },
   "dashboard": {
@@ -582,15 +585,22 @@
     "enabled": false,
     "widgets": []
   },
+  "downloads": {
+    "start_automatically": false
+  },
   "geolocation": {
     "list": [],
     "use_override": false
+  },
+  "history": {
+    "days_to_keep_visits": 0
   },
   "incognito": {
     "show_intro": false
   },
   "keyboard": {
     "shortcuts": {
+      "alt_opens_menu": false,
       "browser_priority_list": [
         "alt+left",
         "alt+right",
@@ -598,7 +608,8 @@
         "alt+down",
         "alt+q",
         "ctrl+w",
-        "ctrl+b"
+        "ctrl+b",
+        "f4"
       ],
       "enable_single_key": false
     },
@@ -608,7 +619,7 @@
   "layouts": {
     "saved": [
       {
-        "addressBar": "top",
+        "addressBar": "off",
         "autoHide": false,
         "autoHidePosition": [
           "addressBar",
@@ -625,7 +636,7 @@
         "statusBar": "off",
         "tabBar": "right",
         "tabStacks": "accordion",
-        "timestamp": 1783931850508,
+        "timestamp": 1786173188654,
         "title": "Saved",
         "toolbars": {
           "navigation": [
@@ -662,38 +673,6 @@
       }
     ],
     "selected": "vertical_right"
-  },
-  "list": {
-    "selections": {
-      "BOOKMARKS_MANAGER": {
-        "anchorId": "82",
-        "leadId": "82",
-        "selectedIds": [
-          "82"
-        ]
-      },
-      "BOOKMARKS_PANEL": {
-        "anchorId": "4",
-        "leadId": "4",
-        "selectedIds": [
-          "4"
-        ]
-      },
-      "SETTINGS_TREE": {
-        "anchorId": 11,
-        "leadId": 11,
-        "selectedIds": [
-          11
-        ]
-      },
-      "TAB_BUTTON_POPUP_OPEN": {
-        "anchorId": "openTabs",
-        "leadId": "openTabs",
-        "selectedIds": [
-          "openTabs"
-        ]
-      }
-    }
   },
   "menu": {
     "compact": false,
@@ -746,7 +725,7 @@
       {
         "id": "PanelDownloads",
         "resizable": false,
-        "width": -1
+        "width": 400
       },
       {
         "id": "PanelHistory",
@@ -833,6 +812,7 @@
     "window_defaults": {
       "barVisible": false,
       "contentVisible": false,
+      "selectedPanel": "PanelDownloads",
       "width": 400
     }
   },
@@ -841,7 +821,7 @@
   },
   "privacy": {
     "adverse_ad_block": {
-      "last_update": "2026-07-13T07:57:55.723Z"
+      "last_update": "2026-08-05T14:40:35.425Z"
     }
   },
   "quick_commands": {
@@ -856,7 +836,7 @@
       "height": 1368,
       "left": 0,
       "top": 0,
-      "width": 1967
+      "width": 2412
     }
   },
   "startpage": {
@@ -872,21 +852,12 @@
     }
   },
   "startup": {
-    "active_days": [
-      1782802708707,
-      1782889380619,
-      1782992232016,
-      1783062623251,
-      1783322824645,
-      1783409097894,
-      1783930817341
-    ],
     "check_is_default": false,
-    "crash_detection_last_seen_version": "8.1.4087.48",
+    "crash_detection_last_seen_version": "8.1.4087.61",
     "first_seen_version": "8.1.4087.48",
     "has_seen_feature": 1,
     "has_seen_welcome_page": true,
-    "last_seen_version": "8.1.4087.48",
+    "last_seen_version": "8.1.4087.61",
     "was_encryption_used": true
   },
   "status_bar": {
@@ -906,6 +877,7 @@
     "bar": {
       "position": 2
     },
+    "defer_loading_after_restore": false,
     "stacking": {
       "mode": 3
     },
@@ -957,6 +929,15 @@
     "enabled": true
   },
   "webpages": {
+    "reader": {
+      "style": {
+        "fontFamily": "sans-serif",
+        "fontSize": 1.3,
+        "lineHeight": 1.5,
+        "themeStyle": "light",
+        "width": 64
+      }
+    },
     "spatial_navigation": {
       "enabled": false
     }
