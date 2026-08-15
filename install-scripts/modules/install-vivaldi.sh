@@ -1,7 +1,7 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
-install_packages vivaldi jq
+install_packages vivaldi jq noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation ttf-dejavu
 
 PROFILE_DIR="$HOME/.config/vivaldi/Default"
 DEFAULTS_DIR="$DOTFILES_DIR/utils/vivaldi"
