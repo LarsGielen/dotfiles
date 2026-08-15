@@ -55,8 +55,7 @@
 
 	// AI
 	"agent_servers": {
-		"claude-acp": { "default_config_options": { "model": "sonnet",
-                                              "mode": "auto" },
+		"claude-acp": { "default_config_options": { "model": "opus", "mode": "acceptEdits" },
         "favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
         "type": "registry" }
  	},
