@@ -55,7 +55,7 @@
 
 	// AI
 	"agent_servers": {
-		"claude-acp": { "default_config_options": { "model": "opus", "mode": "acceptEdits" },
+		"claude-acp": { "default_config_options": { "model": "opus", "mode": "plan" },
         "favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
         "type": "registry" }
  	},

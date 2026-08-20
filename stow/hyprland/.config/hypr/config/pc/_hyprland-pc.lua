@@ -6,6 +6,7 @@ require("config.default.input")
 require("config.default.layouts")
 require("config.default.layout-even")
 require("config.default.permissions")
+require("config.default.render")
 require("config.default.windowrules")
 
 -- PC specific configuration
