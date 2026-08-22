@@ -1,7 +1,7 @@
 // Zed settings
 {
 	// General
-	"proxy": "",
+ 	"proxy": "",
  	"cli_default_open_behavior": "new_window",
  	"telemetry": { "diagnostics": false, "metrics": false, "anthropic_retention": false },
 
@@ -28,6 +28,9 @@
 	"tabs": { "file_icons": true },
 	"current_line_highlight": "none",
 	"title_bar": { "show_sign_in": false, "show_branch_name": false, "show_onboarding_banner": false, "show_branch_status_icon": false, "show_project_items": false, "show_user_menu": false, "show_user_picture": false, "show_worktree_name": false, "show_menus": false },
+	"git_panel": {"button": false},
+	"collaboration_panel": { "button": false },
+	"outline_panel": { "button": false },
 
 	// extensions
 	"git": { "inline_blame": {"enabled": false} },
@@ -39,18 +42,17 @@
 	// language settings
 	"languages": {
 		"Rust": { },
+		"Lua": { "language_servers": ["lua-language-server", "!lua-language-server-extension"] },
+	},
+
+	"auto_install_extensions": {
+		"lua": true,
 	},
 
 	// lsp settings
 	"lsp": {
-		"rust-analyzer": {
-			"initialization_options": {
-				"inlayHints": {
-					"lifetimeElisionHints": { "enable": "skip_trivial", "useParameterNames": true },
-					"closureReturnTypeHints": { "enable": "always" }
-				}
-			}
-		}
+		"rust-analyzer": { "initialization_options": { "inlayHints": { "lifetimeElisionHints": { "enable": "skip_trivial", "useParameterNames": true }, "closureReturnTypeHints": { "enable": "always" }}}},
+		"lua-language-server": { "binary": { "path": "lua-language-server" }}
 	},
 
 	// AI
