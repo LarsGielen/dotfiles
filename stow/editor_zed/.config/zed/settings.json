@@ -1,9 +1,14 @@
 // Zed settings
 {
 	// General
- 	"proxy": "",
+  	"proxy": "",
+ 	"restore_on_startup": "empty_tab",
+ 	"restore_on_file_reopen": false,
  	"cli_default_open_behavior": "new_window",
  	"telemetry": { "diagnostics": false, "metrics": false, "anthropic_retention": false },
+ 	"when_closing_with_no_tabs": "keep_window_open",
+ 	"close_on_file_delete": true,
+  	"session": { "restore_unsaved_buffers": false },
 
 	// theme
 	"theme": { "mode": "dark", "light": "Dotfiles Dark", "dark": "Dotfiles Dark" },
@@ -22,22 +27,36 @@
 	"tab_size": 4,
 	"hard_tabs": true,
 
+	"horizontal_scroll_margin": 10,
+	"vertical_scroll_margin": 10,
+
 	// UI
-	"toolbar": { "breadcrumbs": false, "quick_actions": false },
-	"project_panel": { "entry_spacing": "standard" },
+	"toolbar": { "breadcrumbs": true, "quick_actions": false },
 	"tabs": { "file_icons": true },
 	"current_line_highlight": "none",
 	"title_bar": { "show_sign_in": false, "show_branch_name": false, "show_onboarding_banner": false, "show_branch_status_icon": false, "show_project_items": false, "show_user_menu": false, "show_user_picture": false, "show_worktree_name": false, "show_menus": false },
-	"git_panel": {"button": false},
-	"collaboration_panel": { "button": false },
-	"outline_panel": { "button": false },
+	"tab_bar": { "show": false },
+	// "status_bar": { "experimental.show": false },
+	"scrollbar": { "show": "never" },
+	"gutter": { "min_line_number_digits": 0, "folds": false, "runnables": false },
+	"selection_highlight": false,
+	"cursor_blink": false,
+	"cursor_shape": "bar",
+
+	"project_panel": { "dock": "right", "default_width": 400, "hide_root": true, "auto_fold_dirs": false, "entry_spacing": "standard", "starts_open": false },
+	"outline_panel": { "dock": "left",  "default_width": 400 },
+	"agent": 		 { "dock": "left",  "default_width": 400 },
+	"file_finder":   { "modal_max_width": "large" },
+	"centered_layout": { "right_padding": 0.15, "left_padding": 0.15 },
 
 	// extensions
 	"git": { "inline_blame": {"enabled": false} },
 
 	// keymaps
-	"base_keymap": "VSCode",
+	"base_keymap": "None",
 	// "vim_mode": true,
+	"multi_cursor_modifier": "cmd_or_ctrl",
+	"show_completions_on_input": true,
 
 	// language settings
 	"languages": {
@@ -57,7 +76,7 @@
 
 	// AI
 	"agent_servers": {
-		"claude-acp": { "default_config_options": { "model": "opus", "mode": "plan" },
+		"claude-acp": { "default_config_options": { "model": "opus", "mode": "auto" },
         "favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
         "type": "registry" }
  	},

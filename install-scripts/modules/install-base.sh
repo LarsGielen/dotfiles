@@ -9,7 +9,7 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 # kitty and starship stow, so it has to come before them.
 BASE_MODULES=(
     git yay stow
-    drivers tunables audio video bluetooth
+    drivers tunables audio video bluetooth xppentablet
     theme
     hyprland quickshell
     keyboard kitty
