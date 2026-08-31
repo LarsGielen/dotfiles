@@ -35,6 +35,20 @@ Hyprland, quickshell, kitty, zsh, and the theme. Everything else is optional:
 
 Every script is idempotent — re-run the installer any time to pick up changes.
 
+### WSL2
+
+`install-wsl.sh` is the terminal-only half of the same installer, for an Arch
+distro under WSL2. It reuses the shell-level base aspects and skips everything
+that needs a GPU, a display or a login session:
+
+```bash
+./install-scripts/install-wsl.sh              # same flags as install-all.sh
+```
+
+It writes `/etc/wsl.conf` (systemd, `/mnt` metadata, default user), so the
+first run ends with a `wsl --shutdown` from Windows. Optional modules still go
+through the normal entrypoint: `./install-scripts/install-all.sh python`.
+
 ## Theme
 
 `theme/palettes.toml` holds every palette and is the single source of truth for

@@ -27,28 +27,8 @@ kernel.split_lock_mitigate = 0
 # session; touching it again later is a stall.
 vm.swappiness = 10"
 
-# Write a root-owned config file, skipping the write when it is already correct
-# so re-runs don't churn mtimes or force an initramfs rebuild.
-# Sets MODPROBE_CHANGED as a side effect when it touches the modprobe config.
-write_root_file() {
-    local dest="$1" body="$2" current=""
-
-    [ -f "$dest" ] && current="$(cat "$dest")"
-    if [ "$current" = "$body" ]; then
-        ok "$(basename "$dest") already up to date"
-        return 0
-    fi
-
-    if [ "${DRY_RUN}" = true ]; then
-        info "[DRY-RUN] write $dest"
-        return 0
-    fi
-
-    info "Writing $dest..."
-    printf '%s\n' "$body" | sudo tee "$dest" >/dev/null
-}
-
-# tee runs under sudo inside a pipe, so credentials must already be cached.
+# write_root_file runs sudo tee inside a pipe, so credentials must already
+# be cached.
 prime_sudo
 
 needs_initramfs=false

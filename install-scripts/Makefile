@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-SCRIPTS := $(wildcard *.sh modules/*.sh modules/base/*.sh lib/*.sh ../theme/*.sh)
+SCRIPTS := $(wildcard *.sh modules/*.sh modules/base/*.sh modules/wsl/*.sh lib/*.sh ../theme/*.sh)
 
 .PHONY: lint check
 

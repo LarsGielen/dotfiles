@@ -27,6 +27,8 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 ./install-scripts/install-all.sh --all --dry-run      # print actions, change nothing
 # flags: --all, --dry-run, --yes/-y, --verbose/-v, --help/-h
 
+./install-scripts/install-wsl.sh                      # terminal-only, Arch on WSL2
+
 # Theme (from repo root)
 ./theme/switch.sh                   # show active palette + alternatives
 ./theme/switch.sh catppuccin        # switch every app, live
@@ -51,10 +53,18 @@ There is no test suite; `make lint`/`make check` are the only verification steps
   `modules/base/install-<aspect>.sh` in the fixed `BASE_MODULES` order
   (bootstrap → drivers/audio/video → shells/tools → system). That list is the
   install order and its grouping comments are part of the contract.
+- **WSL entrypoint:** `install-wsl.sh` is the terminal-only counterpart of
+  `install-base.sh` for an Arch distro under WSL2. It runs its own fixed
+  `WSL_MODULES` list, resolving each aspect from `modules/wsl/` when a
+  WSL-specific version exists and from `modules/base/` otherwise, and refuses to
+  run outside WSL (`is_wsl`). Desktop-only aspects — drivers, audio/video,
+  hyprland, quickshell, kitty, keyboard, snapper, ufw, general — are simply
+  absent from the list; shared aspects that are *mostly* terminal branch on
+  `is_wsl` internally (yazi skips the file-picker portal).
 - **Shared library:** every script sources `lib/common.sh`, which sets
   `set -euo pipefail` and provides `install_packages`, `install_aur`,
-  `stow_config`, `run_cmd`, `run_quiet`, `run_progress`, `is_installed`,
-  `require_cmd`, `prime_sudo` and `info/ok/warn/die`. See [STYLE.md](STYLE.md)
+  `stow_config`, `write_root_file`, `run_cmd`, `run_quiet`, `run_progress`,
+  `is_installed`, `require_cmd`, `is_wsl`, `prime_sudo` and `info/ok/warn/die`. See [STYLE.md](STYLE.md)
   for what each one guarantees.
 - `.shellcheckrc` disables SC1090/SC1091 for the dynamic `source` path; don't
   widen it further.
