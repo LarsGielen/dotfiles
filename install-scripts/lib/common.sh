@@ -31,6 +31,13 @@ require_cmd() {
     command -v "$1" >/dev/null 2>&1 || die "Required command '$1' not found"
 }
 
+# True inside a WSL distro. The Microsoft kernel tag is present for every WSL
+# kernel; $WSL_DISTRO_NAME is only set in shells wsl.exe started itself, so it
+# misses sudo, cron and anything re-execed.
+is_wsl() {
+    [[ "$(cat /proc/sys/kernel/osrelease 2>/dev/null)" == *[Mm]icrosoft* ]]
+}
+
 # Run a command, honoring --dry-run.
 run_cmd() {
     if [ "${DRY_RUN}" = true ]; then
@@ -290,6 +297,28 @@ stow_config() {
     ok "$pkg configured"
 }
 
+# write_root_file <dest> <body>
+# Write a root-owned config file, skipping the write when it is already correct
+# so re-runs don't churn mtimes (or force an initramfs rebuild). Compare with
+# the same body before calling when the change needs a follow-up action.
+write_root_file() {
+    local dest="$1" body="$2" current=""
+
+    [ -f "$dest" ] && current="$(cat "$dest")"
+    if [ "$current" = "$body" ]; then
+        ok "$(basename "$dest") already up to date"
+        return 0
+    fi
+
+    if [ "${DRY_RUN}" = true ]; then
+        info "[DRY-RUN] write $dest"
+        return 0
+    fi
+
+    info "Writing $dest..."
+    printf '%s\n' "$body" | sudo tee "$dest" >/dev/null
+}
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [--dry-run] [--yes] [--verbose]
@@ -337,8 +366,8 @@ if [ "${COMMON_AUTO_PARSE}" = true ]; then
 fi
 
 export DOTFILES_DIR REPO_URL C_RESET C_BOLD C_DIM C_BLUE C_GREEN C_YELLOW C_RED
-export -f info ok warn die require_cmd run_cmd run_quiet prime_sudo \
+export -f info ok warn die require_cmd is_wsl run_cmd run_quiet prime_sudo \
     fmt_duration _term_cols _progress_bar _progress_tail _progress_draw \
     _progress_abort run_progress \
     is_installed _install_pkgs install_packages install_aur \
-    stow_config usage parse_args
+    stow_config write_root_file usage parse_args

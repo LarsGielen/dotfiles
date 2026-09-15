@@ -10,6 +10,13 @@ install_packages \
 
 stow_config yazi ~/.config/yazi
 
+# The rest wires yazi up as the file picker for GUI apps. A WSL distro has no
+# desktop portal and no GUI apps asking for one, so it stops here.
+if is_wsl; then
+    ok "file picker portal skipped (no desktop portal under WSL)"
+    exit 0
+fi
+
 install_aur xdg-desktop-portal-termfilechooser-hunkyburrito-git
 
 PORTAL_CONFIG_DIR="$HOME/.config/xdg-desktop-portal-termfilechooser"

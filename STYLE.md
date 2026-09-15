@@ -84,11 +84,13 @@ skip-if-installed, quiet output, `--verbose`, `--dry-run` and backups:
 | repo packages | `install_packages <pkg>...` |
 | AUR packages | `install_aur <pkg>...` |
 | symlink a stow package | `stow_config <pkg> [conflicting-path...]` |
+| write a root-owned file (`/etc`) | `write_root_file <dest> <body>` |
 | any other command | `run_cmd <cmd>...` |
 | noisy command whose output only matters on failure | `run_quiet <cmd>...` |
 | long download/build worth a progress line | `run_progress <cmd>...` |
 | check a package | `is_installed <pkg>` |
 | check a binary | `require_cmd <cmd>` |
+| branch on WSL vs. a real machine | `is_wsl` |
 
 `run_progress` only keeps `sudo` out of its pty when `sudo` is the *leading*
 word — anything that shells out to `sudo` internally (`yay`, `makepkg`) must use
