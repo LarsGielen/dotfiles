@@ -46,7 +46,7 @@
 	"project_panel": { "dock": "right", "default_width": 400, "hide_root": true, "auto_fold_dirs": false, "entry_spacing": "standard", "starts_open": false },
 	"outline_panel": { "dock": "left",  "default_width": 400 },
 	"agent": 		 { "dock": "left",  "default_width": 400 },
-	"file_finder":   { "modal_max_width": "large" },
+	"file_finder":   { "modal_max_width": "small" },
 	"centered_layout": { "right_padding": 0.15, "left_padding": 0.15 },
 
 	// extensions
@@ -56,9 +56,9 @@
 	"base_keymap": "None",
 	// "vim_mode": true,
 	"multi_cursor_modifier": "cmd_or_ctrl",
-	"show_completions_on_input": true,
 
 	// language settings
+	"show_completions_on_input": true,
 	"languages": {
 		"Rust": { },
 		"Lua": { "language_servers": ["lua-language-server", "!lua-language-server-extension"] },
@@ -76,8 +76,14 @@
 
 	// AI
 	"agent_servers": {
-		"claude-acp": { "default_config_options": { "model": "opus", "mode": "auto" },
-        "favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
-        "type": "registry" }
+		"codex-acp": {
+	   		"default_config_options": { "reasoning_effort": "medium", "model": "gpt-5.6-sol", "mode": "agent"},
+	      	"type": "registry"
+	  	},
+		"claude-acp": {
+			"default_config_options": { "model": "opus", "mode": "auto" },
+        	"favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
+         	"type": "registry"
+		}
  	},
 }
