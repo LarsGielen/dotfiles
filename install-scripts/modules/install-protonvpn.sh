@@ -5,7 +5,7 @@ install_packages \
     wireguard-tools \
     systemd-resolvconf \
     nftables \
-    libnotify   # notify-send, used by the quickshell VPN widget's drop alert
+    libnotify # notify-send, used by the quickshell VPN widget's drop alert
 
 info "Enabling systemd-resolved..."
 run_cmd sudo systemctl enable --now systemd-resolved

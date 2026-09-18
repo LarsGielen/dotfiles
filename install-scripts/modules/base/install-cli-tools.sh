@@ -8,4 +8,6 @@ install_packages \
     nano \
     man-db \
     shellcheck \
+    shfmt \
+    lua \
     reflector # run by hand; its timer stays disabled

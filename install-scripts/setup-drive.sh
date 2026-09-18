@@ -33,12 +33,12 @@ set -euo pipefail
 TARGET_DEVICE="/dev/nvme1n1"
 MAPPER_NAME="cryptdata"
 MOUNT_POINT="/mnt/data"
-FILESYSTEM="ext4" # ext4 | btrfs | xfs ...
+FILESYSTEM="ext4"                                   # ext4 | btrfs | xfs ...
 KEYFILE="/etc/cryptsetup-keys.d/${MAPPER_NAME}.key" # MUST live outside the repo
 LUKS_LABEL="${MAPPER_NAME}"
 FS_LABEL="DATA"
 DRIVE_OWNER="${SUDO_USER:-}" # defaults to whoever ran sudo
-ENABLE_TRIM=true # periodic fstrim, SSDs only
+ENABLE_TRIM=true             # periodic fstrim, SSDs only
 ### =========================================================================
 
 # --- pretty logging -------------------------------------------------------
@@ -46,7 +46,10 @@ c_red=$'\e[31m' c_grn=$'\e[32m' c_ylw=$'\e[33m' c_blu=$'\e[34m' c_rst=$'\e[0m'
 info() { printf '%s[*]%s %s\n' "$c_blu" "$c_rst" "$*"; }
 ok() { printf '%s[+]%s %s\n' "$c_grn" "$c_rst" "$*"; }
 warn() { printf '%s[!]%s %s\n' "$c_ylw" "$c_rst" "$*"; }
-die() { printf '%s[x]%s %s\n' "$c_red" "$c_rst" "$*" >&2; exit 1; }
+die() {
+    printf '%s[x]%s %s\n' "$c_red" "$c_rst" "$*" >&2
+    exit 1
+}
 
 # --- preflight ------------------------------------------------------------
 require_root() {
@@ -64,7 +67,7 @@ check_deps() {
 # Refuse if the keyfile would ever end up in a repo / user home.
 guard_keyfile_location() {
     case "$KEYFILE" in
-        /etc/*) : ;;  # good — outside any working tree
+        /etc/*) : ;; # good — outside any working tree
         *) die "KEYFILE must live under /etc (never in a git repo). Got: $KEYFILE" ;;
     esac
 }
@@ -127,7 +130,7 @@ luks_format_and_key() {
 
     # Add the keyfile as an unlock key only if it isn't already valid.
     if cryptsetup open --test-passphrase --key-file "$KEYFILE" \
-            "$TARGET_DEVICE" >/dev/null 2>&1; then
+        "$TARGET_DEVICE" >/dev/null 2>&1; then
         info "Keyfile is already a valid unlock key — skipping luksAddKey."
     else
         info "Adding keyfile as an unlock key (enter an existing passphrase)."
@@ -164,7 +167,7 @@ append_once() {
         info "Entry already present in $file — leaving it alone."
     else
         cp -a "$file" "${file}.bak.$(date +%Y%m%d-%H%M%S)"
-        printf '%s\n' "$line" >> "$file"
+        printf '%s\n' "$line" >>"$file"
         ok "Added entry to $file (backup saved)."
     fi
 }

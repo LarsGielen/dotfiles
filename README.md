@@ -84,5 +84,5 @@ gitignored; the installer recreates them.
 changes:
 
 ```bash
-cd install-scripts && make lint && make check
+make lint check
 ```

@@ -1,0 +1,17 @@
+name: lint
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # generate.py needs tomllib, so 3.11 or newer.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install linters
+        run: sudo apt-get update && sudo apt-get install -y shellcheck shfmt lua5.4
+      # Ubuntu ships luac only under its versioned name.
+      - run: make lint check LUAC=luac5.4

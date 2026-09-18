@@ -34,12 +34,13 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 ./theme/switch.sh catppuccin        # switch every app, live
 python3 theme/generate.py --dry-run # regenerate without writing
 
-# Lint (from install-scripts/)
-make lint     # shellcheck -x on all *.sh, including theme/
-make check    # bash -n syntax check
+# Lint (from repo root)
+make lint     # shellcheck + shfmt on every *.sh, luac -p, py_compile
+make check    # bash -n, plus a generate.py dry run (validates palettes/templates)
 ```
 
-There is no test suite; `make lint`/`make check` are the only verification steps.
+There is no test suite; `make lint`/`make check` are the only verification steps,
+and CI runs both on every push.
 
 ## Installer architecture
 

@@ -25,7 +25,10 @@ fi
 info() { echo "${C_BLUE}::${C_RESET} $*"; }
 ok() { echo "${C_GREEN}✓${C_RESET} $*"; }
 warn() { echo "${C_YELLOW}!${C_RESET} $*" >&2; }
-die() { echo "${C_RED}✗${C_RESET} $*" >&2; exit 1; }
+die() {
+    echo "${C_RED}✗${C_RESET} $*" >&2
+    exit 1
+}
 
 require_cmd() {
     command -v "$1" >/dev/null 2>&1 || die "Required command '$1' not found"
@@ -213,7 +216,7 @@ run_progress() {
     printf -v cmd '%q ' "$@"
 
     trap 'rm -f "$log"; _progress_abort' INT
-    printf '\033[?25l'  # hide cursor while we redraw
+    printf '\033[?25l' # hide cursor while we redraw
 
     # script(1) gives the child a pty; -e propagates its exit status. stdin is
     # closed: a backgrounded reader of the terminal is stopped with SIGTTIN the
@@ -249,7 +252,8 @@ is_installed() {
 
 # Shared install logic: report what's already present, install the rest quietly.
 _install_pkgs() {
-    local manager="$1"; shift
+    local manager="$1"
+    shift
     local missing=() pkg
     for pkg in "$@"; do
         if is_installed "$pkg"; then
@@ -296,7 +300,8 @@ install_aur() {
 # moved to a timestamped .bak instead of being deleted.
 stow_config() {
     require_cmd stow
-    local pkg="$1"; shift
+    local pkg="$1"
+    shift
     local path backup
     for path in "$@"; do
         if [ -L "$path" ]; then
@@ -355,13 +360,13 @@ parse_args() {
             --dry-run)
                 DRY_RUN=true
                 ;;
-            --yes|-y)
+            --yes | -y)
                 YES=true
                 ;;
-            --verbose|-v)
+            --verbose | -v)
                 VERBOSE=true
                 ;;
-            --help|-h)
+            --help | -h)
                 usage
                 exit 0
                 ;;

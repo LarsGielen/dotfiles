@@ -11,7 +11,7 @@ elif [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] build and install yay from the AUR"
 else
     info "Installing yay from the AUR..."
-    prime_sudo  # makepkg -si installs via sudo, hidden under run_quiet
+    prime_sudo # makepkg -si installs via sudo, hidden under run_quiet
     TEMP_DIR=$(mktemp -d)
     run_quiet git clone https://aur.archlinux.org/yay.git "$TEMP_DIR/yay"
     # Not run_progress: makepkg shells out to sudo for both the build deps and

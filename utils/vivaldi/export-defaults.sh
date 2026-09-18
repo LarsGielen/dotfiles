@@ -34,7 +34,7 @@ if pgrep -x 'vivaldi-bin|vivaldi' >/dev/null 2>&1; then
 fi
 
 jq '.vivaldi | del(.vivaldi_account, .startup.keystore_canary, .startup.active_days, .list)' \
-    "$PROFILE_DIR/Preferences" > "$SCRIPT_DIR/settings.json"
+    "$PROFILE_DIR/Preferences" >"$SCRIPT_DIR/settings.json"
 
 jq '{
   enable_do_not_track,
@@ -42,9 +42,9 @@ jq '{
   session,
   default_search_provider_data: (.default_search_provider_data
     | map_values(del(.last_visited, .last_modified, .synced_guid, .position)))
-}' "$PROFILE_DIR/Preferences" > "$SCRIPT_DIR/preferences.json"
+}' "$PROFILE_DIR/Preferences" >"$SCRIPT_DIR/preferences.json"
 
-jq 'del(.sync_metadata)' "$PROFILE_DIR/Bookmarks" > "$SCRIPT_DIR/Bookmarks"
+jq 'del(.sync_metadata)' "$PROFILE_DIR/Bookmarks" >"$SCRIPT_DIR/Bookmarks"
 
 cp "$PROFILE_DIR/AdBlockState" "$SCRIPT_DIR/AdBlockState"
 

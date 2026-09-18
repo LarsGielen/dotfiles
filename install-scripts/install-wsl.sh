@@ -3,6 +3,7 @@
 # that are pure shell setup and leaves out everything that needs a GPU, a
 # display or a login session -- drivers, audio, Hyprland, quickshell, kitty,
 # keyd, snapper, ufw.
+# shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
 COMMON_AUTO_PARSE=false
 source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
@@ -56,8 +57,11 @@ if [ "${YES}" != true ] && [ "${DRY_RUN}" != true ]; then
     info "About to install ${#WSL_MODULES[@]} aspect(s): ${WSL_MODULES[*]}"
     read -rp "Proceed? [y/N] " ans
     case "$ans" in
-        [yY]|[yY][eE][sS]) ;;
-        *) warn "Aborted."; exit 0 ;;
+        [yY] | [yY][eE][sS]) ;;
+        *)
+            warn "Aborted."
+            exit 0
+            ;;
     esac
 fi
 

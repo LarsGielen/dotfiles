@@ -14,4 +14,3 @@ run_cmd sudo systemctl enable --now libvirtd
 info "Adding $USER to the libvirt group..."
 run_cmd sudo usermod -aG libvirt "$USER"
 ok "qemu configured"
-

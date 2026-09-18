@@ -4,6 +4,7 @@
 #   theme/switch.sh              show the active palette and the available ones
 #   theme/switch.sh catppuccin   switch everything to catppuccin
 
+# shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
 COMMON_AUTO_PARSE=false
 source "$(dirname "${BASH_SOURCE[0]}")/../install-scripts/lib/common.sh"
 
@@ -27,9 +28,12 @@ EOF
 PALETTE=""
 for arg in "$@"; do
     case "$arg" in
-        --dry-run)  DRY_RUN=true ;;
-        --help|-h)  usage; exit 0 ;;
-        -*)         die "Unknown argument: $arg" ;;
+        --dry-run) DRY_RUN=true ;;
+        --help | -h)
+            usage
+            exit 0
+            ;;
+        -*) die "Unknown argument: $arg" ;;
         *)
             [ -n "$PALETTE" ] && die "Only one palette can be given (got '$PALETTE' and '$arg')"
             PALETTE="$arg"

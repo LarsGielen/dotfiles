@@ -20,15 +20,16 @@ what the machine should look like, with the mechanics hidden in shared helpers.
 
 Applies everywhere unless a language section says otherwise.
 
-- Indent with **hard tabs**, one tab per level, displayed four columns wide.
-  Exception: formats that forbid tabs (YAML) use four spaces.
+- Indent with **four spaces**, never tabs. Exceptions: Makefiles (tabs are
+  syntax), and files another program rewrites or ships upstream — Zed's
+  settings and yazi's defaults keep their tabs. `.editorconfig` encodes this,
+  and `make lint` runs `shfmt -i 4 -ci` over every script.
 - No trailing whitespace, one trailing newline.
 - Wrap comments and prose at ~80 columns; code lines may run longer when
   breaking them hurts readability.
 - Align a column only when a block is a table of like entries — keybind lists,
   palette declarations, dispatch tables. Never pad ordinary assignments or
-  trailing comments to line up with their neighbours. Alignment is *spaces
-  after* the indent tabs, so the block still lines up at any tab width.
+  trailing comments to line up with their neighbours.
 - Blank lines group related statements; two blank lines are never needed.
 - Section banners are for long files only. A 20-line config doesn't need them.
 
@@ -126,16 +127,16 @@ tag=$(grep -oP '"tag_name":\s*"\K[^"]+' <<< "$release")
 ```
 
 - Package lists: one or two packages stay on the call line, three or more get
-  one per line with `\` continuations, indented one tab. Split into several
+  one per line with `\` continuations, indented one level. Split into several
   calls when the groups mean different things — the grouping is documentation.
 
 ```bash
 install_packages ufw
 
 install_packages \
-	xdg-desktop-portal \
-	xdg-desktop-portal-hyprland \
-	qt6-wayland
+    xdg-desktop-portal \
+    xdg-desktop-portal-hyprland \
+    qt6-wayland
 ```
 
 ### Dry-run is a contract
@@ -146,9 +147,9 @@ needs an explicit guard that prints what it *would* do:
 
 ```bash
 if [ "${DRY_RUN}" = true ]; then
-	info "[DRY-RUN] select colour palette -> $STATE_FILE"
+    info "[DRY-RUN] select colour palette -> $STATE_FILE"
 elif [ ! -f "$STATE_FILE" ]; then
-	...
+    ...
 fi
 ```
 
@@ -161,10 +162,10 @@ marker is `run_cmd`'s own format.
 
 ```bash
 if [ "$CURRENT_SHELL" = "$ZSH_PATH" ]; then
-	ok "zsh is already the default shell"
+    ok "zsh is already the default shell"
 else
-	info "Setting zsh as the default shell..."
-	run_cmd chsh -s "$ZSH_PATH"
+    info "Setting zsh as the default shell..."
+    run_cmd chsh -s "$ZSH_PATH"
 fi
 ```
 
@@ -212,7 +213,8 @@ so a plain script rarely needs it.
 
 ### Before committing
 
-`make lint` (shellcheck -x) and `make check` (bash -n) must both be clean.
+`make lint check` from the repo root must be clean: shellcheck, shfmt, `luac
+-p`, a Python compile, `bash -n`, and a dry run of the theme generator.
 Suppress a check inline with a `# shellcheck disable=SCxxxx` and a reason on the
 same line, never by widening the shellcheck config. Then run the script with
 `--dry-run`, and a second time for real to confirm it's idempotent.

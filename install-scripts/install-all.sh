@@ -1,5 +1,6 @@
 #!/bin/bash
 # Parse our own positional args (module names) before common.sh tries to.
+# shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
 COMMON_AUTO_PARSE=false
 source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
@@ -46,7 +47,10 @@ choose_interactively() {
     done
     echo
     read -rp "Enter numbers (space-separated), 'all', or blank to cancel: " reply
-    [ -z "$reply" ] && { warn "Nothing selected."; exit 0; }
+    [ -z "$reply" ] && {
+        warn "Nothing selected."
+        exit 0
+    }
     if [ "$reply" = all ]; then
         CHOSEN=("${ALL_MODULES[@]}")
         return
@@ -65,9 +69,12 @@ for arg in "$@"; do
     case "$arg" in
         --all) WANT_ALL=true ;;
         --dry-run) DRY_RUN=true ;;
-        --yes|-y) YES=true ;;
-        --verbose|-v) VERBOSE=true ;;
-        --help|-h) usage_all; exit 0 ;;
+        --yes | -y) YES=true ;;
+        --verbose | -v) VERBOSE=true ;;
+        --help | -h)
+            usage_all
+            exit 0
+            ;;
         -*) die "Unknown option: $arg" ;;
         *) SELECTED+=("$arg") ;;
     esac
@@ -113,8 +120,11 @@ if [ "${YES}" != true ] && [ "${DRY_RUN}" != true ]; then
     info "About to install ${#RUN_LIST[@]} module(s): ${RUN_LIST[*]}"
     read -rp "Proceed? [y/N] " ans
     case "$ans" in
-        [yY]|[yY][eE][sS]) ;;
-        *) warn "Aborted."; exit 0 ;;
+        [yY] | [yY][eE][sS]) ;;
+        *)
+            warn "Aborted."
+            exit 0
+            ;;
     esac
 fi
 
