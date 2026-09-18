@@ -297,17 +297,28 @@ install_aur() {
     _install_pkgs aur "$@"
 }
 
-# stow_config <stow-package> [conflicting-path ...]
+# stow_config [--no-folding] <stow-package> [conflicting-path ...]
 # Clears conflicting paths, then stows the package from $DOTFILES_DIR/stow.
-# Existing symlinks (from a previous stow) are removed; real files/dirs are
-# moved to a timestamped .bak instead of being deleted.
+# Existing symlinks (from a previous stow) are removed, and so are real files
+# identical to the package's copy; anything else is moved to a timestamped
+# .bak. --no-folding links files one by one instead of whole directories, for
+# targets like ~/.config/systemd/user where programs add their own files that
+# must not land in the repo.
 stow_config() {
     require_cmd stow
+    local stow_opts=()
+    if [ "$1" = --no-folding ]; then
+        stow_opts+=(--no-folding)
+        shift
+    fi
     local pkg="$1"
     shift
-    local path backup
+    local path backup packaged
     for path in "$@"; do
+        packaged="$DOTFILES_DIR/stow/$pkg/${path#"$HOME"/}"
         if [ -L "$path" ]; then
+            run_cmd rm -f "$path"
+        elif [ -f "$path" ] && cmp -s "$path" "$packaged"; then
             run_cmd rm -f "$path"
         elif [ -e "$path" ]; then
             backup="$path.bak-$(date +%Y%m%d%H%M%S)"
@@ -315,7 +326,7 @@ stow_config() {
             run_cmd mv "$path" "$backup"
         fi
     done
-    run_quiet stow -d "$DOTFILES_DIR/stow" -t "$HOME" "$pkg"
+    run_quiet stow "${stow_opts[@]}" -d "$DOTFILES_DIR/stow" -t "$HOME" "$pkg"
     ok "$pkg configured"
 }
 
