@@ -15,12 +15,8 @@ run_cmd sudo mkdir -p /etc/cmdline.d
 CMDLINE_FILE="/etc/cmdline.d/plymouth.conf"
 
 if [ ! -f "$CMDLINE_FILE" ]; then
-    info "Creating kernel cmdline $CMDLINE_FILE..."
-    if [ "${DRY_RUN}" = true ]; then
-        info "[DRY-RUN] write 'quiet splash' to $CMDLINE_FILE"
-    else
-        echo "quiet splash" | sudo tee "$CMDLINE_FILE" >/dev/null
-    fi
+    prime_sudo
+    write_root_file "$CMDLINE_FILE" "quiet splash"
 elif ! grep -q '\bsplash\b' "$CMDLINE_FILE"; then
     info "Adding 'quiet splash' to $CMDLINE_FILE..."
     run_cmd sudo sed -i '1s/$/ quiet splash/' "$CMDLINE_FILE"
@@ -29,7 +25,7 @@ else
 fi
 
 THEME_NAME="custom_theme"
-THEME_SRC="$DOTFILES_DIR/stow/plymouth/$THEME_NAME"
+THEME_SRC="$DOTFILES_DIR/system/plymouth/$THEME_NAME"
 THEME_DEST="/usr/share/plymouth/themes/$THEME_NAME"
 
 if [ -d "$THEME_SRC" ]; then
