@@ -84,7 +84,8 @@ skip-if-installed, quiet output, `--verbose`, `--dry-run` and backups:
 | --- | --- |
 | repo packages | `install_packages <pkg>...` |
 | AUR packages | `install_aur <pkg>...` |
-| symlink a stow package | `stow_config <pkg> [conflicting-path...]` |
+| Flathub apps | `flatpak_install <app-id>...` |
+| symlink a stow package | `stow_config [--no-folding] <pkg> [conflicting-path...]` |
 | write a root-owned file (`/etc`) | `write_root_file <dest> <body>` |
 | any other command | `run_cmd <cmd>...` |
 | noisy command whose output only matters on failure | `run_quiet <cmd>...` |
@@ -92,6 +93,16 @@ skip-if-installed, quiet output, `--verbose`, `--dry-run` and backups:
 | check a package | `is_installed <pkg>` |
 | check a binary | `require_cmd <cmd>` |
 | branch on WSL vs. a real machine | `is_wsl` |
+| vendor `curl … \| bash` installer | `run_remote_installer <url> [interpreter]` |
+| machine profile (`MACHINE`, `MACHINE_ASPECTS`, `ETH_INTERFACE`) | `load_profile` |
+
+Entrypoints also get `parse_args` (with `ACCEPT_POSITIONAL=true` for module
+names), `confirm "<summary>"` and `run_modules <stop|continue> <label>
+<resolver> <name>...`.
+
+Never pipe into `run_cmd`/`run_quiet` (`run_quiet curl … | bash`): the helper
+wraps only the left side, so the pipe runs even under `--dry-run`, and
+`run_quiet` swallows curl's output. `run_remote_installer` exists for this.
 
 `run_progress` only keeps `sudo` out of its pty when `sudo` is the *leading*
 word — anything that shells out to `sudo` internally (`yay`, `makepkg`) must use

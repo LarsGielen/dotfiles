@@ -27,11 +27,13 @@ Other forms:
 
 Flags: `--all`, `--dry-run`, `--yes/-y`, `--verbose/-v`, `--help/-h`.
 
-`base` always runs first and sets up the desktop itself — drivers, audio, video,
-Hyprland, quickshell, kitty, zsh, and the theme. Everything else is optional:
-`docker`, `python`, `vscode`, `zed`, `gaming`, `qemu`, `flatpak`, `protonvpn`,
-`rclone`, `blender`, `godot`, `unity`, `obs`, `gimp`, `slack`, `vivaldi`,
-`zotero`, `plymouth`.
+`base` always runs first and sets up the desktop itself — hardware, audio,
+video, Hyprland, quickshell, kitty, zsh, and the theme. On first run it asks for
+a machine profile (`install-scripts/profiles/`: `pc`, `work`, or `default` for a
+new machine), which decides the hardware aspects and the Hyprland overrides.
+Everything else is optional: `agents`, `blender`, `chat`, `docker`, `gaming`,
+`gimp`, `godot`, `musescore`, `notes`, `obs`, `plymouth`, `protonvpn`, `python`,
+`qemu`, `rclone`, `shotcut`, `unity`, `vivaldi`, `vscode`, `zed`.
 
 Every script is idempotent — re-run the installer any time to pick up changes.
 
@@ -68,6 +70,7 @@ Ships with `gruvbox` (default) and `catppuccin`. Add a palette by copying a
 | --- | --- |
 | `install-scripts/` | the installer — entrypoint, shared library, per-app modules |
 | `stow/` | configs, symlinked into `$HOME` by GNU Stow |
+| `system/` | files the installer puts outside `$HOME` (plymouth, keyd) |
 | `theme/` | palettes, templates and the generator |
 | `utils/` | helper scripts, browser tweaks, wallpapers |
 

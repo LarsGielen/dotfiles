@@ -11,11 +11,14 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 
 - `install-scripts/` — an idempotent, modular installer (bash + shellcheck).
 - `stow/` — GNU Stow packages symlinked into `$HOME`
-  (`stow/kitty/.config/kitty/` -> `~/.config/kitty/`).
+  (`stow/kitty/.config/kitty/` -> `~/.config/kitty/`). Nothing else lives here.
+- `system/` — files installed outside `$HOME` by a module (the plymouth theme,
+  keyd's `/etc` config). Copied or written with `write_root_file`, never stowed.
 - `theme/` — the global colour system: `palettes.toml` plus the generator.
 - `utils/` — helper scripts, browser tweaks and wallpapers.
 
-`DOTFILES_DIR` defaults to `$HOME/dotfiles`; the repo expects to live there.
+The repo must live at `~/dotfiles`: `DOTFILES_DIR` is fixed, configs point into
+it, and `lib/common.sh` dies when sourced from anywhere else.
 
 ## Commands
 
@@ -45,27 +48,37 @@ and CI runs both on every push.
 ## Installer architecture
 
 - **Entrypoint:** `install-all.sh` parses args, resolves the module list, and
-  runs `base` first (it bootstraps git/yay/stow/drivers the others depend on).
+  runs `base` first (it bootstraps git/yay/stow/hardware the others depend on).
   A failing module is reported but doesn't stop the rest.
 - **Modules:** each `modules/install-<name>.sh` is standalone and runnable; the
   module name is the filename minus `install-` and `.sh`. Auto-discovered — no
   registration.
 - **Base aspects:** `modules/install-base.sh` delegates to
-  `modules/base/install-<aspect>.sh` in the fixed `BASE_MODULES` order
-  (bootstrap → drivers/audio/video → shells/tools → system). That list is the
-  install order and its grouping comments are part of the contract.
+  `modules/base/install-<aspect>.sh` in the `BASE_MODULES` order (bootstrap →
+  microcode + the machine's hardware aspects → audio/video → theme → desktop →
+  shells/tools → system). That list is the install order and its grouping
+  comments are part of the contract. Unlike `install-all.sh`, it stops at the
+  first failing aspect.
+- **Machine profiles:** `profiles/<name>.sh` sets `MACHINE_ASPECTS` (hardware
+  aspects such as `nvidia`, `tunables`, `xppentablet`, `networkd`) and host
+  constants like `ETH_INTERFACE`. `load_profile` picks one on first run and
+  records it in `~/.local/state/dotfiles/machine`; the same name selects the
+  Hyprland profile. A new machine starts from `profiles/default.sh`, which has
+  no hardware aspects.
 - **WSL entrypoint:** `install-wsl.sh` is the terminal-only counterpart of
   `install-base.sh` for an Arch distro under WSL2. It runs its own fixed
   `WSL_MODULES` list, resolving each aspect from `modules/wsl/` when a
   WSL-specific version exists and from `modules/base/` otherwise, and refuses to
-  run outside WSL (`is_wsl`). Desktop-only aspects — drivers, audio/video,
+  run outside WSL (`is_wsl`). It uses no machine profile. Desktop-only aspects — hardware, audio/video,
   hyprland, quickshell, kitty, keyboard, snapper, ufw, general — are simply
   absent from the list; shared aspects that are *mostly* terminal branch on
   `is_wsl` internally (yazi skips the file-picker portal).
 - **Shared library:** every script sources `lib/common.sh`, which sets
   `set -euo pipefail` and provides `install_packages`, `install_aur`,
-  `stow_config`, `write_root_file`, `run_cmd`, `run_quiet`, `run_progress`,
-  `is_installed`, `require_cmd`, `is_wsl`, `prime_sudo` and `info/ok/warn/die`. See [STYLE.md](STYLE.md)
+  `flatpak_install`, `stow_config`, `write_root_file`, `run_cmd`, `run_quiet`,
+  `run_progress`, `run_remote_installer`, `is_installed`, `require_cmd`,
+  `is_wsl`, `prime_sudo`, `load_profile`, `info/ok/warn/die`, and for the
+  entrypoints `parse_args`, `confirm` and `run_modules`. See [STYLE.md](STYLE.md)
   for what each one guarantees.
 - `.shellcheckrc` disables SC1090/SC1091 for the dynamic `source` path; don't
   widen it further.
@@ -73,7 +86,8 @@ and CI runs both on every push.
 ## Stow layout
 
 Each top-level dir under `stow/` is a Stow package mirroring its target path
-under `$HOME`. Edit files in `stow/`, never in `~/.config` — the live config is
+under `$HOME`. Use `stow_config --no-folding` for targets where programs add
+their own files (`systemd-user`), so those never land in the repo. Edit files in `stow/`, never in `~/.config` — the live config is
 a symlink back into this repo.
 
 ## Hyprland config (Lua, not hyprlang)
@@ -81,10 +95,13 @@ a symlink back into this repo.
 Hyprland is configured in **Lua** via `stow/hyprland/.config/hypr/hyprland.lua`,
 which sets `_G.colors` and then `require("machine")`.
 
-- `machine.lua` is **gitignored** and generated at install time
-  (`modules/base/install-hyprland.sh` prompts for a profile). It points at one of
-  `config/{default,pc,work}/_hyprland-<profile>.lua`; each profile layers
-  machine-specific overrides on top of `config/default/`.
+- `hyprland.lua` loads every `config/default/` file itself, then `machine`.
+- `machine.lua` is **gitignored** and rewritten by
+  `modules/base/install-hyprland.sh` from the machine profile. It requires
+  `config/<profile>/_hyprland-<profile>.lua`, which holds **only** overrides;
+  `hl.config` merges key by key, so an override sets just the keys it changes.
+- Shared helpers live in `config/lib/` (`workspaces.dual` for the two-monitor
+  workspace rules).
 - `_G.colors` comes from the generated `hypr/colors.lua`, so border colours
   follow the global palette.
 
