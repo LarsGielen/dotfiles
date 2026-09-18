@@ -68,6 +68,20 @@ run_quiet() {
     return "$rc"
 }
 
+# run_remote_installer <url> [interpreter]
+# Pipe a vendor's install script into an interpreter (bash by default), quietly.
+# run_quiet can't wrap a pipeline directly -- it would capture the curl half
+# and feed the interpreter nothing -- so the whole pipe runs in one bash -c.
+run_remote_installer() {
+    local url="$1" interp="${2:-bash}"
+    if [ "${DRY_RUN}" = true ]; then
+        echo "[DRY-RUN] curl $url | $interp"
+        return 0
+    fi
+    # shellcheck disable=SC2016 # expanded by the inner bash, from its args
+    run_quiet bash -c 'curl -fsSL "$1" | "$2"' _ "$url" "$interp"
+}
+
 # Cache sudo credentials up front so quiet/captured commands never block on a
 # hidden password prompt. No-op under --dry-run.
 prime_sudo() {
@@ -366,7 +380,8 @@ if [ "${COMMON_AUTO_PARSE}" = true ]; then
 fi
 
 export DOTFILES_DIR REPO_URL C_RESET C_BOLD C_DIM C_BLUE C_GREEN C_YELLOW C_RED
-export -f info ok warn die require_cmd is_wsl run_cmd run_quiet prime_sudo \
+export -f info ok warn die require_cmd is_wsl run_cmd run_quiet \
+    run_remote_installer prime_sudo \
     fmt_duration _term_cols _progress_bar _progress_tail _progress_draw \
     _progress_abort run_progress \
     is_installed _install_pkgs install_packages install_aur \

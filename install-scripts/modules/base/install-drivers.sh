@@ -10,7 +10,7 @@ install_packages \
     egl-wayland
 
 NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-if grep -q 'nvidia' /etc/mkinitcpio.conf; then
+if grep -qE '^MODULES=\(.*\bnvidia\b' /etc/mkinitcpio.conf; then
     ok "NVIDIA early KMS modules already in mkinitcpio.conf"
 else
     info "Adding NVIDIA early KMS modules to mkinitcpio.conf..."
