@@ -42,8 +42,7 @@ make lint     # shellcheck + shfmt on every *.sh, luac -p, py_compile
 make check    # bash -n, plus a generate.py dry run (validates palettes/templates)
 ```
 
-There is no test suite; `make lint`/`make check` are the only verification steps,
-and CI runs both on every push.
+There is no test suite; `make lint`/`make check` are the only verification steps.
 
 ## Installer architecture
 
