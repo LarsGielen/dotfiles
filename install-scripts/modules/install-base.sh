@@ -18,11 +18,10 @@ BASE_MODULES=(
     cli-tools general
 )
 
-for m in "${BASE_MODULES[@]}"; do
-    script="$BASE_DIR/install-$m.sh"
-    [ -f "$script" ] || die "Base aspect not found: $script"
-    info "${C_BOLD}>>> base: $m${C_RESET}"
-    bash "$script"
-done
+aspect_path() { echo "$BASE_DIR/install-$1.sh"; }
+
+# Unlike install-all.sh, stop at the first failure: every aspect after it may
+# rely on what it installs (yay for AUR packages, theme for stowed colours).
+run_modules stop base aspect_path "${BASE_MODULES[@]}"
 
 ok "base system installed"

@@ -53,38 +53,11 @@ parse_args "$@"
 
 is_wsl || die "Not running inside WSL -- use install-all.sh on a real machine"
 
-if [ "${YES}" != true ] && [ "${DRY_RUN}" != true ]; then
-    info "About to install ${#WSL_MODULES[@]} aspect(s): ${WSL_MODULES[*]}"
-    read -rp "Proceed? [y/N] " ans
-    case "$ans" in
-        [yY] | [yY][eE][sS]) ;;
-        *)
-            warn "Aborted."
-            exit 0
-            ;;
-    esac
-fi
-
+confirm "About to install ${#WSL_MODULES[@]} aspect(s): ${WSL_MODULES[*]}"
 prime_sudo
 
-FAILED=()
-OK_COUNT=0
-for m in "${WSL_MODULES[@]}"; do
-    script="$(aspect_path "$m")"
-    [ -f "$script" ] || die "Aspect not found: $script"
-    info "${C_BOLD}>>> wsl: $m${C_RESET}"
-    if bash "$script"; then
-        OK_COUNT=$((OK_COUNT + 1))
-    else
-        FAILED+=("$m")
-        warn "$m failed, continuing..."
-    fi
-done
-
-echo
-if [ ${#FAILED[@]} -eq 0 ]; then
-    ok "wsl terminal environment installed ($OK_COUNT aspects)"
+if run_modules continue wsl aspect_path "${WSL_MODULES[@]}"; then
+    ok "wsl terminal environment installed"
 else
-    warn "$OK_COUNT ok, ${#FAILED[@]} failed: ${FAILED[*]}"
     exit 1
 fi

@@ -6,6 +6,9 @@ set -euo pipefail
 : "${VERBOSE:=false}"
 : "${PARSED_ARGS:=false}"
 : "${COMMON_AUTO_PARSE:=true}"
+: "${ACCEPT_POSITIONAL:=false}"
+WANT_ALL=false
+POSITIONAL_ARGS=()
 : "${DOTFILES_DIR:=$HOME/dotfiles}"
 : "${REPO_URL:=https://github.com/LarsGielen/dotfiles}"
 
@@ -350,34 +353,92 @@ Options:
 EOF
 }
 
+# Parses the shared flags. An entrypoint that takes module names sets
+# ACCEPT_POSITIONAL=true before calling it; the names land in POSITIONAL_ARGS
+# and --all sets WANT_ALL. Anything else rejects them. Define `usage` after
+# sourcing this file to replace the help text.
+# shellcheck disable=SC2034 # WANT_ALL is read by the entrypoint
 parse_args() {
     if [ "${PARSED_ARGS}" = true ]; then
         return 0
     fi
 
+    local arg
     for arg in "$@"; do
         case "$arg" in
-            --dry-run)
-                DRY_RUN=true
-                ;;
-            --yes | -y)
-                YES=true
-                ;;
-            --verbose | -v)
-                VERBOSE=true
-                ;;
+            --dry-run) DRY_RUN=true ;;
+            --yes | -y) YES=true ;;
+            --verbose | -v) VERBOSE=true ;;
             --help | -h)
                 usage
                 exit 0
                 ;;
+            --all)
+                [ "${ACCEPT_POSITIONAL}" = true ] || die "Unknown argument: $arg"
+                WANT_ALL=true
+                ;;
+            -*) die "Unknown argument: $arg" ;;
             *)
-                die "Unknown argument: $arg"
+                [ "${ACCEPT_POSITIONAL}" = true ] || die "Unknown argument: $arg"
+                POSITIONAL_ARGS+=("$arg")
                 ;;
         esac
     done
 
     PARSED_ARGS=true
     export DRY_RUN YES VERBOSE PARSED_ARGS
+}
+
+# confirm <summary> -- ask before a multi-module run. --yes and --dry-run skip
+# the question; answering anything but yes exits cleanly.
+confirm() {
+    local ans
+    if [ "${YES}" = true ] || [ "${DRY_RUN}" = true ]; then
+        return 0
+    fi
+    info "$1"
+    read -rp "Proceed? [y/N] " ans
+    case "$ans" in
+        [yY] | [yY][eE][sS]) ;;
+        *)
+            warn "Aborted."
+            exit 0
+            ;;
+    esac
+}
+
+# run_modules <stop|continue> <label> <resolver> <name>...
+# Runs each name's script, found by calling `<resolver> <name>`, in its own
+# bash. `stop` dies on the first failure, for lists where later entries build
+# on earlier ones; `continue` reports the failure, carries on, and returns 1 at
+# the end if anything failed.
+run_modules() {
+    local on_fail="$1" label="$2" resolver="$3"
+    shift 3
+    local name script failed=() ok_count=0
+
+    for name in "$@"; do
+        script="$("$resolver" "$name")"
+        [ -f "$script" ] || die "$label '$name' not found: $script"
+        info "${C_BOLD}>>> $label: $name${C_RESET}"
+        if bash "$script"; then
+            ok_count=$((ok_count + 1))
+        elif [ "$on_fail" = stop ]; then
+            die "$label '$name' failed"
+        else
+            failed+=("$name")
+            warn "$name failed, continuing..."
+        fi
+    done
+
+    if [ "$on_fail" = continue ]; then
+        echo
+        if [ ${#failed[@]} -gt 0 ]; then
+            warn "$ok_count ok, ${#failed[@]} failed: ${failed[*]}"
+            return 1
+        fi
+        ok "all $ok_count ${label}s completed"
+    fi
 }
 
 if [ "${COMMON_AUTO_PARSE}" = true ]; then
@@ -390,4 +451,4 @@ export -f info ok warn die require_cmd is_wsl run_cmd run_quiet \
     fmt_duration _term_cols _progress_bar _progress_tail _progress_draw \
     _progress_abort run_progress \
     is_installed _install_pkgs install_packages install_aur \
-    stow_config write_root_file usage parse_args
+    stow_config write_root_file usage parse_args confirm run_modules

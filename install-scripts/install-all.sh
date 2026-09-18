@@ -1,7 +1,7 @@
 #!/bin/bash
-# Parse our own positional args (module names) before common.sh tries to.
-# shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
-COMMON_AUTO_PARSE=false
+# Parse after defining usage, and accept module names as arguments.
+# shellcheck disable=SC2034 # both read by lib/common.sh
+COMMON_AUTO_PARSE=false ACCEPT_POSITIONAL=true
 source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 MODULES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/modules" && pwd)"
@@ -21,7 +21,7 @@ list_modules() {
     done
 }
 
-usage_all() {
+usage() {
     cat <<EOF
 Usage: $(basename "$0") [options] [module...]
 
@@ -47,10 +47,10 @@ choose_interactively() {
     done
     echo
     read -rp "Enter numbers (space-separated), 'all', or blank to cancel: " reply
-    [ -z "$reply" ] && {
+    if [ -z "$reply" ]; then
         warn "Nothing selected."
         exit 0
-    }
+    fi
     if [ "$reply" = all ]; then
         CHOSEN=("${ALL_MODULES[@]}")
         return
@@ -62,33 +62,15 @@ choose_interactively() {
     done
 }
 
-# --- parse arguments -------------------------------------------------------
-WANT_ALL=false
-SELECTED=()
-for arg in "$@"; do
-    case "$arg" in
-        --all) WANT_ALL=true ;;
-        --dry-run) DRY_RUN=true ;;
-        --yes | -y) YES=true ;;
-        --verbose | -v) VERBOSE=true ;;
-        --help | -h)
-            usage_all
-            exit 0
-            ;;
-        -*) die "Unknown option: $arg" ;;
-        *) SELECTED+=("$arg") ;;
-    esac
-done
-PARSED_ARGS=true
-export DRY_RUN YES VERBOSE PARSED_ARGS
+parse_args "$@"
 
 # --- decide which modules to run -------------------------------------------
 mapfile -t ALL_MODULES < <(list_modules)
 CHOSEN=()
 if [ "$WANT_ALL" = true ]; then
     CHOSEN=("${ALL_MODULES[@]}")
-elif [ ${#SELECTED[@]} -gt 0 ]; then
-    CHOSEN=("${SELECTED[@]}")
+elif [ ${#POSITIONAL_ARGS[@]} -gt 0 ]; then
+    CHOSEN=("${POSITIONAL_ARGS[@]}")
 else
     choose_interactively
 fi
@@ -115,38 +97,6 @@ for m in "${CHOSEN[@]}"; do
     add_unique "$m"
 done
 
-# --- confirm ---------------------------------------------------------------
-if [ "${YES}" != true ] && [ "${DRY_RUN}" != true ]; then
-    info "About to install ${#RUN_LIST[@]} module(s): ${RUN_LIST[*]}"
-    read -rp "Proceed? [y/N] " ans
-    case "$ans" in
-        [yY] | [yY][eE][sS]) ;;
-        *)
-            warn "Aborted."
-            exit 0
-            ;;
-    esac
-fi
-
-# --- run -------------------------------------------------------------------
+confirm "About to install ${#RUN_LIST[@]} module(s): ${RUN_LIST[*]}"
 prime_sudo
-
-FAILED=()
-OK_COUNT=0
-for m in "${RUN_LIST[@]}"; do
-    info "${C_BOLD}>>> $m${C_RESET}"
-    if bash "$(module_path "$m")"; then
-        OK_COUNT=$((OK_COUNT + 1))
-    else
-        FAILED+=("$m")
-        warn "$m failed, continuing..."
-    fi
-done
-
-echo
-if [ ${#FAILED[@]} -eq 0 ]; then
-    ok "All $OK_COUNT module(s) completed."
-else
-    warn "$OK_COUNT ok, ${#FAILED[@]} failed: ${FAILED[*]}"
-    exit 1
-fi
+run_modules continue module module_path "${RUN_LIST[@]}"
