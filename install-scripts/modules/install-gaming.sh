@@ -19,12 +19,16 @@ install_proton_ge() {
     local api="https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest"
 
     info "Fetching latest Proton-GE release info..."
-    local release tag url
+    local release tag url dir
     release=$(curl -fsSL "$api")
     tag=$(grep -oP '"tag_name":\s*"\K[^"]+' <<<"$release")
-    url=$(grep -oP '"browser_download_url":\s*"\K[^"]+\.tar\.gz' <<<"$release" | grep -v -- '-aarch64\.tar\.gz$')
+    url=$(grep -oP '"browser_download_url":\s*"\K[^"]+\.tar\.gz' <<<"$release" | grep -v -- '-aarch64\.tar\.gz$' | head -n1)
+    [ -n "$url" ] || die "No x86_64 Proton-GE tarball in release $tag"
 
-    if [ -d "$install_dir/$tag" ]; then
+    # The tarball unpacks into a directory named after itself, which since
+    # GE-Proton11-5 carries an arch suffix the tag lacks (GE-Proton11-7-x86_64).
+    dir="$(basename "$url" .tar.gz)"
+    if [ -d "$install_dir/$dir" ]; then
         ok "Proton-GE $tag already installed"
         return 0
     fi
