@@ -1,6 +1,8 @@
-export LIBVA_DRIVER_NAME=nvidia
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export GBM_BACKEND=nvidia-drm
+# Named nvidia.env rather than env-nvidia: uwsm reads env-<name> files on its
+# own, for a desktop called <name>.
+if [ -d /sys/module/nvidia ]; then
+    . "${XDG_CONFIG_HOME:-$HOME/.config}/uwsm/nvidia.env"
+fi
 
 export GTK_USE_PORTAL=1
 export GDK_DEBUG=portals

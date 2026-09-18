@@ -6,7 +6,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 MODULES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/modules" && pwd)"
 
-# 'base' bootstraps the system (git, yay/AUR, drivers, …); run it before any
+# 'base' bootstraps the system (git, yay/AUR, hardware, …); run it before any
 # app module, which may depend on what base installs.
 BOOTSTRAP=(base)
 

@@ -4,12 +4,16 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 # Each aspect stays a standalone, runnable script; this just runs them in order.
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 
+load_profile
+
 # Bootstrap (git, yay, stow) first so the rest can use git, the AUR, and
-# stow_config. 'theme' generates the colour configs that hyprland, quickshell,
-# kitty and starship stow, so it has to come before them.
+# stow_config. The machine profile's hardware aspects (drivers, tunables, ...)
+# come straight after. 'theme' generates the colour configs that hyprland,
+# quickshell, kitty and starship stow, so it has to come before them.
 BASE_MODULES=(
     git yay stow
-    drivers tunables audio video bluetooth xppentablet
+    microcode "${MACHINE_ASPECTS[@]}"
+    audio video bluetooth
     theme
     hyprland quickshell
     keyboard kitty

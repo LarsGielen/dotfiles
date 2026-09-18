@@ -341,6 +341,59 @@ write_root_file() {
     printf '%s\n' "$body" | sudo tee "$dest" >/dev/null
 }
 
+# --- machine profiles --------------------------------------------------------
+# A profile (install-scripts/profiles/<name>.sh) says which hardware aspects a
+# machine runs and holds its host-specific constants. The name also picks the
+# Hyprland profile, config/<name>/.
+PROFILES_DIR="$DOTFILES_DIR/install-scripts/profiles"
+MACHINE_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/machine"
+
+# load_profile -- choose this machine's profile on first use, then source it,
+# setting MACHINE, MACHINE_ASPECTS and ETH_INTERFACE.
+# shellcheck disable=SC2034 # the profile variables are read by the caller
+load_profile() {
+    local machine_lua="$DOTFILES_DIR/stow/hyprland/.config/hypr/machine.lua"
+    local name="" choice options=()
+
+    if [ -f "$MACHINE_STATE" ]; then
+        name="$(cat "$MACHINE_STATE")"
+    elif [ -f "$machine_lua" ]; then
+        # Installed before profiles existed: keep the Hyprland profile that
+        # was already chosen.
+        name="$(grep -oP 'require\("config\.\K[^.]+' "$machine_lua" || true)"
+        [ -n "$name" ] && info "Using machine profile '$name' from the existing machine.lua"
+    fi
+
+    if [ -z "$name" ]; then
+        if [ "${DRY_RUN}" = true ]; then
+            info "[DRY-RUN] select machine profile -> $MACHINE_STATE (assuming 'default')"
+            name=default
+        else
+            for choice in "$PROFILES_DIR"/*.sh; do
+                choice="$(basename "$choice")"
+                options+=("${choice%.sh}")
+            done
+            info "Available machine profiles:"
+            select name in "${options[@]}"; do
+                [ -n "$name" ] && break
+                warn "Invalid selection."
+            done
+        fi
+    fi
+
+    [ -f "$PROFILES_DIR/$name.sh" ] || die "Unknown machine profile '$name' (from $MACHINE_STATE)"
+
+    if [ ! -f "$MACHINE_STATE" ] && [ "${DRY_RUN}" != true ]; then
+        mkdir -p "$(dirname "$MACHINE_STATE")"
+        printf '%s\n' "$name" >"$MACHINE_STATE"
+    fi
+
+    MACHINE="$name"
+    MACHINE_ASPECTS=()
+    ETH_INTERFACE=""
+    source "$PROFILES_DIR/$name.sh"
+}
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [--dry-run] [--yes] [--verbose]
@@ -451,4 +504,4 @@ export -f info ok warn die require_cmd is_wsl run_cmd run_quiet \
     fmt_duration _term_cols _progress_bar _progress_tail _progress_draw \
     _progress_abort run_progress \
     is_installed _install_pkgs install_packages install_aur \
-    stow_config write_root_file usage parse_args confirm run_modules
+    stow_config write_root_file usage parse_args confirm run_modules load_profile
