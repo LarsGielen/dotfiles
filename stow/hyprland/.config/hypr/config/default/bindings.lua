@@ -1,6 +1,4 @@
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
-local home    = os.getenv("HOME")
-local dots    = home .. "/dotfiles"
 
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs ipc call session toggle"))
 

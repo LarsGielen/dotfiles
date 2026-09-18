@@ -28,22 +28,25 @@ install_packages \
     hyprsunset
 install_aur hyprshot
 
-MACHINE_LUA="$DOTFILES_DIR/stow/hyprland/.config/hypr/machine.lua"
-if [ "${DRY_RUN}" = true ]; then
-    info "[DRY-RUN] select machine-specific Hyprland config -> $MACHINE_LUA"
-elif [ ! -f "$MACHINE_LUA" ]; then
-    HYPR_CONFIG_DIR="$DOTFILES_DIR/stow/hyprland/.config/hypr/config"
-    mapfile -t OPTIONS < <(ls -1 "$HYPR_CONFIG_DIR")
-    info "Available Hyprland config options:"
-    select CHOSEN_OPTION in "${OPTIONS[@]}"; do
-        if [ -n "$CHOSEN_OPTION" ]; then
-            break
-        else
-            warn "Invalid selection."
-        fi
-    done
-    mkdir -p "$(dirname "$MACHINE_LUA")"
-    printf 'require("config.%s._hyprland-%s")\n' "$CHOSEN_OPTION" "$CHOSEN_OPTION" >"$MACHINE_LUA"
+# machine.lua layers the machine profile's Hyprland overrides on top of
+# config/default/. It is regenerated on every run, so switching profiles
+# (~/.local/state/dotfiles/machine) carries through.
+load_profile
+HYPR_DIR="$DOTFILES_DIR/stow/hyprland/.config/hypr"
+MACHINE_LUA="$HYPR_DIR/machine.lua"
+if [ -f "$HYPR_DIR/config/$MACHINE/_hyprland-$MACHINE.lua" ]; then
+    MACHINE_LUA_BODY="require(\"config.$MACHINE._hyprland-$MACHINE\")"
+else
+    MACHINE_LUA_BODY="-- The '$MACHINE' machine profile has no Hyprland overrides."
+fi
+
+if [ "$(cat "$MACHINE_LUA" 2>/dev/null)" = "$MACHINE_LUA_BODY" ]; then
+    ok "machine.lua already selects '$MACHINE'"
+elif [ "${DRY_RUN}" = true ]; then
+    info "[DRY-RUN] write $MACHINE_LUA for '$MACHINE'"
+else
+    info "Selecting the '$MACHINE' Hyprland profile..."
+    printf '%s\n' "$MACHINE_LUA_BODY" >"$MACHINE_LUA"
 fi
 
 stow_config hyprland ~/.config/hypr

@@ -1,12 +1,9 @@
--- Default configuration
-require("config.default.animations")
-require("config.work.autostart-work")
-require("config.default.bindings")
-require("config.default.decorations")
-require("config.work.input-work")
-require("config.work.layouts-work")
-require("config.default.layout-even")
+-- Work machine: overrides on top of config/default/.
 require("config.work.monitor-work")
-require("config.default.permissions")
-require("config.default.render")
-require("config.default.windowrules")
+
+-- Narrower master column than the desktop's ultrawide wants.
+hl.config({
+    master = {
+        mfact = 0.5,
+    },
+})
