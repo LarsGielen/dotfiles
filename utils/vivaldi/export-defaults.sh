@@ -33,7 +33,10 @@ if pgrep -x 'vivaldi-bin|vivaldi' >/dev/null 2>&1; then
     exit 1
 fi
 
-jq '.vivaldi | del(.vivaldi_account, .startup.keystore_canary, .startup.active_days, .list)' \
+# The CSS mods path is absolute in the live profile; install-vivaldi.sh fills
+# the placeholder back in.
+jq '.vivaldi | del(.vivaldi_account, .startup.keystore_canary, .startup.active_days, .list)
+    | .appearance.css_ui_mods_directory = "@DOTFILES_DIR@/utils/vivaldi-css"' \
     "$PROFILE_DIR/Preferences" >"$SCRIPT_DIR/settings.json"
 
 jq '{

@@ -61,14 +61,9 @@ if [ -z "$PALETTE" ]; then
     exit 0
 fi
 
-found=false
-for name in "${AVAILABLE[@]}"; do
-    [ "$name" = "$PALETTE" ] && found=true
-done
-[ "$found" = true ] || die "Unknown palette '$PALETTE' (available: ${AVAILABLE[*]})"
-
-# Generate first: a failure here leaves the state file untouched, so the
-# running session keeps whatever was already working.
+# Generate first: generate.py rejects an unknown palette, and any failure
+# leaves the state file untouched, so the running session keeps whatever was
+# already working.
 info "Switching to $PALETTE"
 if [ "${DRY_RUN}" = true ]; then
     python3 "$GENERATE" --palette "$PALETTE" --dry-run

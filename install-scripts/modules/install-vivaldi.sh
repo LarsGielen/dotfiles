@@ -19,7 +19,9 @@ else
     fi
     MERGED="$(jq --slurpfile settings "$DEFAULTS_DIR/settings.json" \
         --slurpfile prefs "$DEFAULTS_DIR/preferences.json" \
-        '. * $prefs[0] | .vivaldi = ((.vivaldi // {}) * $settings[0])' <<<"$BASE")"
+        --arg dir "$DOTFILES_DIR" \
+        '. * $prefs[0] | .vivaldi = ((.vivaldi // {}) * $settings[0])
+        | .vivaldi.appearance.css_ui_mods_directory |= sub("@DOTFILES_DIR@"; $dir)' <<<"$BASE")"
     if [ "${DRY_RUN}" = true ]; then
         info "[DRY-RUN] merge $DEFAULTS_DIR/settings.json and preferences.json into $PREFS"
     else

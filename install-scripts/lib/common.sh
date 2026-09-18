@@ -9,8 +9,9 @@ set -euo pipefail
 : "${ACCEPT_POSITIONAL:=false}"
 WANT_ALL=false
 POSITIONAL_ARGS=()
-: "${DOTFILES_DIR:=$HOME/dotfiles}"
-: "${REPO_URL:=https://github.com/LarsGielen/dotfiles}"
+# Fixed, not configurable: configs point into ~/dotfiles (hyprpaper, the rclone
+# unit, Vivaldi's CSS mods), so the repo has to live there.
+DOTFILES_DIR="$HOME/dotfiles"
 
 # --- Colors (only when writing to a terminal) ---
 if [ -t 1 ]; then
@@ -32,6 +33,10 @@ die() {
     echo "${C_RED}✗${C_RESET} $*" >&2
     exit 1
 }
+
+if [ "$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)" != "$(realpath "$DOTFILES_DIR" 2>/dev/null)" ]; then
+    die "This repo must be cloned to $DOTFILES_DIR (it is at $(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd))"
+fi
 
 require_cmd() {
     command -v "$1" >/dev/null 2>&1 || die "Required command '$1' not found"
@@ -297,6 +302,30 @@ install_aur() {
     _install_pkgs aur "$@"
 }
 
+# flatpak_install <app-id>... -- install Flathub apps system-wide. Sets up
+# flatpak on first use, along with Flatseal to manage the apps' permissions.
+flatpak_install() {
+    local app
+    if ! is_installed flatpak; then
+        install_packages flatpak
+    fi
+    # Arch's flatpak package ships the flathub remote; only add it if gone.
+    if ! flatpak remotes --columns=name 2>/dev/null | grep -qx flathub; then
+        info "Adding the flathub remote..."
+        run_quiet flatpak remote-add --if-not-exists flathub \
+            https://dl.flathub.org/repo/flathub.flatpakrepo
+    fi
+    for app in com.github.tchx84.Flatseal "$@"; do
+        if flatpak info "$app" >/dev/null 2>&1; then
+            ok "flatpak $app already installed"
+            continue
+        fi
+        info "Installing flatpak $app..."
+        run_quiet flatpak install -y flathub "$app"
+        ok "flatpak $app installed"
+    done
+}
+
 # stow_config [--no-folding] <stow-package> [conflicting-path ...]
 # Clears conflicting paths, then stows the package from $DOTFILES_DIR/stow.
 # Existing symlinks (from a previous stow) are removed, and so are real files
@@ -509,10 +538,10 @@ if [ "${COMMON_AUTO_PARSE}" = true ]; then
     parse_args "$@"
 fi
 
-export DOTFILES_DIR REPO_URL C_RESET C_BOLD C_DIM C_BLUE C_GREEN C_YELLOW C_RED
+export DOTFILES_DIR C_RESET C_BOLD C_DIM C_BLUE C_GREEN C_YELLOW C_RED
 export -f info ok warn die require_cmd is_wsl run_cmd run_quiet \
     run_remote_installer prime_sudo \
     fmt_duration _term_cols _progress_bar _progress_tail _progress_draw \
     _progress_abort run_progress \
-    is_installed _install_pkgs install_packages install_aur \
+    is_installed _install_pkgs install_packages install_aur flatpak_install \
     stow_config write_root_file usage parse_args confirm run_modules load_profile

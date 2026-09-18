@@ -12,6 +12,8 @@ run_cmd sudo usermod -aG gamemode "$USER"
 
 stow_config MangoHud ~/.config/MangoHud
 
+flatpak_install com.usebottles.bottles
+
 install_proton_ge() {
     local install_dir="$HOME/.local/share/Steam/compatibilitytools.d"
     local api="https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest"

@@ -10,6 +10,7 @@ install_packages \
 
 stow_config bash ~/.bashrc ~/.bash_profile
 stow_config zsh ~/.zshrc ~/.zprofile
+stow_config shell ~/.config/shell
 
 # Make zsh the default shell for the current user. chsh always asks for a
 # password, so only run it when the login shell isn't zsh already. $SHELL is

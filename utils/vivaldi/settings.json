@@ -421,7 +421,7 @@
     "visible": false
   },
   "appearance": {
-    "css_ui_mods_directory": "/home/lars/dotfiles/utils/vivaldi-css",
+    "css_ui_mods_directory": "@DOTFILES_DIR@/utils/vivaldi-css",
     "density": true,
     "disable_title_bar": true,
     "force_dark_mode_theme": false

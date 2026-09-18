@@ -2,3 +2,5 @@
 source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 install_aur slack-desktop
+
+flatpak_install com.discordapp.Discord
