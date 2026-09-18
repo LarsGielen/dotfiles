@@ -3,11 +3,26 @@
 ## Github : @adi1090x
 ## Reddit : @adi1090x
 
-// Screen size
-screen.w = Window.GetWidth(0);
-screen.h = Window.GetHeight(0);
-screen.half.w = Window.GetWidth(0) / 2;
-screen.half.h = Window.GetHeight(0) / 2;
+// Screen geometry
+// Plymouth puts every display on one canvas the size of the largest display and
+// centres each display inside it. So the canvas centre is the centre of every
+// monitor, and a rect of the smallest display's size around that centre shows on
+// all of them. Plymouth recomputes this layout when a display is added, so call
+// this each time you place something rather than once at load.
+screen = null;
+fun update_screen() {
+    screen.cx = Window.GetWidth() / 2;
+    screen.cy = Window.GetHeight() / 2;
+    screen.min_w = Window.GetWidth();
+    screen.min_h = Window.GetHeight();
+    for (i = 0; Window.GetWidth(i); i++) {
+        screen.min_w = Math.Min(screen.min_w, Window.GetWidth(i));
+        screen.min_h = Math.Min(screen.min_h, Window.GetHeight(i));
+    }
+    screen.top = screen.cy - screen.min_h / 2;
+    screen.bottom = screen.cy + screen.min_h / 2;
+}
+update_screen();
 
 // Question prompt
 question = null;
@@ -32,14 +47,13 @@ for (i = 0; i < 41; i++)
   flyingman_image[i] = Image("progress-" + i + ".png");
 flyingman_sprite = Sprite();
 
-# set image position
-flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() / 2));
-flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
-
 progress = 0;
 
 fun refresh_callback ()
   {
+    update_screen();
+    flyingman_sprite.SetX(screen.cx - flyingman_image[0].GetWidth() / 2);
+    flyingman_sprite.SetY(screen.cy - flyingman_image[0].GetHeight() / 2);
     flyingman_sprite.SetImage(flyingman_image[Math.Int(progress / 2) % 41]);
     progress++;
   }
@@ -57,9 +71,10 @@ fun DisplayQuestionCallback(prompt_text, entry) {
     question.image = Image.Text(prompt_text, 0.75, 0.75, 0.75);
     answer.image = Image.Text(entry, 1, 1, 1);
 
-    cx = Window.GetX() + Window.GetWidth(0) / 2;
+    update_screen();
+    cx = screen.cx;
     block_h = question.image.GetHeight() + 10 + answer.image.GetHeight();
-    label_y = Window.GetY() + Window.GetHeight(0) - 40 - block_h;
+    label_y = screen.bottom - 40 - block_h;
 
     question.sprite = Sprite(question.image);
     question.sprite.SetX(cx - question.image.GetWidth() / 2);
@@ -77,9 +92,10 @@ fun DisplayPasswordCallback(nil, bulletCount) {
 
     prompt.image = Image.Text("Passphrase", 0.75, 0.75, 0.75);
 
-    cx = Window.GetX() + Window.GetWidth(0) / 2;
+    update_screen();
+    cx = screen.cx;
     block_h = prompt.image.GetHeight() + 12 + bullet.image.GetHeight();
-    label_y = Window.GetY() + Window.GetHeight(0) - 40 - block_h;
+    label_y = screen.bottom - 40 - block_h;
     bullets_y = label_y + prompt.image.GetHeight() + 12;
 
     prompt.sprite = Sprite(prompt.image);
@@ -116,7 +132,8 @@ Plymouth.SetDisplayNormalFunction(DisplayNormalCallback);
 fun MessageCallback(text) {
     message.image = Image.Text(text, 0.75, 0.75, 0.75);
     message.sprite = Sprite(message.image);
-    message.sprite.SetX(screen.half.w - message.image.GetWidth() / 2);
-    message.sprite.SetY(message.image.GetHeight());
+    update_screen();
+    message.sprite.SetX(screen.cx - message.image.GetWidth() / 2);
+    message.sprite.SetY(screen.top + message.image.GetHeight());
 }
 Plymouth.SetMessageFunction(MessageCallback);
