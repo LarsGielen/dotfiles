@@ -11,3 +11,9 @@ stow/starship/.config/starship.toml
 .vscode/
 .claude/
 __pycache__/
+
+# Vivaldi's profile only lives in the repo encrypted, as
+# utils/vivaldi/profile.tar.gpg; never commit the plaintext.
+utils/vivaldi/*
+!utils/vivaldi/export-defaults.sh
+!utils/vivaldi/profile.tar.gpg

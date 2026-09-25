@@ -19,6 +19,10 @@ install_packages \
 
 install_packages noto-fonts-emoji
 
+# Secret Service provider (started from autostart.lua). Zed stores its Copilot
+# login through it; without one the sign-in fails to save.
+install_packages gnome-keyring
+
 install_aur \
     rose-pine-hyprcursor \
     rose-pine-cursor

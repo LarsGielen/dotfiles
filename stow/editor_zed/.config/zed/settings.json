@@ -45,7 +45,7 @@
 
 	"project_panel": { "dock": "right", "default_width": 400, "hide_root": true, "auto_fold_dirs": false, "entry_spacing": "standard", "starts_open": false },
 	"outline_panel": { "dock": "left",  "default_width": 400 },
-	"agent": 		 { "dock": "left",  "default_width": 400 },
+	"agent": 		 { "dock": "left",  "default_width": 400, "inline_assistant_model": { "provider": "openrouter", "model": "poolside/laguna-s-2.1:free" } },
 	"file_finder":   { "modal_max_width": "small" },
 	"centered_layout": { "right_padding": 0.15, "left_padding": 0.15 },
 

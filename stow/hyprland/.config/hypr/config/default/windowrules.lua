@@ -62,3 +62,9 @@ hl.window_rule({
     size = { 900, 600 },
     center = true,
 })
+
+-- Bevy Engine
+hl.window_rule({
+    match = { class = "^(bevy-dev)$" },
+    float = true,
+})
