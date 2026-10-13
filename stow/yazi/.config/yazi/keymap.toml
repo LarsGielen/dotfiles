@@ -92,7 +92,8 @@ keymap = [
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go home" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go ~/.config" },
-	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Go ~/Downloads" },
+	{ on = [ "g", "w" ],       run = 'shell -- ya emit cd "$WORKSPACE_DIR"',               desc = "Go to the workspace" },
+	{ on = [ "g", "d" ],       run = 'shell -- ya emit cd "$(xdg-user-dir DOWNLOAD)"',     desc = "Go to the downloads folder" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
 	{ on = [ "g", "f" ],       run = "follow",           desc = "Follow hovered symlink" },
 

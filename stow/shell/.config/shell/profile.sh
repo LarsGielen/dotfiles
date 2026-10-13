@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 # Login-shell setup shared by .zprofile and .bash_profile.
 
+. "${XDG_CONFIG_HOME:-$HOME/.config}/shell/workspace.sh"
+
 # The 'python' module is optional, so pyenv is not always installed. WSL also
 # inherits the Windows PATH, which can put a pyenv-win shim on it; that shim
 # only knows how to call cmd.exe, so ignore any pyenv under /mnt.

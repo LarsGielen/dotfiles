@@ -5,6 +5,10 @@ source "$(dirname "${BASH_SOURCE[0]}")/../../lib/common.sh"
 
 install_packages xdg-user-dirs
 
+# The workspace hub holds Downloads and Projects; its location comes from the
+# one shared setting so it can be moved by editing a single line.
+source "$DOTFILES_DIR/stow/shell/.config/shell/workspace.sh"
+
 # XDG user dirs: only Downloads and Projects get their own folder, the rest
 # point at $HOME so xdg-user-dirs-update doesn't scatter Desktop/, Templates/,
 # Public/, ... around. Written directly instead of stowed, because
@@ -21,19 +25,19 @@ else
     if [ -L "$USER_DIRS" ]; then
         rm -f "$USER_DIRS"
     fi
-    mkdir -p "$(dirname "$USER_DIRS")"
-    cat >"$USER_DIRS" <<'EOF'
+    mkdir -p "$(dirname "$USER_DIRS")" "$WORKSPACE_DIR/Downloads" "$WORKSPACE_DIR/Projects"
+    cat >"$USER_DIRS" <<EOF
 # Managed by dotfiles (install-scripts/modules/base/install-general.sh).
-# Format is XDG_xxx_DIR="$HOME/yyy" (homedir-relative) or "/yyy" (absolute).
-XDG_DOWNLOAD_DIR="$HOME/Downloads"
-XDG_PROJECTS_DIR="$HOME/Projects"
-XDG_DESKTOP_DIR="$HOME/"
-XDG_TEMPLATES_DIR="$HOME/"
-XDG_PUBLICSHARE_DIR="$HOME/"
-XDG_DOCUMENTS_DIR="$HOME/"
-XDG_MUSIC_DIR="$HOME/"
-XDG_PICTURES_DIR="$HOME/"
-XDG_VIDEOS_DIR="$HOME/"
+# Format is XDG_xxx_DIR="\$HOME/yyy" (homedir-relative) or "/yyy" (absolute).
+XDG_DOWNLOAD_DIR="$WORKSPACE_DIR/Downloads"
+XDG_PROJECTS_DIR="$WORKSPACE_DIR/Projects"
+XDG_DESKTOP_DIR="\$HOME/"
+XDG_TEMPLATES_DIR="\$HOME/"
+XDG_PUBLICSHARE_DIR="\$HOME/"
+XDG_DOCUMENTS_DIR="\$HOME/"
+XDG_MUSIC_DIR="\$HOME/"
+XDG_PICTURES_DIR="\$HOME/"
+XDG_VIDEOS_DIR="\$HOME/"
 EOF
 fi
 ok "XDG user dirs configured"

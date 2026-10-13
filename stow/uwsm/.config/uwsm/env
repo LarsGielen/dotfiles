@@ -6,3 +6,5 @@ fi
 
 export GTK_USE_PORTAL=1
 export GDK_DEBUG=portals
+
+. "${XDG_CONFIG_HOME:-$HOME/.config}/shell/workspace.sh"

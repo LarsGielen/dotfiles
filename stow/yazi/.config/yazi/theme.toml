@@ -121,6 +121,9 @@ tbl_cell = { fg = "#89b4fa", reversed = true }
 tbl_col = { bold = true }
 
 [icon]
+dirs = [
+  { name = "Workspace", text = "", fg = "#f9e2af" },
+]
 files = [
   { name = "kritadisplayrc", text = "", fg = "#cba6f7" },
   { name = ".gtkrc-2.0", text = "", fg = "#f5e0dc" },
