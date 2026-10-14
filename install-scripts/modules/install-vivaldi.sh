@@ -28,6 +28,8 @@ install_packages \
     ttf-liberation \
     ttf-dejavu
 
+run_cmd xdg-settings set default-web-browser vivaldi-stable.desktop
+
 run_cmd sudo mkdir -p "$EXTERNAL_EXTENSIONS_DIR"
 for extension_id in "${EXTENSIONS[@]}"; do
     write_root_file "$EXTERNAL_EXTENSIONS_DIR/$extension_id.json" \

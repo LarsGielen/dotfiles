@@ -8,6 +8,7 @@ hl.on("hyprland.start", function()
 
     hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme BreezeX-RosePine-Linux")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size 24")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 
     -- Vivaldi pre-load
     hl.exec_cmd("uwsm app -- vivaldi-stable --no-startup-window --profile-directory=\"Default\"")
