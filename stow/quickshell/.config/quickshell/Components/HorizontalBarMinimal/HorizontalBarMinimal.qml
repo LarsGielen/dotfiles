@@ -28,7 +28,7 @@ Scope {
 
             anchors { top: true; left: true; right: true }
             margins.top: Theme.screenMarginTop
-            property int _contentHeight: Math.max(clock.implicitHeight, batteryLevel.implicitHeight, control.implicitHeight || 0, notificationBell.implicitHeight || 0, tray.implicitHeight || 0, workspaces.implicitHeight || 0)
+            property int _contentHeight: Math.max(clock.implicitHeight, batteryLevel.implicitHeight, control.implicitHeight || 0, notificationBell.implicitHeight || 0, tray.implicitHeight || 0, workspaces.implicitHeight || 0, sysStats.implicitHeight || 0)
 
             // The right-hand items stack leftwards from the screen edge, each
             // offsetting past the ones outside it. The tray drops out of the
@@ -36,6 +36,7 @@ Scope {
             readonly property int trayOffset: Theme.screenMarginSide + control.width + Theme.spacing + notificationBell.width + Theme.spacing
             readonly property int clockOffset: trayOffset + (tray.hasItems ? tray.width + Theme.spacing : 0)
             readonly property int batteryOffset: clockOffset + clock.width + Theme.spacing
+            readonly property int statsOffset: batteryOffset + (Battery.present ? batteryLevel.width + Theme.spacing : 0)
             implicitHeight: _contentHeight + Theme.paddingV * 2
             color: "transparent"
 
@@ -129,6 +130,14 @@ Scope {
                     implicitWidth: clock.implicitWidth
                     implicitHeight: clock.implicitHeight
                     Clock { id: clock; anchors.fill: parent }
+                }
+
+                BarItem {
+                    anchors.right: parent.right
+                    anchors.rightMargin: panel.statsOffset
+                    implicitWidth: sysStats.implicitWidth
+                    implicitHeight: sysStats.implicitHeight
+                    SysStats { id: sysStats; anchors.fill: parent }
                 }
 
                 BarItem {

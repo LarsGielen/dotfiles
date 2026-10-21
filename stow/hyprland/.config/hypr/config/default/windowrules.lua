@@ -4,8 +4,6 @@ hl.layer_rule({ match = { namespace = "quickshell-overlay" }, blur = true, ignor
 -- Floating
 hl.window_rule({ match = { title = "Open File" }, float = true, center = true })
 hl.window_rule({ match = { title = "Save File" }, float = true, center = true })
-hl.window_rule({ match = { class = "thunar", title = ".*Rename.*" },           float = true, center = true })
-hl.window_rule({ match = { class = "thunar", title = "File Operation Progress" }, float = true, center = true })
 
 hl.window_rule({ match = { class = "steam", title = "Sign in to Steam" }, center = true })
 

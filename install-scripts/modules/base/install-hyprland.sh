@@ -27,6 +27,13 @@ install_aur \
     rose-pine-hyprcursor \
     rose-pine-cursor
 
+# GTK apps read the cursor and dark-mode settings from dconf, not from the
+# XCURSOR_* variables in uwsm/env. They persist, so they're set once here
+# rather than on every login.
+run_cmd gsettings set org.gnome.desktop.interface cursor-theme BreezeX-RosePine-Linux
+run_cmd gsettings set org.gnome.desktop.interface cursor-size 24
+run_cmd gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
 install_packages \
     hyprpaper \
     hyprsunset
