@@ -5,8 +5,8 @@ After=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=%h/dotfiles/utils/scripts/remote-sync-rclone.sh
-ExecStop=%h/dotfiles/utils/scripts/remote-sync-rclone.sh
+ExecStart=%h/.local/bin/remote-sync-rclone.sh
+ExecStop=%h/.local/bin/remote-sync-rclone.sh
 
 [Install]
 WantedBy=default.target

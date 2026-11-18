@@ -2,7 +2,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 PROFILE_DIR="$HOME/.config/vivaldi/Default"
-DEFAULTS_DIR="$DOTFILES_DIR/utils/vivaldi"
+DEFAULTS_DIR="$DOTFILES_DIR/system/vivaldi"
 BUNDLE="$DEFAULTS_DIR/profile.tar.gpg"
 PREFS="$PROFILE_DIR/Preferences"
 
@@ -48,7 +48,7 @@ apply_bundle() {
         --slurpfile prefs "$staging/preferences.json" \
         --arg dir "$DOTFILES_DIR" \
         '. * $prefs[0] | .vivaldi = ((.vivaldi // {}) * $settings[0])
-        | .vivaldi.appearance.css_ui_mods_directory |= sub("@DOTFILES_DIR@"; $dir)' <<<"$base")"
+        | .vivaldi.appearance.css_ui_mods_directory = ($dir + "/system/vivaldi/css")' <<<"$base")"
     printf '%s\n' "$merged" >"$PREFS"
 
     cp "$staging/Bookmarks" "$PROFILE_DIR/Bookmarks"
@@ -70,7 +70,7 @@ apply_bundle() {
 }
 
 if [ ! -f "$BUNDLE" ]; then
-    warn "No $BUNDLE yet; run utils/vivaldi/export-defaults.sh on a configured machine"
+    warn "No $BUNDLE yet; run system/vivaldi/export-defaults.sh on a configured machine"
 elif pgrep -x 'vivaldi-bin|vivaldi' >/dev/null 2>&1; then
     warn "Vivaldi is running; skipping settings/bookmarks apply (close it and re-run this module)"
 elif [ "${DRY_RUN}" = true ]; then

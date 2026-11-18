@@ -2,7 +2,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 UNIT_DIR="$HOME/.config/systemd/user"
-SYNC_SCRIPT="$DOTFILES_DIR/utils/scripts/remote-sync-rclone.sh"
+SYNC_SCRIPT="$DOTFILES_DIR/stow/systemd-user/.local/bin/remote-sync-rclone.sh"
 BISYNC_STATE_DIR="$HOME/.cache/rclone/bisync"
 
 install_packages rclone

@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 # Run as the normal user: under sudo $HOME is /root, so common.sh can't find
 # ~/dotfiles. Only the override write needs root.

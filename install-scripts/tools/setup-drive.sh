@@ -24,7 +24,7 @@
 # checkout of this repo, so it does not source lib/common.sh and has no
 # --dry-run.
 #
-# Usage:  sudo ./setup-drive.sh
+# Usage:  sudo ./install-scripts/tools/setup-drive.sh
 # -----------------------------------------------------------------------------
 
 set -euo pipefail

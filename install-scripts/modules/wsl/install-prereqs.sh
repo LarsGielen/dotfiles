@@ -9,7 +9,7 @@ info "Refreshing the package database..."
 run_progress sudo pacman -Syu --noconfirm
 
 # What the shared base aspects take for granted on a desktop install:
-# python runs theme/generate.py, the other two are pulled in by the desktop
+# python runs system/theme/generate.py, the other two are pulled in by the desktop
 # stack there but not by `base`.
 install_packages \
     python \

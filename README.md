@@ -53,12 +53,12 @@ through the normal entrypoint: `./install-scripts/install-all.sh python`.
 
 ## Theme
 
-`theme/palettes.toml` holds every palette and is the single source of truth for
+`system/theme/palettes.toml` holds every palette and is the single source of truth for
 colours. Switching regenerates each app's colours and reloads it live:
 
 ```bash
-./theme/switch.sh              # show the active palette and the alternatives
-./theme/switch.sh catppuccin   # switch everything
+theme switch              # show the active palette and the alternatives
+./system/theme/switch.sh catppuccin   # switch everything
 ```
 
 Ships with `gruvbox` (default) and `catppuccin`. Add a palette by copying a
@@ -68,11 +68,9 @@ Ships with `gruvbox` (default) and `catppuccin`. Add a palette by copying a
 
 | Path | What |
 | --- | --- |
-| `install-scripts/` | the installer — entrypoint, shared library, per-app modules |
+| `install-scripts/` | the installer — entrypoint, shared library, per-app modules, and one-off `tools/` |
 | `stow/` | configs, symlinked into `$HOME` by GNU Stow |
-| `system/` | files the installer puts outside `$HOME` (plymouth, keyd) |
-| `theme/` | palettes, templates and the generator |
-| `utils/` | helper scripts, browser tweaks, wallpapers |
+| `system/` | files the installer puts outside `$HOME` (plymouth, keyd), plus `theme/` (palettes, templates, generator) and `vivaldi/` (browser profile export and UI CSS) |
 
 Edit configs in `stow/`, never in `~/.config` — the live files are symlinks back
 into this repo.

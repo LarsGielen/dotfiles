@@ -1,9 +1,9 @@
-# Run `theme/switch.sh <name>` to activate a palette;
+# Run `system/theme/switch.sh <name>` to activate a palette;
 
 # Fallback when ~/.local/state/dotfiles/theme is missing or unreadable.
 default = "gruvbox"
 
-# theme/templates/<template> -> where the filled-in copy is written.
+# system/theme/templates/<template> -> where the filled-in copy is written.
 # Adding a program means dropping a template here and adding one line.
 [outputs]
 "quickshell.qml" = "stow/quickshell/.config/quickshell/Theme/Palettes.qml"

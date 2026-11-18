@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # Activate a colour palette across the whole system.
-#   theme/switch.sh              show the active palette and the available ones
-#   theme/switch.sh catppuccin   switch everything to catppuccin
+#   system/theme/switch.sh              show the active palette and the available ones
+#   system/theme/switch.sh catppuccin   switch everything to catppuccin
 
 # shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
 COMMON_AUTO_PARSE=false
-source "$(dirname "${BASH_SOURCE[0]}")/../install-scripts/lib/common.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../../install-scripts/lib/common.sh"
 
 THEME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GENERATE="$THEME_DIR/generate.py"
@@ -44,7 +44,7 @@ done
 require_cmd python3
 
 mapfile -t AVAILABLE < <(python3 "$GENERATE" --list)
-[ ${#AVAILABLE[@]} -eq 0 ] && die "No palettes defined in theme/palettes.toml"
+[ ${#AVAILABLE[@]} -eq 0 ] && die "No palettes defined in system/theme/palettes.toml"
 
 current() {
     if [ -f "$STATE_FILE" ]; then

@@ -10,12 +10,13 @@ Python and config, and applies to the whole repo.
 Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 
 - `install-scripts/` — an idempotent, modular installer (bash + shellcheck).
+  `tools/` holds one-off scripts run by hand (auto-login, secondary-drive setup).
 - `stow/` — GNU Stow packages symlinked into `$HOME`
   (`stow/kitty/.config/kitty/` -> `~/.config/kitty/`). Nothing else lives here.
 - `system/` — files installed outside `$HOME` by a module (the plymouth theme,
   keyd's `/etc` config). Copied or written with `write_root_file`, never stowed.
-- `theme/` — the global colour system: `palettes.toml` plus the generator.
-- `utils/` — helper scripts, browser tweaks and wallpapers.
+  Also holds `system/theme/`, the global colour system (`palettes.toml` plus the
+  generator), and `system/vivaldi/` (profile export script, encrypted bundle, UI CSS).
 
 The repo must live at `~/dotfiles`: `DOTFILES_DIR` is fixed, configs point into
 it, and `lib/common.sh` dies when sourced from anywhere else.
@@ -33,9 +34,9 @@ it, and `lib/common.sh` dies when sourced from anywhere else.
 ./install-scripts/install-wsl.sh                      # terminal-only, Arch on WSL2
 
 # Theme (from repo root)
-./theme/switch.sh                   # show active palette + alternatives
-./theme/switch.sh catppuccin        # switch every app, live
-python3 theme/generate.py --dry-run # regenerate without writing
+theme switch                   # show active palette + alternatives
+./system/theme/switch.sh catppuccin        # switch every app, live
+python3 system/theme/generate.py --dry-run # regenerate without writing
 
 # Lint (from repo root)
 make lint     # shellcheck + shfmt on every *.sh, luac -p, py_compile
@@ -106,11 +107,11 @@ which sets `_G.colors` and then `require("machine")`.
 
 ## Theme system
 
-`theme/palettes.toml` is the single source of truth for colours.
-`theme/generate.py` fills the templates in `theme/templates/` with the active
-palette; `theme/switch.sh <palette>` activates one across the running session.
+`system/theme/palettes.toml` is the single source of truth for colours.
+`system/theme/generate.py` fills the templates in `system/theme/templates/` with the active
+palette; `theme switch <palette>` (`system/theme/switch.sh`) activates one across the running session.
 
-- **Adding a program:** drop a template in `theme/templates/` and add one line
+- **Adding a program:** drop a template in `system/theme/templates/` and add one line
   to the `[outputs]` table in `palettes.toml` mapping it to its destination. No
   Python changes.
 - Placeholders: `{{accent}}` (`#fabd2f`), `{{accent:rgb}}` (`rgb(fabd2f)`, the

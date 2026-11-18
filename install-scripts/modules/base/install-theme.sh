@@ -1,19 +1,19 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")/../../lib/common.sh"
 
-# Generates the per-app theme configs from theme/palettes.toml. Must run before
+# Generates the per-app theme configs from system/theme/palettes.toml. Must run before
 # the hyprland/quickshell/kitty/starship aspects, since it writes into their
 # stow packages (hypr/colors.lua, kitty/current-theme.conf, Theme/Palettes.qml,
 # starship.toml).
 
 require_cmd python3
 
-GENERATE="$DOTFILES_DIR/theme/generate.py"
+GENERATE="$DOTFILES_DIR/system/theme/generate.py"
 STATE_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/theme"
 
 # Pick a palette on first install, the same way install-hyprland.sh picks a
 # machine profile. Afterwards the state file is authoritative, and
-# theme/switch.sh is how you change it.
+# `theme switch` is how you change it.
 if [ "${DRY_RUN}" = true ]; then
     info "[DRY-RUN] select colour palette -> $STATE_FILE"
 elif [ ! -f "$STATE_FILE" ]; then
@@ -36,3 +36,7 @@ fi
 run_cmd python3 "$GENERATE"
 
 ok "theme configs generated"
+
+# `theme switch <palette>` from anywhere; ~/.local/bin is already on PATH.
+run_cmd mkdir -p "$HOME/.local/bin"
+run_cmd ln -sfn "$DOTFILES_DIR/system/theme/theme" "$HOME/.local/bin/theme"
