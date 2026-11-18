@@ -83,10 +83,6 @@
 
 	// AI
 	"agent_servers": {
-		"codex-acp": {
-	   		"default_config_options": { "reasoning_effort": "medium", "model": "gpt-5.6-sol", "mode": "agent"},
-	      	"type": "registry"
-	  	},
 		"claude-acp": {
 			"default_config_options": { "model": "opus", "mode": "auto" },
         	"favorite_config_option_values": { "mode": [ "acceptEdits", "plan", "bypassPermissions" ] },
