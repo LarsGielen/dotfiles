@@ -1,0 +1,4 @@
+#!/bin/bash
+# Command-line front door for install-all.sh, linked to ~/.local/bin/dot-install
+# by modules/base/install-general.sh.
+exec "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/install-all.sh" "$@"

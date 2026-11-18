@@ -28,7 +28,7 @@ Usage: $(basename "$0") [options] [module...]
 Install dotfiles modules. With no module given, choose interactively.
 
 Options:
-  --all          Install every available module
+  --all, all     Install every available module
   --dry-run      Print actions without executing them
   --yes, -y      Skip the confirmation prompt
   --verbose, -v  Show full package-manager output
@@ -67,6 +67,10 @@ parse_args "$@"
 # --- decide which modules to run -------------------------------------------
 mapfile -t ALL_MODULES < <(list_modules)
 CHOSEN=()
+# 'all' is accepted as a module name, matching the interactive prompt.
+for argument in ${POSITIONAL_ARGS[@]+"${POSITIONAL_ARGS[@]}"}; do
+    [ "$argument" = all ] && WANT_ALL=true
+done
 if [ "$WANT_ALL" = true ]; then
     CHOSEN=("${ALL_MODULES[@]}")
 elif [ ${#POSITIONAL_ARGS[@]} -gt 0 ]; then

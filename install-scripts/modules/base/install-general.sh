@@ -41,3 +41,10 @@ XDG_VIDEOS_DIR="\$HOME/"
 EOF
 fi
 ok "XDG user dirs configured"
+
+# `dot-install all` / `dot-install base notes` from anywhere; ~/.local/bin is
+# already on PATH. Linked to the wrapper because install-all.sh locates lib/
+# relative to itself, which a direct symlink would break.
+run_cmd mkdir -p "$HOME/.local/bin"
+run_cmd ln -sfn "$DOTFILES_DIR/install-scripts/dot-install" "$HOME/.local/bin/dot-install"
+ok "dot-install command linked"

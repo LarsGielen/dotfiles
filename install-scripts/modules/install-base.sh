@@ -6,12 +6,12 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/base" && pwd)"
 
 load_profile
 
-# Bootstrap (git, yay, stow) first so the rest can use git, the AUR, and
-# stow_config. The machine profile's hardware aspects (drivers, tunables, ...)
+# Upgrade the system first, then bootstrap (git, yay, stow) so the rest can use
+# git, the AUR, and stow_config. The machine profile's hardware aspects (drivers, tunables, ...)
 # come straight after. 'theme' generates the colour configs that hyprland,
 # quickshell, kitty and starship stow, so it has to come before them.
 BASE_MODULES=(
-    git yay stow
+    upgrade git yay stow
     microcode "${MACHINE_ASPECTS[@]}"
     audio video bluetooth
     theme

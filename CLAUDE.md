@@ -26,7 +26,8 @@ it, and `lib/common.sh` dies when sourced from anywhere else.
 ```bash
 # Install (from repo root)
 ./install-scripts/install-all.sh                      # interactive module picker
-./install-scripts/install-all.sh --all                # every module
+./install-scripts/install-all.sh all                  # every module (same as --all)
+dot-install base notes                                # same installer, from anywhere
 ./install-scripts/install-all.sh base zed docker      # specific modules
 ./install-scripts/install-all.sh --all --dry-run      # print actions, change nothing
 # flags: --all, --dry-run, --yes/-y, --verbose/-v, --help/-h
@@ -54,7 +55,7 @@ There is no test suite; `make lint`/`make check` are the only verification steps
   module name is the filename minus `install-` and `.sh`. Auto-discovered — no
   registration.
 - **Base aspects:** `modules/install-base.sh` delegates to
-  `modules/base/install-<aspect>.sh` in the `BASE_MODULES` order (bootstrap →
+  `modules/base/install-<aspect>.sh` in the `BASE_MODULES` order (upgrade + bootstrap →
   microcode + the machine's hardware aspects → audio/video → theme → desktop →
   shells/tools → system). That list is the install order and its grouping
   comments are part of the contract. Unlike `install-all.sh`, it stops at the

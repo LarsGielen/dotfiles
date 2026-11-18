@@ -3,7 +3,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 
 # One call: stow links the whole package, so every target must be cleared first.
 # --no-folding keeps stow from symlinking ~/.local itself on a fresh machine.
-stow_config --no-folding agents ~/.config/agents ~/.local/share/icons/hicolor/scalable/apps/claude-code.svg
+stow_config --no-folding agents ~/.config/agents ~/.config/claude-desktop-flags.conf ~/.local/share/icons/hicolor/scalable/apps/claude-code.svg
 
 run_cmd mkdir -p ~/.claude
 run_cmd ln -sfn ~/.config/agents/AGENTS.md ~/.claude/CLAUDE.md
