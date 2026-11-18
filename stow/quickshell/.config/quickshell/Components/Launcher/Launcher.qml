@@ -51,8 +51,21 @@ Overlay {
             })
         }
 
+        // Rank by where the query hits: name beats description/keywords.
+        // 0 exact name, 1 name prefix, 2 word-start in name, 3 name substring,
+        // 4 only in generic name / comment / keywords.
+        for (const it of items) {
+            const n = it.name.toLowerCase()
+            if (q === "") it.rank = 0
+            else if (n === q) it.rank = 0
+            else if (n.startsWith(q)) it.rank = 1
+            else if (n.includes(" " + q)) it.rank = 2
+            else if (n.includes(q)) it.rank = 3
+            else it.rank = 4
+        }
+
         let list = q === "" ? items : items.filter(it => it.hay.includes(q))
-        list.sort((a, b) => a.name.localeCompare(b.name))
+        list.sort((a, b) => (a.rank - b.rank) || a.name.localeCompare(b.name))
         return list
     }
 

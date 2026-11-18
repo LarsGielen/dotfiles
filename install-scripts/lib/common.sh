@@ -303,7 +303,7 @@ install_aur() {
 }
 
 # flatpak_install <app-id>... -- install Flathub apps system-wide. Sets up
-# flatpak on first use, along with Flatseal to manage the apps' permissions.
+# flatpak on first use.
 flatpak_install() {
     local app
     if ! is_installed flatpak; then
@@ -315,7 +315,7 @@ flatpak_install() {
         run_quiet flatpak remote-add --if-not-exists flathub \
             https://dl.flathub.org/repo/flathub.flatpakrepo
     fi
-    for app in com.github.tchx84.Flatseal "$@"; do
+    for app in "$@"; do
         if flatpak info "$app" >/dev/null 2>&1; then
             ok "flatpak $app already installed"
             continue

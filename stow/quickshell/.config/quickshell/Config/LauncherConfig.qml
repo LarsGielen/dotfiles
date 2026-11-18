@@ -25,6 +25,12 @@ Singleton {
         "uuctl",              // uwsm systemd unit control helper
         "xfce4-about",        // About Xfce (not the active DE)
 
+        // Launched from the terminal / other apps rather than by name
+        "htop",               // htop process viewer
+        "kitty",              // kitty terminal
+        "mpv",                // mpv Media Player
+        "yazi",               // Yazi file manager
+
         // Secondary dialogs (main app kept)
         "blueman-adapters",   // duplicate of Bluetooth Manager
         "thunar-bulk-rename"  // Thunar sub-tool, invoked from the file manager

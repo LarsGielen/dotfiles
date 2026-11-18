@@ -32,7 +32,7 @@ video, Hyprland, quickshell, kitty, zsh, and the theme. On first run it asks for
 a machine profile (`install-scripts/profiles/`: `pc`, `work`, or `default` for a
 new machine), which decides the hardware aspects and the Hyprland overrides.
 Everything else is optional: `agents`, `blender`, `chat`, `docker`, `gaming`,
-`gimp`, `godot`, `musescore`, `notes`, `obs`, `plymouth`, `protonvpn`, `python`,
+`gimp`, `godot`, `notes`, `obs`, `plymouth`, `protonvpn`, `python`,
 `qemu`, `rclone`, `shotcut`, `unity`, `vivaldi`, `zed`.
 
 Every script is idempotent — re-run the installer any time to pick up changes.
