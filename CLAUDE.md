@@ -26,7 +26,7 @@ it, and `lib/common.sh` dies when sourced from anywhere else.
 # Install (from repo root)
 ./install-scripts/install-all.sh                      # interactive module picker
 ./install-scripts/install-all.sh --all                # every module
-./install-scripts/install-all.sh base vscode docker   # specific modules
+./install-scripts/install-all.sh base zed docker      # specific modules
 ./install-scripts/install-all.sh --all --dry-run      # print actions, change nothing
 # flags: --all, --dry-run, --yes/-y, --verbose/-v, --help/-h
 
