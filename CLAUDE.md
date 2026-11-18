@@ -70,7 +70,7 @@ There is no test suite; `make lint`/`make check` are the only verification steps
   `WSL_MODULES` list, resolving each aspect from `modules/wsl/` when a
   WSL-specific version exists and from `modules/base/` otherwise, and refuses to
   run outside WSL (`is_wsl`). It uses no machine profile. Desktop-only aspects — hardware, audio/video,
-  hyprland, quickshell, kitty, keyboard, snapper, ufw, general — are simply
+  hyprland, quickshell, kitty, keyboard, snapper, ufw, zram, general — are simply
   absent from the list; shared aspects that are *mostly* terminal branch on
   `is_wsl` internally (yazi skips the file-picker portal).
 - **Shared library:** every script sources `lib/common.sh`, which sets

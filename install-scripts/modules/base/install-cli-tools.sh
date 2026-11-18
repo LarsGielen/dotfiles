@@ -10,4 +10,5 @@ install_packages \
     shellcheck \
     shfmt \
     lua \
+    fastfetch \
     reflector # run by hand; its timer stays disabled

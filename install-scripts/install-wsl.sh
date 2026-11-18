@@ -2,7 +2,7 @@
 # Terminal-only install for an Arch WSL2 distro. It reuses the base aspects
 # that are pure shell setup and leaves out everything that needs a GPU, a
 # display or a login session -- drivers, audio, Hyprland, quickshell, kitty,
-# keyd, snapper, ufw.
+# keyd, snapper, ufw, zram.
 # shellcheck disable=SC2034 # read by lib/common.sh when it is sourced
 COMMON_AUTO_PARSE=false
 source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"

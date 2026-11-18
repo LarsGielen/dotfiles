@@ -18,7 +18,7 @@ BASE_MODULES=(
     hyprland quickshell
     keyboard kitty
     shells starship yazi
-    snapper ufw
+    snapper ufw zram
     cli-tools general
 )
 
