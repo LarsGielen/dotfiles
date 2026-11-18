@@ -13,5 +13,6 @@ hl.config({
         -- scan out, so 1 is safe and avoids depending on clients tagging
         -- themselves -- XWayland games under Proton do not.
         direct_scanout = 1,
+        cm_auto_hdr = 0,
     },
 })

@@ -4,6 +4,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 CHATGPT_INSTALLER="https://persistent.oaistatic.com/codex-app-prod/linux/install-arch.sh"
 
 stow_config agents ~/.config/agents
+stow_config --no-folding agents ~/.local/share/icons/hicolor/scalable/apps/claude-code.svg
 
 run_cmd mkdir -p ~/.codex ~/.claude
 run_cmd ln -sfn ~/.config/agents/AGENTS.md ~/.codex/AGENTS.md

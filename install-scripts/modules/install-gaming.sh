@@ -5,7 +5,8 @@ install_packages \
     steam \
     gamemode \
     gamescope \
-    mangohud
+    mangohud \
+    protontricks
 
 info "Adding $USER to the gamemode group..."
 run_cmd sudo usermod -aG gamemode "$USER"

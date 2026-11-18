@@ -107,6 +107,7 @@ StyledRect {
 
                 readonly property string src: {
                     if (root.notif.image !== "") return root.notif.image
+                    if (root.notif.appIcon.startsWith("/")) return "file://" + root.notif.appIcon
                     if (root.notif.appIcon !== "") return Quickshell.iconPath(root.notif.appIcon, true)
                     return ""
                 }

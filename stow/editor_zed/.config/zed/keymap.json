@@ -129,6 +129,10 @@
 			"ctrl-/": ["editor::ToggleComments", { "advance_downwards": false }],
 			"f2": "editor::Rename",
 			"ctrl-i": "assistant::InlineAssist",
+			"ctrl-space": "editor::ShowCompletions",
+			"ctrl-.": "editor::ToggleCodeActions",
+			"f12": "editor::GoToDefinition",
+			"shift-f12": "editor::FindAllReferences"
 		},
 	},
 	{
@@ -141,8 +145,8 @@
 		"context": "Editor && showing_completions",
 		"bindings": {
 			"enter": "editor::ConfirmCompletion",
-			"tab": "editor::ComposeCompletion",
-		},
+			"tab": "editor::ConfirmCompletion"
+		}
 	},
 	{
 		"context": "Editor && showing_code_actions",
@@ -176,6 +180,12 @@
 		"bindings": {
 			"ctrl-c": "markdown::Copy",
 		},
+	},
+	{
+		"context": "Editor && mode == full && edit_prediction && edit_prediction_mode == eager && !showing_completions && !in_snippet",
+		"bindings": {
+			"tab": "editor::AcceptEditPrediction"
+		 }
 	},
 
 	// Search bars
