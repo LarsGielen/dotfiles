@@ -9,7 +9,6 @@ stow/editor_zed/.config/zed/themes/dotfiles.json
 stow/starship/.config/starship.toml
 
 .vscode/
-.claude/
 __pycache__/
 
 # Vivaldi's profile only lives in the repo encrypted, as

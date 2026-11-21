@@ -16,7 +16,8 @@ Personal dotfiles for an **Arch Linux + Hyprland (Wayland)** desktop:
 - `system/` — files installed outside `$HOME` by a module (the plymouth theme,
   keyd's `/etc` config). Copied or written with `write_root_file`, never stowed.
   Also holds `system/theme/`, the global colour system (`palettes.toml` plus the
-  generator), and `system/vivaldi/` (profile export script, encrypted bundle, UI CSS).
+  generator), and `system/vivaldi/` (profile export script, encrypted bundle, UI CSS) and
+  `system/claude/` (Claude Code managed settings, installed to `/etc/claude-code/`).
 
 The repo must live at `~/dotfiles`: `DOTFILES_DIR` is fixed, configs point into
 it, and `lib/common.sh` dies when sourced from anywhere else.
