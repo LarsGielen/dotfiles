@@ -37,6 +37,13 @@ owner_options="uid=$(id -u "$DRIVE_OWNER"),gid=$(id -g "$DRIVE_OWNER")"
 fstab_line="LABEL=${FS_LABEL} ${MOUNT_POINT} exfat ${MOUNT_OPTIONS},${owner_options} 0 0"
 existing_pattern="^[^#]*[[:space:]]${MOUNT_POINT}[[:space:]]"
 
+# A live automount makes the directory check below try to mount the disk, which
+# fails while the old fstab entry (or a missing disk) is still in effect.
+automount_unit=$(systemd-escape --path --suffix=automount "$MOUNT_POINT")
+if systemctl is-active --quiet "$automount_unit"; then
+    systemctl stop "$automount_unit"
+fi
+
 install -d -m 755 "$MOUNT_POINT"
 
 if grep -qxF "$fstab_line" /etc/fstab; then
