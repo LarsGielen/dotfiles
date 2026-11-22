@@ -27,7 +27,7 @@ hl.window_rule({
 -- Vivaldi: open in fake fullscreen, making it maximize inside a window
 -- Hyprland keeps the window tiled (internal 0) while Vivaldi is told it is fullscreen (client 2).
 -- This replaces suppress_event, which newer Vivaldi builds answer by leaving fullscreen on focus loss.
-hl.window_rule({ match = { class = "vivaldi-stable" }, fullscreen_state = "0 2" })
+hl.window_rule({ match = { class = "vivaldi-stable" }, fullscreen_state = "0 1" })
 
 -- File Picker
 hl.window_rule({

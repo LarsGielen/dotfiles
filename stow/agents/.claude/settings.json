@@ -25,7 +25,8 @@
     "defaultMode": "auto",
     "blockReadsOutsideWorkingDirectories": true,
     "additionalDirectories": [
-      "/projects"
+      "/projects",
+      "~/.pyenv"
     ]
   },
   "sandbox": {
